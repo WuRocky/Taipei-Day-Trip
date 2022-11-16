@@ -14,6 +14,7 @@ def get_connection():
     # password=MySQLPassword(),
     password="Root@123456",
     database='taipei_day_trip'
+    auth_plugin='mysql_native_password'
     )
   return connection.get_connection()
 
