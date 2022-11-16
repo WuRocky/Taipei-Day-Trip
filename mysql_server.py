@@ -57,5 +57,6 @@ try:
 except:
   print("Unexpected Error")
 finally: 
+  mycursor = connection.cursor()
   mycursor.close()
   connection.close()
