@@ -13,7 +13,7 @@ def get_connection():
     pool_reset_session=True,
     host="localhost",
     user="root",
-    password=MySQLPassword(),
+    password="Root@123456",
     database='taipei_day_trip'
     )
   return connection.get_connection()
