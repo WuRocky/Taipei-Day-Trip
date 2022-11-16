@@ -1,6 +1,7 @@
 import json
 from mysql.connector import pooling
-
+# from mySQL import MySQLPassword
+# import re
 
 
 def get_connection():
@@ -10,6 +11,7 @@ def get_connection():
     pool_reset_session=True,
     host="localhost",
     user="root",
+    # password=MySQLPassword(),
     password="Root@123456",
     database='taipei_day_trip'
     )
