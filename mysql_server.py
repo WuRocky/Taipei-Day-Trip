@@ -2,7 +2,6 @@ import json
 from mysql.connector import pooling
 from mySQL import MySQLPassword
 import re
-test
 
 def get_connection():
   connection = pooling.MySQLConnectionPool(
