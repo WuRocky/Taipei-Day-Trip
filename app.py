@@ -1,7 +1,7 @@
 from flask import *
 app=Flask(__name__)
 from mysql.connector import pooling
-from mySQL import MySQLPassword
+# from mySQL import MySQLPassword
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
