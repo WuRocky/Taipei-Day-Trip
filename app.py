@@ -1,7 +1,7 @@
 from flask import *
 app=Flask(__name__)
 from mysql.connector import pooling
-# from mySQL import MySQLPassword
+from mySQL import MySQLPassword
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
@@ -13,7 +13,7 @@ def get_connection():
     pool_reset_session=True,
     host="localhost",
     user="root",
-    password="Root@123456",
+    password=input("請輸入密碼: "),
     # password=MySQLPassword(),
     database='taipei_day_trip'
     )
@@ -77,7 +77,8 @@ def api():
         "nextPage":nextPage+1,
         "data":sql_data_nextPage
       }
-      if sql_data_nextPage == []:
+      # print(len(sql_data_nextPage)==10)
+      if sql_data_nextPage == [] or len(sql_data_nextPage) !=12 :
         data_api={
           "nextPage":None,
           "data":sql_data_nextPage
@@ -114,9 +115,9 @@ def api():
         "data":name_category_keyword
       }
 
-      # check keyword database value and compare existing data
+      # check key database value and compare existing data (less than or equal to key database)
       for api in sql_data_keyword:
-        if final_data == api[0]:
+        if final_data <= api[0]:
           data_api={
           "nextPage":None,
           "data":name_category_keyword
@@ -128,7 +129,7 @@ def api():
         "nextPage":None,
         "data":name_category_keyword
         }
-
+      
     return jsonify(data_api)
   except: 
     data_api_error ={
@@ -206,5 +207,5 @@ def categories():
 
 
 if __name__ == "__main__": 
-  # app.run(port=3000,debug=True)
-  app.run(host = "0.0.0.0", port=3000,debug=True)
+  app.run(port=3000,debug=True)
+  # app.run(host = "0.0.0.0", port=3000,debug=True)
