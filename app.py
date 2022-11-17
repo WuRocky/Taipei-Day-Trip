@@ -68,20 +68,67 @@ def api():
       "data":sql_data
     }
 
-    # process keywords
-    if input_keyword != None:
-
-      # put existing database data into a list
-      category_keyword = []
-      for api in sql_data:
-
-        # Fuzzy Search and Full Search
-        if api[2] == input_keyword or api[1].find(input_keyword) !=-1:
-          category_keyword.append(api)
+    # search nextPage
+    if nextPage != 0:
+      start = nextPage*row_num
+      mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
+      sql_data_nextPage=mycursor.fetchall()
       data_api={
         "nextPage":nextPage+1,
-        "data":category_keyword
+        "data":sql_data_nextPage
       }
+      if sql_data_nextPage == []:
+        data_api={
+          "nextPage":None,
+          "data":sql_data_nextPage
+        }
+
+    # search keywords
+    if input_keyword != None:
+      start = nextPage*row_num
+      mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
+      sql_data_keyword=mycursor.fetchall()
+
+      # put existing database data into a list
+      name_category_keyword = []
+      for api in sql_data_keyword:
+        
+        # Fuzzy Search and Full Search
+        if api[2] == input_keyword or api[1].find(input_keyword) !=-1:
+          name_category_keyword.append(api)
+
+      data_api={
+        "nextPage":nextPage+1,
+        "data":name_category_keyword
+      }
+
+      # final keyword data to databases
+      mycursor.execute("""select id from data where name like %s or category = %s""",("%"+input_keyword+"%",input_keyword,))
+      data_name_category_keyword = mycursor.fetchall()
+      final_data = data_name_category_keyword[-1][0]
+
+      # if there is more data behind, the next page will be displayed
+      if name_category_keyword == [] :
+        data_api={
+        "nextPage":nextPage+1,
+        "data":name_category_keyword
+      }
+
+      # check keyword database value and compare existing data
+      for api in sql_data_keyword:
+        if final_data == api[0]:
+          data_api={
+          "nextPage":None,
+          "data":name_category_keyword
+          }
+      
+      # if there is no data behind, the next page will display None
+      if sql_data_keyword == []:
+        data_api={
+        "nextPage":None,
+        "data":name_category_keyword
+        }
+
     return jsonify(data_api)
   except: 
     data_api_error ={
@@ -133,9 +180,13 @@ def categories():
   try:
     connection = get_connection()
     mycursor = connection.cursor()
+
+    # search for category to database categories teble
     categories_table = """select category from categories"""
     mycursor.execute(categories_table)
     categories=mycursor.fetchall()
+
+    # remove blank
     categories_str=["".join(i) for i in categories]
     categories_api = {
       "data":
@@ -155,4 +206,5 @@ def categories():
 
 
 if __name__ == "__main__": 
+  # app.run(port=3000,debug=True)
   app.run(host = "0.0.0.0", port=3000,debug=True)
