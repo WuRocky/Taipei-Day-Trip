@@ -1,7 +1,7 @@
 from flask import *
 app=Flask(__name__)
 from mysql.connector import pooling
-# from mySQL import MySQLPassword
+from mySQL import MySQLPassword
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
@@ -13,8 +13,7 @@ def get_connection():
     pool_reset_session=True,
     host="localhost",
     user="root",
-    password=input("請輸入密碼: "),
-    # password=MySQLPassword(),
+    password=MySQLPassword(),
     database='taipei_day_trip'
     )
   return connection.get_connection()
