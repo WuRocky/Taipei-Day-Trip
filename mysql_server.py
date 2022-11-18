@@ -48,9 +48,14 @@ def mysql():
         item_mrt = item["MRT"] # mrt
         item_lat = item["latitude"] # lat
         item_lng = item["longitude"] # lng
-        item_images = "https://"+ split_url[1] # images
+        # item_images = "https://"+ split_url[1] # images
+        item_images = ["https://"+str(i) for i in split_url[1:len(split_url)]] # images
 
-        mycursor.execute("""insert into data(name, category, description, address, transport,mrt,lat,lng,images) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(item_name,item_category, item_description,item_address, item_transport,item_mrt,item_lat,item_lng,item_images))
+        # print(item_images)
+        var_string = ', '.join(item_images)
+        
+        mycursor.execute("""insert into data(name, category, description, address, transport,mrt,lat,lng,images) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(item_name,item_category, item_description,item_address, item_transport,item_mrt,item_lat,item_lng,json.dumps(item_images)))
+        # mycursor.execute("""insert into data(name, category, description, address, transport,mrt,lat,lng,images) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(item_name,item_category, item_description,item_address, item_transport,item_mrt,item_lat,item_lng,var_string,))
         mycursor.execute("""insert into categories(category) values(%s) on duplicate key update category=%s""",(item_category,item_category,))
 
       
@@ -61,3 +66,5 @@ def mysql():
   finally: 
     mycursor.close()
     connection.close()
+
+mysql()

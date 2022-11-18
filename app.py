@@ -40,7 +40,7 @@ def thankyou():
 def api():
   try:
     connection = get_connection()
-    mycursor = connection.cursor()
+    mycursor = connection.cursor(dictionary=True)
 
     # get page and keyword
     input_nextPage = request.args.get("page",0)   
@@ -62,21 +62,41 @@ def api():
 
     mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
     sql_data=mycursor.fetchall()
+
+    # name, category, description, address, transport,mrt,lat,lng,images
+    sql_data_nextPage = []
+    change_data = {}
+    for api in sql_data:
+
+      # everyone data information
+      change_data = {"id":api["id"],"name":api["name"],"category":api["category"],"description":api["description"],"address":api["address"],"transport":api["transport"],"mrt":api["mrt"],"lat":api["lat"],"lng":api["lng"],"images":json.loads(api["images"])}
+      sql_data_nextPage.append(change_data)
+
     data_api={
       "nextPage":nextPage+1,
-      "data":sql_data
+      "data":sql_data_nextPage
     }
 
     # search nextPage
     if nextPage != 0:
       start = nextPage*row_num
       mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
-      sql_data_nextPage=mycursor.fetchall()
+      sql_data=mycursor.fetchall()
+
+      sql_data_nextPage = []
+      change_data = {}
+      for api in sql_data:
+
+        # everyone data information
+        change_data = {"id":api["id"],"name":api["name"],"category":api["category"],"description":api["description"],"address":api["address"],"transport":api["transport"],"mrt":api["mrt"],"lat":api["lat"],"lng":api["lng"],"images":json.loads(api["images"])}
+        sql_data_nextPage.append(change_data)
+
       data_api={
         "nextPage":nextPage+1,
         "data":sql_data_nextPage
       }
-      # print(len(sql_data_nextPage)==10)
+      
+      # page if not 12 data
       if sql_data_nextPage == [] or len(sql_data_nextPage) !=12 :
         data_api={
           "nextPage":None,
@@ -85,50 +105,28 @@ def api():
 
     # search keywords
     if input_keyword != None:
-      start = nextPage*row_num
-      mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
-      sql_data_keyword=mycursor.fetchall()
+      mycursor.execute("""select * from data where category = %s or name like %s limit %s,%s""",(input_keyword,"%"+input_keyword+"%",start,row_num,))
+      sql_data=mycursor.fetchall()
 
-      # put existing database data into a list
-      name_category_keyword = []
-      for api in sql_data_keyword:
-        
-        # Fuzzy Search and Full Search
-        if api[2] == input_keyword or api[1].find(input_keyword) !=-1:
-          name_category_keyword.append(api)
+      sql_data_nextPage = []
+      change_data = {}
+      for api in sql_data:
 
+        # keyword data information
+        change_data = {"id":api["id"],"name":api["name"],"category":api["category"],"description":api["description"],"address":api["address"],"transport":api["transport"],"mrt":api["mrt"],"lat":api["lat"],"lng":api["lng"],"images":json.loads(api["images"])}
+        sql_data_nextPage.append(change_data)
+      
       data_api={
         "nextPage":nextPage+1,
-        "data":name_category_keyword
+        "data":sql_data_nextPage
       }
 
-      # final keyword data to databases
-      mycursor.execute("""select id from data where name like %s or category = %s""",("%"+input_keyword+"%",input_keyword,))
-      data_name_category_keyword = mycursor.fetchall()
-      final_data = data_name_category_keyword[-1][0]
-
-      # if there is more data behind, the next page will be displayed
-      if name_category_keyword == [] :
+      if sql_data_nextPage ==[] or len(sql_data_nextPage) != 12:
         data_api={
-        "nextPage":nextPage+1,
-        "data":name_category_keyword
-      }
-
-      # check key database value and compare existing data (less than or equal to key database)
-      for api in sql_data_keyword:
-        if final_data <= api[0]:
-          data_api={
           "nextPage":None,
-          "data":name_category_keyword
-          }
-      
-      # if there is no data behind, the next page will display None
-      if sql_data_keyword == []:
-        data_api={
-        "nextPage":None,
-        "data":name_category_keyword
+          "data":sql_data_nextPage
         }
-      
+
     return jsonify(data_api)
   except: 
     data_api_error ={
