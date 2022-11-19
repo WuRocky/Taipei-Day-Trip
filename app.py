@@ -18,8 +18,6 @@ def get_connection():
     )
   return connection.get_connection()
 
-
-
 # Pages
 @app.route("/")
 def index():
@@ -49,6 +47,9 @@ def api():
     # page string chenge to number
     nextPage = int(input_nextPage)
     
+    if nextPage > 0:
+      nextPage +=1
+
     # 12 data per page
     row_num = 12
     
@@ -58,74 +59,57 @@ def api():
     # if start not plus
     if start < 0 :
       start = 0
-    # search for 12 records from the database
-
-    mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
-    sql_data=mycursor.fetchall()
-
-    # name, category, description, address, transport,mrt,lat,lng,images
-    sql_data_nextPage = []
-    change_data = {}
-    for api in sql_data:
-
-      # everyone data information
-      change_data = {"id":api["id"],"name":api["name"],"category":api["category"],"description":api["description"],"address":api["address"],"transport":api["transport"],"mrt":api["mrt"],"lat":api["lat"],"lng":api["lng"],"images":json.loads(api["images"])}
-      sql_data_nextPage.append(change_data)
-
-    data_api={
-      "nextPage":nextPage+1,
-      "data":sql_data_nextPage
-    }
-
-    # search nextPage
-    if nextPage != 0:
-      start = nextPage*row_num
-      mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
-      sql_data=mycursor.fetchall()
-
-      sql_data_nextPage = []
-      change_data = {}
-      for api in sql_data:
-
-        # everyone data information
-        change_data = {"id":api["id"],"name":api["name"],"category":api["category"],"description":api["description"],"address":api["address"],"transport":api["transport"],"mrt":api["mrt"],"lat":api["lat"],"lng":api["lng"],"images":json.loads(api["images"])}
-        sql_data_nextPage.append(change_data)
-
-      data_api={
-        "nextPage":nextPage+1,
-        "data":sql_data_nextPage
-      }
-      
-      # page if not 12 data
-      if sql_data_nextPage == [] or len(sql_data_nextPage) !=12 :
-        data_api={
-          "nextPage":None,
-          "data":sql_data_nextPage
-        }
-
-    # search keywords
+    
+    # determine whether the input contains keywords
     if input_keyword != None:
+      # search keywords from database
       mycursor.execute("""select * from data where category = %s or name like %s limit %s,%s""",(input_keyword,"%"+input_keyword+"%",start,row_num,))
-      sql_data=mycursor.fetchall()
+    else:
+      # search for 12 records from the database
+      mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
+    
+    # search database data from judgment
+    sql_data=mycursor.fetchall()
+    sql_page_data = []
+    change_data = {}
 
-      sql_data_nextPage = []
-      change_data = {}
-      for api in sql_data:
+    # everyone data information
+    for api in sql_data:
+      # name, category, description, address, transport,mrt,lat,lng,images
+      change_data = {
+        "id":api["id"],
+        "name":api["name"],
+        "category":api["category"],
+        "description":api["description"],
+        "address":api["address"],
+        "transport":api["transport"],
+        "mrt":api["mrt"],
+        "lat":api["lat"],
+        "lng":api["lng"],
+        "images":json.loads(api["images"])
+      }
+      sql_page_data.append(change_data)
 
-        # keyword data information
-        change_data = {"id":api["id"],"name":api["name"],"category":api["category"],"description":api["description"],"address":api["address"],"transport":api["transport"],"mrt":api["mrt"],"lat":api["lat"],"lng":api["lng"],"images":json.loads(api["images"])}
-        sql_data_nextPage.append(change_data)
-      
+    # judging URL input content display information
+    if nextPage == 0:
       data_api={
         "nextPage":nextPage+1,
-        "data":sql_data_nextPage
+        "data":sql_page_data
       }
-
-      if sql_data_nextPage ==[] or len(sql_data_nextPage) != 12:
-        data_api={
-          "nextPage":None,
-          "data":sql_data_nextPage
-        }
+    elif nextPage > 0:
+      data_api={
+        "nextPage":nextPage,
+        "data":sql_page_data
+      }
+    elif input_keyword != None:
+      sql_data=mycursor.fetchall()
+    
+    # if the page data does not meet the criteria show None
+    if sql_page_data == [] or len(sql_page_data) !=12:
+      data_api={
+        "nextPage":None,
+        "data":sql_page_data
+      }
 
     return jsonify(data_api)
   except: 
@@ -139,18 +123,38 @@ def api():
     connection.close()
 
 # attractions_id_API
-@app.route("/api/attractions/<attractionId>")
+@app.route("/api/attractions/<int:attractionId>")
 def attractionId(attractionId):
   try:
     connection = get_connection()
-    mycursor = connection.cursor()
+    mycursor = connection.cursor(dictionary=True)
 
     # find the corresponding id data in the database
     mycursor.execute("select * from data where id = %s",(attractionId,))
-    sql_data_id = mycursor.fetchall()
+    sql_data = mycursor.fetchall()
+    
 
+    sql_data_nextPage = []
+    change_data = {}
+    for api in sql_data:
+
+      # everyone data information
+      change_data = {
+        "id":api["id"],
+        "name":api["name"],
+        "category":api["category"],
+        "description":api["description"],
+        "address":api["address"],
+        "transport":api["transport"],
+        "mrt":api["mrt"],
+        "lat":api["lat"],
+        "lng":api["lng"],
+        "images":json.loads(api["images"])
+      }
+      sql_data_nextPage.append(change_data)
+    
     # if database not data display error
-    if sql_data_id == []:
+    if sql_data_nextPage == []:
       data_id_api_error={
       "error": True,
       "message": "請按照情境提供對應的錯誤訊息"
@@ -159,7 +163,7 @@ def attractionId(attractionId):
 
     # show pairing info
     data_id_api= {
-      "data":sql_data_id
+      "data":sql_data_nextPage
     }
     return jsonify(data_id_api)
   except: 
@@ -202,5 +206,5 @@ def categories():
     connection.close()
 
 if __name__ == "__main__": 
-  # app.run(port=3000,debug=True)
-  app.run(host = "0.0.0.0", port=3000,debug=True)
+  app.run(port=3000,debug=True)
+  # app.run(host = "0.0.0.0", port=3000,debug=True)
