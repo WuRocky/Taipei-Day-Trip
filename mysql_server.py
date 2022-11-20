@@ -66,3 +66,4 @@ def mysql():
     mycursor.close()
     connection.close()
 
+mysql()
