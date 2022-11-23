@@ -10,12 +10,179 @@
 		<meta name="author" content="Rocky Wu" />
 		<link
 			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+			integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			type="text/css"
+			rel="stylesheet"
 			href="{{ url_for('static', filename='css/style.css') }}"
 		/>
 	</head>
 	<body>
-		<header></header>
-		<section></section>
-		<footer></footer>
+		<nav>
+			<div class="header-nav">
+				<h1>台北一日遊</h1>
+				<nav>
+					<ul>
+						<li><a href="#">預定行程</a></li>
+						<li><a href="#">登入/註冊</a></li>
+					</ul>
+				</nav>
+			</div>
+		</nav>
+
+		<header>
+			<div class="header-section">
+				<h1>輕鬆享受台北一日悠閒</h1>
+				<p>探索每個角落，體驗城市的深度旅遊行程</p>
+				<form>
+					<input type="search" placeholder="輸入景點名稱查詢" />
+					<button class="search">
+						<img
+							src="{{ url_for('static', filename='images/icon_search.png') }}"
+							alt="search"
+						/>
+					</button>
+				</form>
+			</div>
+		</header>
+
+		<main>
+			<section>
+				<div class="main-container">
+					<!-- <div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div>
+				</div>
+				<div class="main-container">
+					<div class="main-attractions-container">
+						<img class="main-imgs" src="../public/images/welcome.png" />
+						<p class="main-name-p">name</p>
+					</div>
+					<div class="main-attractions-news">
+						<p class="p-left">naws</p>
+						<p class="p-right">test</p>
+					</div> -->
+				</div>
+			</section>
+		</main>
+		<footer>
+			<p>COPYRIGHT © 2021 台北一日遊</p>
+		</footer>
 	</body>
+	<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </html>
