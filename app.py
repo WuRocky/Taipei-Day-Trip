@@ -74,7 +74,7 @@ def api():
     # determine whether the input contains keywords
     if input_keyword != None:
       # search keywords from database
-      mycursor.execute("""select * from data where category = %s or name like %s limit %s,%s""",(input_keyword,"%"+input_keyword+"%",start,row_num,))
+      mycursor.execute("""select * from data where category = %s or name like %s limit %s,%s""",(input_keyword,"%"+input_keyword+"%",start,fixd_num,))
     else:
       # search for 12 records from the database
       mycursor.execute("""select * from data limit %s,%s""",(start,fixd_num,))
@@ -101,12 +101,13 @@ def api():
       }
       
       sql_page_data.append(change_data)
-
+    
     # judging URL input content display information
     if nextPage == 0:
       data_api={
         "nextPage":nextPage+1,
         "data":sql_page_data[0:12]
+        
       }
     elif nextPage > 0:
       data_api={
@@ -114,7 +115,13 @@ def api():
         "data":sql_page_data[0:12]
       }
     elif input_keyword != None:
-      sql_data=mycursor.fetchall()
+      data_api={
+        "nextPage":nextPage+1,
+        "data":sql_page_data[0:12]
+      }
+      print(data_api)
+      
+      
 
     # if the page data does not meet the criteria show None
     if len(sql_page_data) !=13:
@@ -212,5 +219,5 @@ def categories():
     connection.close()
 
 if __name__ == "__main__": 
-  # app.run(port=3000,debug=True)
-  app.run(host = "0.0.0.0", port=3000,debug=True)
+  app.run(port=3000,debug=True)
+  # app.run(host = "0.0.0.0", port=3000,debug=True)
