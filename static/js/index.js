@@ -106,7 +106,7 @@ async function get_other_api() {
 	create_naw_data(data);
 
 	// infinite Scrolling find the last item
-	// let last_api = document.querySelector(".main-container:last-child");
+	let infinite_last_api = document.querySelector(".main-container:last-child");
 
 	// infinite Scrolling defind Listener place
 	let opition = {
@@ -124,13 +124,13 @@ async function get_other_api() {
 					get_other_api();
 					nextPage = page;
 				}
-				observer.unobserve(last_api);
+				observer.unobserve(infinite_last_api);
 			}
 		});
 	}, opition);
 
 	// defind Listener last api place
-	observer.observe(last_api);
+	observer.observe(infinite_last_api);
 }
 get_other_api();
 
