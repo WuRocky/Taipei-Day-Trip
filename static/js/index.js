@@ -4,6 +4,7 @@ const form = document.querySelector("form");
 const search_button = document.querySelector("#search");
 const section = document.querySelector("section");
 const footer = document.querySelector("footer");
+const last_api = document.querySelector("#last-api");
 
 ///// * create container * /////
 function create_naw_data(arr) {
@@ -105,7 +106,7 @@ async function get_other_api() {
 	create_naw_data(data);
 
 	// infinite Scrolling find the last item
-	let last_api = document.querySelector(".main-container:last-child");
+	// let last_api = document.querySelector(".main-container:last-child");
 
 	// infinite Scrolling defind Listener place
 	let opition = {
@@ -161,7 +162,7 @@ search_button.addEventListener("click", (e) => {
 		create_naw_data(data);
 
 		// infinite scrolling find the last item
-		let last_api = document.querySelector(".main-container:last-child");
+		// let last_api = document.querySelector(".main-container:last-child");
 
 		// infinite Scrolling defind Listener place
 		let opition = {
