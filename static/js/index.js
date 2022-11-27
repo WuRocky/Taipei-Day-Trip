@@ -4,7 +4,13 @@ const form = document.querySelector("form");
 const search_button = document.querySelector("#search");
 const section = document.querySelector("section");
 const footer = document.querySelector("footer");
-const last_api = document.querySelector("#last-api");
+// const last_api = document.querySelector("#last-api");
+
+let opition = {
+	root: null,
+	rootMargin: "0px 0px 0px 0px",
+	threshold: 0,
+};
 
 ///// * create container * /////
 function create_naw_data(arr) {
@@ -106,14 +112,9 @@ async function get_other_api() {
 	create_naw_data(data);
 
 	// infinite Scrolling find the last item
-	let infinite_last_api = document.querySelector(".main-container:last-child");
+	let last_api = document.querySelector(".main-container:last-child");
 
 	// infinite Scrolling defind Listener place
-	let opition = {
-		root: null,
-		rootMargin: "0px 0px 0px 0px",
-		threshold: 0,
-	};
 
 	// iistener Scrolling
 	let observer = new IntersectionObserver((entries) => {
@@ -124,13 +125,13 @@ async function get_other_api() {
 					get_other_api();
 					nextPage = page;
 				}
-				observer.unobserve(infinite_last_api);
+				observer.unobserve(last_api);
 			}
 		});
 	}, opition);
 
 	// defind Listener last api place
-	observer.observe(infinite_last_api);
+	observer.observe(last_api);
 }
 get_other_api();
 
@@ -162,7 +163,7 @@ search_button.addEventListener("click", (e) => {
 		create_naw_data(data);
 
 		// infinite scrolling find the last item
-		// let last_api = document.querySelector(".main-container:last-child");
+		let last_api = document.querySelector(".main-container:last-child");
 
 		// infinite Scrolling defind Listener place
 		let opition = {
