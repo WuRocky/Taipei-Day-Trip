@@ -5,13 +5,6 @@ const search_button = document.querySelector("#search");
 const section = document.querySelector("section");
 const footer = document.querySelector("footer");
 
-// infinite Scrolling defind Listener place
-const opition = {
-	root: null,
-	rootMargin: "0px 0px 0px 0px",
-	threshold: 0,
-};
-
 ///// * create container * /////
 function create_naw_data(arr) {
 	arr.forEach((item) => {
@@ -114,6 +107,13 @@ async function get_other_api() {
 	// infinite Scrolling find the last item
 	let last_api = document.querySelector(".main-container:last-child");
 
+	// infinite Scrolling defind Listener place
+	let opition = {
+		root: null,
+		rootMargin: "0px 0px 0px 0px",
+		threshold: 0,
+	};
+
 	// iistener Scrolling
 	let observer = new IntersectionObserver((entries) => {
 		entries.forEach((entry) => {
@@ -144,8 +144,8 @@ search_button.addEventListener("click", (e) => {
 	let text = keyword_form.children[0].value;
 
 	// clear previous display
-	const main_container = document.querySelectorAll(".main-container");
-	main_container.forEach((e) => {
+	const keyword_main_container = document.querySelectorAll(".main-container");
+	keyword_main_container.forEach((e) => {
 		e.remove();
 	});
 
@@ -162,6 +162,13 @@ search_button.addEventListener("click", (e) => {
 
 		// infinite scrolling find the last item
 		let last_api = document.querySelector(".main-container:last-child");
+
+		// infinite Scrolling defind Listener place
+		let opition = {
+			root: null,
+			rootMargin: "0px 0px 0px 0px",
+			threshold: 0,
+		};
 
 		// listener scrolling
 		let observer = new IntersectionObserver((entries) => {
