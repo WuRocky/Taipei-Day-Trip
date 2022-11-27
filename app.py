@@ -2,9 +2,18 @@ from flask import *
 app=Flask(__name__)
 from mysql.connector import pooling
 from mySQL import MySQLPassword
+from flask_cors import CORS
+
+app=Flask(
+  __name__,
+  static_folder="static", 
+  static_url_path="/"
+  ) 
+
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 def get_connection():
   connection = pooling.MySQLConnectionPool(
@@ -50,8 +59,10 @@ def api():
     if nextPage > 0:
       nextPage +=1
 
-    # 12 data per page
+    # search 13 data 
     row_num = 12
+    # get 12 data
+    fixd_num = 13
     
     # start to the data
     start = (nextPage-1)*row_num
@@ -63,16 +74,16 @@ def api():
     # determine whether the input contains keywords
     if input_keyword != None:
       # search keywords from database
-      mycursor.execute("""select * from data where category = %s or name like %s limit %s,%s""",(input_keyword,"%"+input_keyword+"%",start,row_num,))
+      mycursor.execute("""select * from data where category = %s or name like %s limit %s,%s""",(input_keyword,"%"+input_keyword+"%",start,fixd_num,))
     else:
       # search for 12 records from the database
-      mycursor.execute("""select * from data limit %s,%s""",(start,row_num,))
+      mycursor.execute("""select * from data limit %s,%s""",(start,fixd_num,))
     
     # search database data from judgment
     sql_data=mycursor.fetchall()
+    
     sql_page_data = []
     change_data = {}
-
     # everyone data information
     for api in sql_data:
       # name, category, description, address, transport,mrt,lat,lng,images
@@ -88,24 +99,32 @@ def api():
         "lng":api["lng"],
         "images":json.loads(api["images"])
       }
+      
       sql_page_data.append(change_data)
-
+    
     # judging URL input content display information
     if nextPage == 0:
       data_api={
         "nextPage":nextPage+1,
-        "data":sql_page_data
+        "data":sql_page_data[0:12]
+        
       }
     elif nextPage > 0:
       data_api={
         "nextPage":nextPage,
-        "data":sql_page_data
+        "data":sql_page_data[0:12]
       }
     elif input_keyword != None:
-      sql_data=mycursor.fetchall()
-    
+      data_api={
+        "nextPage":nextPage+1,
+        "data":sql_page_data[0:12]
+      }
+      print(data_api)
+      
+      
+
     # if the page data does not meet the criteria show None
-    if sql_page_data == [] or len(sql_page_data) !=12:
+    if len(sql_page_data) !=13:
       data_api={
         "nextPage":None,
         "data":sql_page_data
@@ -132,7 +151,7 @@ def attractionId(attractionId):
     # find the corresponding id data in the database
     mycursor.execute("select * from data where id = %s",(attractionId,))
     api = mycursor.fetchone()
-
+    
     # get everyone data row name and data information
     attractions_id_API = {
       "id":api["id"],
@@ -200,5 +219,7 @@ def categories():
     connection.close()
 
 if __name__ == "__main__": 
-  app.run(port=3000,debug=True)
+  # app.run(port=3000,debug=True)
+  # app.run(port=3000)
   # app.run(host = "0.0.0.0", port=3000,debug=True)
+  app.run(host = "0.0.0.0", port=3000)

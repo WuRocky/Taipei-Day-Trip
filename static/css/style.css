@@ -1,0 +1,252 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: bold;
+}
+
+body {
+  height: 100%;
+  max-width: 1920px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1920px;
+  height: 54px;
+}
+nav .header-nav {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+}
+nav .header-nav h1 {
+  font-size: 30px;
+  color: #448899;
+  margin: 10px 0;
+}
+nav .header-nav nav ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-around;
+}
+nav .header-nav nav ul li {
+  font-size: 16px;
+}
+nav .header-nav nav ul li a {
+  color: #666666;
+  text-decoration: none;
+  margin: 10px;
+  font-weight: lighter;
+}
+
+#img-item {
+  pointer-events: none;
+}
+
+#hidden-div {
+  position: absolute;
+  top: 51px;
+  height: 162px;
+  width: 400px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  grid-template-columns: repeat(3, 120px);
+  grid-auto-rows: 40px;
+  display: none;
+}
+#hidden-div .hidden-div-item {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#hidden-div .hidden-div-item:hover {
+  background-color: #e8e8e8;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 320px;
+  width: 100%;
+  margin: 0;
+  background-image: url(../images/welcome.png);
+  background-size: cover;
+}
+header .header-section {
+  display: flex;
+  flex-direction: column;
+  width: 1180px;
+  height: 149px;
+  margin: 10px;
+}
+header .header-section h1 {
+  font-size: 28px;
+  color: #f8f8f8;
+  padding: 0;
+  height: 41px;
+  margin-bottom: 15px;
+}
+header .header-section p {
+  height: 22px;
+  color: #f8f8f8;
+  margin-bottom: 25px;
+}
+header .header-section form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 460px;
+}
+header .header-section form input {
+  height: 46px;
+  max-width: 400px;
+  width: 60vw;
+  margin: 0 0;
+  font-size: 16px;
+  color: #757575;
+  padding: 15px;
+}
+header .header-section form button {
+  border: none;
+  border-radius: 0 10% 10% 0;
+  background: #448899;
+  color: white;
+  width: 60px;
+  height: 46px;
+  font-size: 30px;
+  padding: 0;
+  cursor: pointer;
+}
+header .header-section form button .button-icon {
+  padding: 8px 5px 8px 15px;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+}
+main section {
+  height: 100%;
+  margin: 40px 0px 40px 0px;
+  padding: 15px;
+  width: 1200px;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, 270px);
+  grid-auto-rows: 242px;
+  grid-gap: 30px;
+}
+main section .main-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  border-color: #e8e8e8;
+  border-width: 1px;
+  border-radius: 5px;
+}
+main section .main-container .attractions-item-1 {
+  width: 100%;
+  height: 197px;
+  position: relative;
+  z-index: 1;
+}
+main section .main-container .attractions-item-1 .main-imgs {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+main section .main-container .attractions-item-1 .main-imgs:hover {
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+main section .main-container .attractions-item-1 .main-name-p {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  position: absolute;
+  z-index: 2;
+}
+main section .main-container .attractions-item-2 {
+  height: 45px;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+main section .main-container .attractions-item-2 p {
+  height: 25px;
+  width: 125px;
+  font-size: 16px;
+  font-weight: lighter;
+  color: #757575;
+}
+main section .main-container .attractions-item-2 .p-left {
+  text-align: left;
+}
+main section .main-container .attractions-item-2 .p-right {
+  text-align: right;
+}
+
+footer {
+  width: 100%;
+  height: 104px;
+  background-color: #757575;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14px;
+  width: 234px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 1200px) {
+  main section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 615px) {
+  main section {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 360px) {
+  main section {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  #hidden-div {
+    height: 162px;
+    width: 322px;
+  }
+  #hidden-div .hidden-div-item {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Taipei-Day-Trip</title>
+		<meta name="robots" content="index, follow" />
+		<base target="_self" />
+		<meta name="description" content="台北一日遊網站" />
+		<meta name="author" content="Rocky Wu" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+			integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
+
+		<!-- <link rel="stylesheet" href="/static/css/style.css" /> -->
+	</head>
+	<body>
+		<nav>
+			<div class="header-nav">
+				<h1>台北一日遊</h1>
+				<nav>
+					<ul>
+						<li><a href="#">預定行程</a></li>
+						<li><a href="#">登入/註冊</a></li>
+					</ul>
+				</nav>
+			</div>
+		</nav>
+
+		<header>
+			<div class="header-section">
+				<h1>輕鬆享受台北一日悠閒</h1>
+				<p>探索每個角落，體驗城市的深度旅遊行程</p>
+				<form>
+					<input id="clicker" type="search" placeholder="輸入景點名稱查詢" />
+					<div id="hidden-div"></div>
+					<button id="search">
+						<img
+							src="{{ url_for('static', filename='images/icon_search.png') }}"
+							alt="search"
+							id="img-item"
+						/>
+						<!-- <img
+							src="/static/images/icon_search.png"
+							alt="search"
+							id="img-item"
+						/> -->
+					</button>
+				</form>
+			</div>
+		</header>
+
+		<main>
+			<section></section>
+		</main>
+
+		<footer>
+			<p>COPYRIGHT © 2021 台北一日遊</p>
+		</footer>
+		<!-- <script src="../static/js/index.js"></script> -->
+		<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+	</body>
+</html>
