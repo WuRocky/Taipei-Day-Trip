@@ -19,6 +19,13 @@ function create_naw_data(arr) {
 		let attractions_item_1 = document.createElement("div");
 		attractions_item_1.classList.add("attractions-item-1");
 
+		// add url
+		let url_href = window.location + "attraction/" + item["id"];
+
+		let a_itme = document.createElement("a");
+		a_itme.classList.add("a-itme");
+		a_itme.href = url_href;
+
 		let img_item_1 = document.createElement("img");
 		img_item_1.classList.add("main-imgs");
 		img_item_1.src = item["images"][0];
@@ -27,8 +34,10 @@ function create_naw_data(arr) {
 		p_item_1.classList.add("main-name-p");
 		p_item_1.innerText = item["name"];
 
-		attractions_item_1.appendChild(img_item_1);
-		attractions_item_1.appendChild(p_item_1);
+		a_itme.appendChild(img_item_1);
+		a_itme.appendChild(p_item_1);
+		attractions_item_1.appendChild(a_itme);
+
 		// div-2
 		let attractions_item_2 = document.createElement("div");
 		attractions_item_2.classList.add("attractions-item-2");
@@ -130,6 +139,9 @@ async function get_other_api() {
 
 	// defind Listener last api place
 	observer.observe(last_api);
+
+	// let test = document.querySelectorAll(".main-container");
+	// console.log(test);
 }
 get_other_api();
 
@@ -141,7 +153,7 @@ search_button.addEventListener("click", (e) => {
 
 	// get input text
 	let keyword_form = e.target.parentElement;
-	console.log(keyword_form);
+
 	let text = keyword_form.children[0].value;
 
 	// clear previous display

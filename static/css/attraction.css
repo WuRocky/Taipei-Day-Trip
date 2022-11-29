@@ -1,0 +1,344 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: bold;
+}
+
+body {
+  height: 100%;
+  max-width: 1920px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1920px;
+  height: 54px;
+}
+nav .header-nav {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+}
+nav .header-nav .index-a {
+  text-decoration: none;
+  font-size: 30px;
+  color: #448899;
+  margin: 10px 0;
+}
+nav .header-nav nav ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-around;
+}
+nav .header-nav nav ul li {
+  font-size: 16px;
+}
+nav .header-nav nav ul li a {
+  color: #666666;
+  text-decoration: none;
+  margin: 10px;
+  font-weight: lighter;
+}
+
+.attractions-section {
+  width: 100%;
+  min-height: 400px;
+  margin: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.attractions-section .attractions-card {
+  width: 1200px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: minmax(400px, auto);
+  grid-gap: 30px;
+  padding: 0 15px;
+}
+.attractions-section .attractions-card .attractions-img-div {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+.attractions-section .attractions-card .attractions-img-div .slides {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+.attractions-section .attractions-card .attractions-img-div .slides img {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  vertical-align: middle;
+}
+.attractions-section .attractions-card .attractions-img-div .prev,
+.attractions-section .attractions-card .attractions-img-div .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  transition: 0.6s ease;
+}
+.attractions-section .attractions-card .attractions-img-div .prev {
+  left: 10px;
+}
+.attractions-section .attractions-card .attractions-img-div .next {
+  right: 10px;
+}
+.attractions-section .attractions-card .attractions-img-div .dot-item {
+  text-align: center;
+  position: absolute;
+  bottom: 3%;
+  width: 100%;
+}
+.attractions-section .attractions-card .attractions-img-div .dot {
+  height: 12px;
+  width: 12px;
+  margin: 0 2px;
+  background-color: White;
+  border: #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+.attractions-section .attractions-card .attractions-img-div .active,
+.attractions-section .attractions-card .attractions-img-div .dot:hover {
+  background-color: black;
+  color: White;
+}
+.attractions-section .attractions-news {
+  width: 100%;
+  height: 100%;
+}
+.attractions-section .attractions-news .attractions-name {
+  height: 33px;
+  margin: 5px 0 15px 0;
+}
+.attractions-section .attractions-news .attractions-name h2 {
+  font-size: 24px;
+  color: #666666;
+}
+.attractions-section .attractions-news .attractions-mrt {
+  display: flex;
+  justify-content: start;
+  height: 22px;
+  margin-bottom: 20px;
+}
+.attractions-section .attractions-news .attractions-mrt p {
+  font-size: 16px;
+  color: #666666;
+}
+.attractions-section .attractions-news .attractions-travel {
+  background-color: #e8e8e8;
+  height: 305px;
+  border-radius: 5px;
+}
+.attractions-section .attractions-news .attractions-travel form {
+  height: 100%;
+  padding: 15px 20px;
+  color: #666666;
+}
+.attractions-section .attractions-news .attractions-travel form h4 {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.attractions-section .attractions-news .attractions-travel form p {
+  font-weight: 400;
+}
+.attractions-section .attractions-news .attractions-travel form input {
+  margin: 0 0 15px 0;
+}
+.attractions-section .attractions-news .attractions-travel form span {
+  font-size: 16px;
+  font-weight: 400;
+}
+.attractions-section .attractions-news .attractions-travel form .panel-style {
+  font-size: 16px;
+  font-weight: 400;
+}
+.attractions-section .attractions-news .attractions-travel form button {
+  width: 154px;
+  height: 40px;
+  background-color: #448899;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 25px 0 0 0;
+  border: none;
+  border-radius: 5px;
+}
+
+.dividing-line {
+  max-width: 1200px;
+  text-align: center;
+  margin: 40px auto 40px auto;
+  border-style: groove;
+  border-width: 1px;
+  color: #e8e8e8;
+}
+
+#morning-panel,
+#afternoon-panel {
+  display: none;
+}
+
+#start {
+  width: 193px;
+  height: 35px;
+  margin: 20px 0;
+  padding: 5px 10px;
+}
+
+#morning,
+#afternoon {
+  accent-color: #448899;
+}
+
+#morning:checked ~ #morning-panel {
+  display: inline;
+  font-size: 16px;
+  font-size: medium;
+}
+
+#afternoon:checked ~ #afternoon-panel {
+  display: inline;
+  font-size: 16px;
+}
+
+.attractions-introduce {
+  width: 100%;
+  height: 100%;
+  margin: 40px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.attractions-introduce .attractions-introduce-div {
+  width: 1200px;
+  height: 100%;
+  color: #666666;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.attractions-introduce .attractions-introduce-div .attractions-describe-itme-1 {
+  margin-bottom: 20px;
+  line-height: 23px;
+  font-weight: 400;
+}
+.attractions-introduce .attractions-introduce-div .attractions-describe-itme-2 {
+  margin-bottom: 20px;
+}
+.attractions-introduce .attractions-introduce-div .attractions-describe-itme-2 h4 {
+  line-height: 13.3px;
+  height: 32px;
+}
+.attractions-introduce .attractions-introduce-div .attractions-describe-itme-2 p {
+  line-height: 23px;
+  height: 24px;
+  font-weight: 400;
+}
+.attractions-introduce .attractions-introduce-div .attractions-describe-itme-3 h4 {
+  line-height: 13.3px;
+  height: 32px;
+}
+.attractions-introduce .attractions-introduce-div .attractions-describe-itme-3 p {
+  line-height: 23px;
+  font-weight: 400;
+  margin-bottom: 80px;
+}
+
+footer {
+  width: 100%;
+  height: 104px;
+  background-color: #757575;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+footer p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 14px;
+  width: 234px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+@media screen and (max-width: 1200px) {
+  .attractions-section .attractions-card {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 700px) {
+  #start {
+    max-width: 64%;
+  }
+}
+@media screen and (max-width: 615px) {
+  .attractions-section .attractions-card {
+    height: 100%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .attractions-section .attractions-card .attractions-img-div .slides {
+    max-width: 582px;
+    max-height: 406px;
+  }
+}
+@media screen and (max-width: 360px) {
+  .attractions-section {
+    margin: 0;
+  }
+  .attractions-section .attractions-card {
+    padding: 0;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+    grid-template-rows: 360px 390px;
+  }
+  .attractions-section .attractions-card .attractions-news {
+    padding: 10px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-name {
+    margin-bottom: 15px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-mrt {
+    margin-bottom: 20px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel {
+    width: 340px;
+    height: 300px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel form {
+    padding: 15px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel form h4 {
+    margin-bottom: 15px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel form p {
+    margin-bottom: 0;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel form input {
+    margin-bottom: 10px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel form button {
+    width: 154px;
+    height: 36px;
+  }
+  .attractions-section .attractions-card .attractions-news .attractions-travel form #start {
+    margin-bottom: 15px;
+  }
+}/*# sourceMappingURL=attraction.css.map */
