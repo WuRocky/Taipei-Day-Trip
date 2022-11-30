@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Attractions</title>
+		<meta name="robots" content="index, follow" />
+		<base target="_self" />
+		<meta name="description" content="台北一日遊網站 景點介紹" />
+		<meta name="author" content="Rocky Wu" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/attraction.css') }}"
+		/>
+		<!-- <link rel="stylesheet" href="/static/css/attraction.css" /> -->
+	</head>
+	<body>
+		<nav>
+			<div class="header-nav">
+				<a class="index-a" href="http://35.74.113.149:3000/">台北一日遊</a>
+				<nav>
+					<ul>
+						<li><a href="#">預定行程</a></li>
+						<li><a href="#">登入/註冊</a></li>
+					</ul>
+				</nav>
+			</div>
+		</nav>
+
+		<section class="attractions-section">
+			<div class="attractions-card">
+				<div class="attractions-img-div">
+					<div class="dot-item"></div>
+					<!-- <img
+						class="prev"
+						src="../static/images/btn_leftArrow.png"
+						alt="prev"
+					/>
+					<img
+						class="next"
+						src="../static/images/btn_rightArrow.png"
+						alt="next"
+					/> -->
+
+					<img
+						class="prev"
+						src="{{ url_for('static', filename='images/btn_leftArrow.png') }}"
+						alt="prev"
+					/>
+					<img
+						class="next"
+						src="{{ url_for('static', filename='images/btn_rightArrow.png') }}"
+						alt="next"
+					/>
+				</div>
+
+				<div class="attractions-news">
+					<div class="attractions-name"></div>
+					<div class="attractions-mrt"></div>
+					<div class="attractions-travel">
+						<form>
+							<h4>訂購導覽行程</h4>
+							<p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+
+							<label for="start" class="label-item">選擇日期：</label>
+							<input type="date" name="date" id="start" />
+							<br />
+							<label for="data-time" class="label-item">選擇時間：</label>
+							<input
+								type="radio"
+								id="morning"
+								name="data-time"
+								checked="checked"
+								value="新台幣2000元"
+							/>
+							<span>上半天</span>
+							<input
+								type="radio"
+								id="afternoon"
+								name="data-time"
+								value="新台幣2500元"
+							/>
+							<span>下半天</span>
+							<br />
+
+							<label class="label-item">導覽費用：</label>
+							<p id="morning-panel" class="panel-style">新台幣 2000 元</p>
+							<p id="afternoon-panel" class="panel-style">新台幣 2500 元</p>
+							<br />
+							<button type="submit">開始預約行程</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<hr class="dividing-line" />
+
+		<section class="attractions-introduce">
+			<div class="attractions-introduce-div">
+				<div class="attractions-describe-itme-1"></div>
+				<div class="attractions-describe-itme-2">
+					<h4>景點地址</h4>
+					<p></p>
+				</div>
+				<div class="attractions-describe-itme-3">
+					<h4>交通方式：</h4>
+					<p></p>
+				</div>
+			</div>
+		</section>
+
+		<footer>
+			<p>COPYRIGHT © 2022 台北一日遊</p>
+		</footer>
+		<!-- <script src="../static/js/attraction.js"></script> -->
+		<script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
+	</body>
+</html>

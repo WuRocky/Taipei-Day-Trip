@@ -25,7 +25,8 @@ nav .header-nav {
   align-items: center;
   height: 54px;
 }
-nav .header-nav h1 {
+nav .header-nav .index-a {
+  text-decoration: none;
   font-size: 30px;
   color: #448899;
   margin: 10px 0;
