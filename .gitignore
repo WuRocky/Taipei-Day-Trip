@@ -139,6 +139,3 @@ cython_debug/
 
 # mySQL password
 /mySQL.py
-
-# password
-/password.py
