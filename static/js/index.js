@@ -1,90 +1,90 @@
-const input_categories = document.querySelector("#clicker");
+const inputCategories = document.querySelector("#clicker");
 const hidden = document.querySelector("#hidden-div");
 const form = document.querySelector("form");
-const search_button = document.querySelector("#search");
+const searchButton = document.querySelector("#search");
 const section = document.querySelector("section");
 const footer = document.querySelector("footer");
 
 // infinite Scrolling defind Listener place
-let opition = {
+const opition = {
 	root: null,
 	rootMargin: "0px 0px 0px 0px",
 	threshold: 0,
 };
 
 ///// * create container * /////
-function create_naw_data(arr) {
+function createNawData(arr) {
 	arr.forEach((item) => {
 		// div-1
-		let attractions_item_1 = document.createElement("div");
-		attractions_item_1.classList.add("attractions-item-1");
+		const attractionsItem1 = document.createElement("div");
+		attractionsItem1.classList.add("attractions-item-1");
 
 		// add url
-		let url_href = window.location + "attraction/" + item["id"];
+		const urlHref = window.location + "attraction/" + item["id"];
 
-		let a_itme = document.createElement("a");
-		a_itme.classList.add("a-itme");
-		a_itme.href = url_href;
+		const aItme = document.createElement("a");
+		aItme.classList.add("a-itme");
+		aItme.href = urlHref;
 
-		let img_item_1 = document.createElement("img");
-		img_item_1.classList.add("main-imgs");
-		img_item_1.src = item["images"][0];
+		const imgItem1 = document.createElement("img");
+		imgItem1.classList.add("main-imgs");
+		imgItem1.src = item["images"][0];
 
-		let p_item_1 = document.createElement("p");
-		p_item_1.classList.add("main-name-p");
-		p_item_1.innerText = item["name"];
+		const pItem1 = document.createElement("p");
+		pItem1.classList.add("main-name-p");
+		pItem1.innerText = item["name"];
 
-		a_itme.appendChild(img_item_1);
-		a_itme.appendChild(p_item_1);
-		attractions_item_1.appendChild(a_itme);
+		aItme.appendChild(imgItem1);
+		aItme.appendChild(pItem1);
+		attractionsItem1.appendChild(aItme);
 
 		// div-2
-		let attractions_item_2 = document.createElement("div");
-		attractions_item_2.classList.add("attractions-item-2");
+		const attractionsItem2 = document.createElement("div");
+		attractionsItem2.classList.add("attractions-item-2");
 
-		let p_left_item_2 = document.createElement("p");
-		p_left_item_2.innerText = item["mrt"];
-		p_left_item_2.classList.add("p-left");
+		const pLeftItem2 = document.createElement("p");
+		pLeftItem2.innerText = item["mrt"];
+		pLeftItem2.classList.add("p-left");
 
-		let p_right_item_2 = document.createElement("p");
-		p_right_item_2.classList.add("p-right");
-		p_right_item_2.innerText = item["category"];
+		const pRightItem2 = document.createElement("p");
+		pRightItem2.classList.add("p-right");
+		pRightItem2.innerText = item["category"];
 
-		attractions_item_2.appendChild(p_left_item_2);
-		attractions_item_2.appendChild(p_right_item_2);
+		attractionsItem2.appendChild(pLeftItem2);
+		attractionsItem2.appendChild(pRightItem2);
 
 		// main-div
-		let main_container = document.createElement("div");
-		main_container.classList.add("main-container");
+		const mainContainer = document.createElement("div");
+		mainContainer.classList.add("main-container");
 
-		main_container.appendChild(attractions_item_1);
-		main_container.appendChild(attractions_item_2);
+		mainContainer.appendChild(attractionsItem1);
+		mainContainer.appendChild(attractionsItem2);
 
 		// add to the section
-		section.appendChild(main_container);
+		section.appendChild(mainContainer);
 	});
 }
 
 ///// * categories menu and click to hide or show  * /////
-async function categories_data() {
+async function categoriesData() {
 	// fetch categories url api and convert to json format
-	let categories_data = await fetch("http://35.74.113.149:3000/api/categories");
-	let categories_data_api = await categories_data.json();
-	let categories_api = categories_data_api["data"];
+	let categoriesData = await fetch("/api/categories");
+	let categoriesDataApi = await categoriesData.json();
+	let categoriesApi = categoriesDataApi["data"];
 
 	// add to the menu
-	categories_api.forEach((item) => {
+	categoriesApi.forEach((item) => {
 		// hidden-div-item
-		let hidden_div_item = document.createElement("div");
-		hidden_div_item.classList.add("hidden-div-item");
-		hidden_div_item.innerText = item;
+		let hiddenDivItem = document.createElement("div");
+		hiddenDivItem.classList.add("hidden-div-item");
+		hiddenDivItem.innerText = item;
 
-		hidden.appendChild(hidden_div_item);
+		hidden.appendChild(hiddenDivItem);
 	});
 
 	// click elsewhere disappear
 	window.addEventListener("mouseup", function (event) {
-		input_categories.addEventListener("click", (e) => {
+		inputCategories.addEventListener("click", (e) => {
 			hidden.style = "display: grid;";
 		});
 		if (!event.target.closest("#clicker")) {
@@ -93,35 +93,33 @@ async function categories_data() {
 	});
 
 	// menu style
-	let categories_options = document.querySelectorAll(
+	let categoriesOptions = document.querySelectorAll(
 		"#hidden-div .hidden-div-item"
 	);
 
 	// join each item
-	for (let i = 0; i < categories_options.length; i++) {
-		categories_options[i].addEventListener("click", (e) => {
-			input_categories.value = categories_options[i].innerText;
-			input_categories.style = "color : #000000";
+	for (let i = 0; i < categoriesOptions.length; i++) {
+		categoriesOptions[i].addEventListener("click", (e) => {
+			inputCategories.value = categoriesOptions[i].innerText;
+			inputCategories.style = "color : #000000";
 		});
 	}
 }
-categories_data();
+categoriesData();
 
 ///// * the data api is show to the browser and infinite scrolling * /////
 let page = 0;
-async function get_other_api() {
+async function getFirtApi() {
 	// fetch attractions url api and convert to json format
-	let get_data = await fetch(
-		`http://35.74.113.149:3000/api/attractions?page=${page}`
-	);
-	let get_parse_data = await get_data.json();
-	let { data, nextPage } = get_parse_data;
+	let getData = await fetch(`/api/attractions?page=${page}`);
+	let getParseData = await getData.json();
+	let { data, nextPage } = getParseData;
 
 	// use the function create_naw_data created data
-	create_naw_data(data);
+	createNawData(data);
 
 	// infinite Scrolling find the last item
-	let last_api = document.querySelector(".main-container:last-child");
+	let lastApi = document.querySelector(".main-container:last-child");
 
 	// iistener Scrolling
 	let observer = new IntersectionObserver((entries) => {
@@ -129,52 +127,49 @@ async function get_other_api() {
 			if (entry.isIntersecting) {
 				if (nextPage != null) {
 					page++;
-					get_other_api();
+					getFirtApi();
 					nextPage = page;
 				}
-				observer.unobserve(last_api);
+				observer.unobserve(lastApi);
 			}
 		});
 	}, opition);
 
 	// defind Listener last api place
-	observer.observe(last_api);
-
-	// let test = document.querySelectorAll(".main-container");
-	// console.log(test);
+	observer.observe(lastApi);
 }
-get_other_api();
+getFirtApi();
 
 ///// * click the button keyword search and infinite scrolling * /////
-let keyword_page = 0;
-search_button.addEventListener("click", (e) => {
+let keywordPage = 0;
+searchButton.addEventListener("click", (e) => {
 	// action after button click
 	e.preventDefault();
 
 	// get input text
-	let keyword_form = e.target.parentElement;
+	let keywordForm = e.target.parentElement;
 
-	let text = keyword_form.children[0].value;
+	let text = keywordForm.children[0].value;
 
 	// clear previous display
-	const keyword_main_container = document.querySelectorAll(".main-container");
-	keyword_main_container.forEach((e) => {
+	const keywordMainContainer = document.querySelectorAll(".main-container");
+	keywordMainContainer.forEach((e) => {
 		e.remove();
 	});
 
 	// call keyword url api
-	async function keyword_api() {
+	async function keywordApi() {
 		// fetch attractions url api and convert to json format
 		let url = await fetch(
-			`http://35.74.113.149:3000/api/attractions?page=${keyword_page}&keyword=${text}`
+			`/api/attractions?page=${keywordPage}&keyword=${text}`
 		);
 		let { data, nextPage } = await url.json();
 
 		// use the function create_naw_data created data
-		create_naw_data(data);
+		createNawData(data);
 
 		// infinite scrolling find the last item
-		let last_api = document.querySelector(".main-container:last-child");
+		let lastApi = document.querySelector(".main-container:last-child");
 
 		// listener scrolling
 		let observer = new IntersectionObserver((entries) => {
@@ -182,20 +177,20 @@ search_button.addEventListener("click", (e) => {
 				if (entry.isIntersecting) {
 					// udging the number of pages
 					if (nextPage != null) {
-						keyword_page++;
-						keyword_api();
-						nextPage = keyword_page;
+						keywordPage++;
+						keywordApi();
+						nextPage = keywordPage;
 					} else if (nextPage == null) {
-						keyword_page = 0;
+						keywordPage = 0;
 					}
-					observer.unobserve(last_api);
+					observer.unobserve(lastApi);
 				}
 			});
 		}, opition);
 
 		// defind Listener last api place
-		observer.observe(last_api);
+		observer.observe(lastApi);
 	}
 
-	keyword_api();
+	keywordApi();
 });

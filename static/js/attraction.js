@@ -1,71 +1,72 @@
 ///// * get the id in the url * /////
-const url_parse = window.location.pathname.split("/").pop();
+const urlParse = window.location.pathname.split("/").pop();
 ///// * add the id to the URL of the api * /////
-const url = "http://35.74.113.149:3000/api/attractions/" + url_parse;
+const url = "/api/attractions/" + urlParse;
 
 ///// * create attraction container * /////
-async function attraction_data() {
+async function attractionData() {
 	// fetch categories id url api and convert to json format
-	let attraction_data = await fetch(url);
-	let attraction_data_json = await attraction_data.json();
-	let attraction_data_api = attraction_data_json["data"];
+	let attractionData = await fetch(url);
+	let attractionDataJson = await attractionData.json();
+	let attractionDataApi = attractionDataJson["data"];
 
 	// separate the content of each API
-	let name_api = attraction_data_api["name"];
-	let mrt_api = attraction_data_api["mrt"];
-	let category_api = attraction_data_api["category"];
-	let address_api = attraction_data_api["address"];
-	let transport_api = attraction_data_api["transport"];
-	let description_api = attraction_data_api["description"];
-	let images_api = attraction_data_api["images"];
+	let nameApi = attractionDataApi["name"];
+	let mrtApi = attractionDataApi["mrt"];
+	let categoryApi = attractionDataApi["category"];
+	let addressApi = attractionDataApi["address"];
+	let transportApi = attractionDataApi["transport"];
+	let descriptionApi = attractionDataApi["description"];
+	let imagesApi = attractionDataApi["images"];
 
 	///// * add api to content * /////
-	let attractions_name = document.querySelector(".attractions-name");
-	let attractions_name_h2 = document.createElement("h2");
-	attractions_name_h2.innerText = name_api;
-	attractions_name.appendChild(attractions_name_h2);
+	let attractionsName = document.querySelector(".attractions-name");
+	let attractionsNameH2 = document.createElement("h2");
+	attractionsNameH2.innerText = nameApi;
+	attractionsName.appendChild(attractionsNameH2);
 
-	let attractions_mrt = document.querySelector(".attractions-mrt");
-	let attractions_mrt_p = document.createElement("p");
-	attractions_mrt_p.innerText = category_api + " at " + mrt_api;
-	attractions_mrt.appendChild(attractions_mrt_p);
+	let attractionsMrt = document.querySelector(".attractions-mrt");
+	let attractionsMrtP = document.createElement("p");
+	attractionsMrtP.innerText = categoryApi + " at " + mrtApi;
+	attractionsMrt.appendChild(attractionsMrtP);
 
-	let attractions_describe_itme_1 = document.querySelector(
+	let attractionsDescribeItme1 = document.querySelector(
 		".attractions-describe-itme-1"
 	);
-	attractions_describe_itme_1.innerText = description_api;
+	attractionsDescribeItme1.innerText = descriptionApi;
 
-	let attractions_describe_itme_2 = document.querySelector(
+	let attractionsDescribeItme2 = document.querySelector(
 		".attractions-describe-itme-2 p"
 	);
-	attractions_describe_itme_2.innerText = address_api;
+	attractionsDescribeItme2.innerText = addressApi;
 
-	let ttractions_describe_itme_3 = document.querySelector(
+	let ttractionsDescribeItme3 = document.querySelector(
 		".attractions-describe-itme-3 p"
 	);
-	ttractions_describe_itme_3.innerText = transport_api;
+	ttractionsDescribeItme3.innerText = transportApi;
 
-	let attractions_img_div = document.querySelector(".attractions-img-div");
+	let attractionsImgDiv = document.querySelector(".attractions-img-div");
 
 	// add css for each image separately
-	images_api.forEach((item) => {
+	imagesApi.forEach((item) => {
 		// add carousel effect css
-		let attractions_img_div_container = document.createElement("div");
-		attractions_img_div_container.classList.add("slides");
-		attractions_img_div_container.classList.add("effect");
+		let attractionsImgDivContainer = document.createElement("div");
+		attractionsImgDivContainer.classList.add("slides");
+		attractionsImgDivContainer.classList.add("effect");
 
 		// add a few pictures
-		let attractions_img_src_container = document.createElement("img");
-		attractions_img_src_container.src = item;
+		let attractionsImgSrcContainer = document.createElement("img");
+		attractionsImgSrcContainer.src = item;
+		// attractionsImgSrcContainer.rel = "preload";
 
-		attractions_img_div_container.appendChild(attractions_img_src_container);
-		attractions_img_div.appendChild(attractions_img_div_container);
+		attractionsImgDivContainer.appendChild(attractionsImgSrcContainer);
+		attractionsImgDiv.appendChild(attractionsImgDivContainer);
 
 		// decide how many dot
-		let dot_item = document.querySelector(".dot-item");
-		let dot_item_span = document.createElement("span");
-		dot_item_span.classList.add("dot");
-		dot_item.appendChild(dot_item_span);
+		let dotItem = document.querySelector(".dot-item");
+		let dotItemSpan = document.createElement("span");
+		dotItemSpan.classList.add("dot");
+		dotItem.appendChild(dotItemSpan);
 	});
 
 	///// * carousel function * /////
@@ -133,4 +134,4 @@ async function attraction_data() {
 	}
 }
 
-attraction_data();
+attractionData();

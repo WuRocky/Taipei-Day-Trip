@@ -33,7 +33,9 @@ def mysql():
       create_categories_SQL = """create table categories (id bigint primary key auto_increment, category varchar(255) UNIQUE KEY);"""
       mycursor.execute(create_categories_SQL)
 
-      
+      create_member_SQL = """create table member (id bigint primary key auto_increment, name varchar(255) not null, email varchar(255) not null, password varchar(255) not null)"""
+      mycursor.execute(create_member_SQL)
+
       data=json.load(file)
       clist = data["result"]["results"]
       for item in clist:
@@ -51,8 +53,6 @@ def mysql():
         item_images = ["https://"+str(i) for i in split_url[1:len(split_url)]] # images
         
         new_list = [x for x in item_images if re.search(".jpg|.JPG|.png|.PNG",x)]
-
-
         
         mycursor.execute("""insert into data(name, category, description, address, transport,mrt,lat,lng,images) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(item_name,item_category, item_description,item_address, item_transport,item_mrt,item_lat,item_lng,json.dumps(new_list)))
         mycursor.execute("""insert into categories(category) values(%s) on duplicate key update category=%s""",(item_category,item_category,))
