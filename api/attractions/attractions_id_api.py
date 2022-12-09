@@ -1,24 +1,12 @@
 from flask import *
-from mysql.connector import pooling
-from mySQL import MySQLPassword
 from flask import Blueprint
 from flask_cors import CORS
+from myModules.mysql_pool import *
+from myModules.success_or_error import *
 
 attractions_api = Blueprint('attractions_api', __name__)
 
 CORS(attractions_api)
-
-def get_connection():
-  connection = pooling.MySQLConnectionPool(
-    pool_name="python_pool",
-    pool_size=10,
-    pool_reset_session=True,
-    host="localhost",
-    user="root",
-    password=MySQLPassword(),
-    database='taipei_day_trip'
-    )
-  return connection.get_connection()
 
 # attractions_API
 @attractions_api.route("/api/attractions")
@@ -34,7 +22,8 @@ def api():
     # page string chenge to number
     next_page = int(input_nextPage)
     
-    if next_page > 0:
+    # show next page number
+    if next_page >= 0:
       next_page +=1
 
     # search 13 data 
@@ -61,57 +50,34 @@ def api():
     sql_data=mycursor.fetchall()
     
     sql_page_data = []
-    change_data = {}
+
     # everyone data information
     for api in sql_data:
-      # name, category, description, address, transport,mrt,lat,lng,images
-      change_data = {
-        "id":api["id"],
-        "name":api["name"],
-        "category":api["category"],
-        "description":api["description"],
-        "address":api["address"],
-        "transport":api["transport"],
-        "mrt":api["mrt"],
-        "lat":api["lat"],
-        "lng":api["lng"],
-        "images":json.loads(api["images"])
-      }
-      
-      sql_page_data.append(change_data)
-    
-    # judging URL input content display information
-    if next_page == 0:
-      data_api={
-        "nextPage":next_page+1,
-        "data":sql_page_data[0:12]
-        
-      }
-    elif next_page > 0:
-      data_api={
-        "nextPage":next_page,
-        "data":sql_page_data[0:12]
-      }
-    elif input_keyword != None:
-      data_api={
-        "nextPage":next_page+1,
-        "data":sql_page_data[0:12]
-      }      
+      sql_page_data.append(datebase_data(
+          api["id"], 
+          api["name"], 
+          api["category"], 
+          api["description"], 
+          api["address"], 
+          api["transport"], 
+          api["mrt"], 
+          api["lat"], 
+          api["lng"], 
+          api["images"]
+        )
+      )
 
-    # if the page data does not meet the criteria show None
+    # judging the next page and data
     if len(sql_page_data) !=13:
-      data_api={
-        "nextPage":None,
-        "data":sql_page_data
-      }
+      return jsonify(data_api_success(None, sql_page_data))  
+    elif next_page > 0:
+      return jsonify(data_api_success(next_page,sql_page_data[0:12]))
+    elif input_keyword != None:
+      return jsonify(data_api_success(next_page+1,sql_page_data[0:12]))    
 
-    return jsonify(data_api)
   except: 
-    data_api_error ={
-      "error":True,
-      "message":"請按照情境提供對應的錯誤訊息"
-    }
-    return jsonify(data_api_error)
+    mes = "伺服器錯誤"
+    return jsonify(error(mes)),404
   finally:
     mycursor.close()
     connection.close()
@@ -126,40 +92,31 @@ def attractionId(attractionId):
     # find the corresponding id data in the database
     mycursor.execute("select * from data where id = %s",(attractionId,))
     api = mycursor.fetchone()
-    
-    # get everyone data row name and data information
-    attractions_id_API = {
-      "id":api["id"],
-      "name":api["name"],
-      "category":api["category"],
-      "description":api["description"],
-      "address":api["address"],
-      "transport":api["transport"],
-      "mrt":api["mrt"],
-      "lat":api["lat"],
-      "lng":api["lng"],
-      "images":json.loads(api["images"])
-    }
 
-    if attractions_id_API == None:
-      data_id_api_error={
-      "error": True,
-      "message": "請按照情境提供對應的錯誤訊息"
-      }
+    # if not id show error
+    if api == None:
+      re = "查無資料"
+      return jsonify(data_id_api_error(re))
 
-      return jsonify(data_id_api_error)
+    # everyone id data information
+    attractions_id_api = datebase_data(
+      api["id"], 
+      api["name"], 
+      api["category"], 
+      api["description"], 
+      api["address"], 
+      api["transport"], 
+      api["mrt"], 
+      api["lat"], 
+      api["lng"], 
+      api["images"]
+    )
 
     # show pairing info
-    data_id_api= {
-      "data":attractions_id_API
-    }
-    return jsonify(data_id_api)
+    return jsonify(data_id_api(attractions_id_api))
   except: 
-    data_api_error ={
-      "error":True,
-      "message":"請按照情境提供對應的錯誤訊息"
-    }
-    return jsonify(data_api_error)
+    mes = "伺服器錯誤"
+    return jsonify(error(mes)),404
   finally:
     mycursor.close()
     connection.close()
@@ -184,11 +141,8 @@ def categories():
     }
     return jsonify(categories_api)
   except:
-    categories_api_error ={
-      "error":True,
-      "message":"請按照情境提供對應的錯誤訊息"
-    }
-    return jsonify(categories_api_error)
+    mes = "伺服器錯誤"
+    return jsonify(error(mes)),404
   finally:
     mycursor.close()
     connection.close()

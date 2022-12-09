@@ -77,9 +77,15 @@
 						/>
 					</div>
 					<h2>註冊會員帳號</h2>
-					<input type="text" placeholder="輸入姓名" name="name" />
+					<input type="text" placeholder="輸入姓名" name="name" required />
 					<input type="email" placeholder="輸入電子郵件" name="email" />
-					<input type="password" placeholder="輸入密碼" name="password" />
+					<input
+						type="password"
+						placeholder="輸入密碼"
+						name="password"
+						minlength="8"
+						required
+					/>
 					<button class="register-div-button">註冊新帳號</button>
 					<div id="register-give-back"></div>
 					<div class="login-button">已經有帳戶了？點此登入</div>
