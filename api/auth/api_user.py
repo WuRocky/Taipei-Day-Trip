@@ -1,49 +1,14 @@
 from flask import *
-from mysql.connector import pooling
-from mySQL import MySQLPassword
 from flask import Blueprint
 from flask_cors import CORS
-import jwt
+from myModules.mysql_pool import *
+from myModules.jwt import *
+from myModules.regular import *
+from myModules.success_or_error import *
 from password import *
-from datetime import *
+
 user_api = Blueprint('user_api', __name__)
 CORS(user_api)
-
-
-# jwt encode function
-def jwt_token(user_id, name, email): 
-  payload = {
-  "data": {
-    "id": user_id,
-    "name": name,
-    "email": email
-  },
-  "exp": datetime.utcnow() + timedelta(days=7),
-  "iat": datetime.utcnow(),
-  }
-  jwt_token = jwt.encode(payload, JWT_SECRET(), JWT_ALGORITHM())
-  return jwt_token
-
-# jwt decod function
-def jwt_decod(token):
-  jwt_decod = jwt.decode(token, JWT_SECRET(), JWT_ALGORITHM())
-  return jwt_decod
-
-
-
-
-def get_connection():
-  connection = pooling.MySQLConnectionPool(
-    pool_name="python_pool",
-    pool_size=10,
-    pool_reset_session=True,
-    host="localhost",
-    user="root",
-    password=MySQLPassword(),
-    database='taipei_day_trip'
-    )
-  return connection.get_connection()
-
 
 # api_user_post register
 @user_api.route("/api/user/auth", methods=["POST"])
@@ -57,16 +22,11 @@ def api_user_post():
     name = request_api["name"]
     email = request_api["email"]
     password = request_api["password"]
-    # error info
-    data_api_error = {
-      "error": True,
-      "message": "請按照情境提供對應的錯誤訊息"
-      }
-    
-    # success info
-    data_api_success= {
-      "ok":True
-    }
+
+    # if email wrong format
+    if not re.fullmatch(email_regex(), email):
+      er = "信箱格式錯誤"
+      return jsonify(error(er)),404
 
     # search databases
     mycursor.execute("select email from member where email = %s LIMIT 1",(email,))
@@ -74,19 +34,18 @@ def api_user_post():
     
     # if already have data return error
     if reuslt != None:
-      return jsonify(data_api_error)
+      res = "資料重複"
+      print("test1")
+      return jsonify(error(res)),404
 
     # if there is no data, save it to the database, return success
     mycursor.execute("insert into member(name, email, password) values(%s, %s, %s)",(name, email, password))
     connection.commit()
-    return jsonify(data_api_success)
+    return jsonify(success()), 200
 
   except: 
-    data_api_error={
-      "error": True,
-      "message": "請按照情境提供對應的錯誤訊息"
-    }
-    return jsonify(data_api_error)
+    mes = "伺服器錯誤"
+    return jsonify(error(mes)),404
   finally:
     mycursor.close()
     connection.close()
@@ -97,12 +56,7 @@ def api_user_auth_put():
   try:
     connection = get_connection()
     mycursor = connection.cursor()
-
-    # error info
-    data_error ={
-      "error": True,
-      "message": "請按照情境提供對應的錯誤訊息"
-    }
+    
     if request.method == "PUT":
       # get put info from the client
       email = request.json.get("email",None) 
@@ -112,32 +66,25 @@ def api_user_auth_put():
       mycursor.execute("select id, name, email from member where email = %s and password = %s",(email,password,))
       reuslt=mycursor.fetchone()
 
-      # if get data
+      # if get data show success
       if reuslt != None:
-
-        # response to client info
-        data_success = jsonify({
-          "ok": True
-        })
+        data_success = jsonify(success())
 
         # use jwt encode function make token        
-        jwt_encode = jwt_token(reuslt[0],reuslt[1],reuslt[2])
-        print("test")
+        jwt_encode = jwt_token(reuslt[0], reuslt[1], reuslt[2])
+
         # make jwt_encode in cookie and set time
         data_success.set_cookie("Token",jwt_encode,60*60*24*7)
 
         # return success
         return data_success, 200
-
+      re = "信箱密碼輸入錯誤"
       # if not data return error
-      return jsonify(data_error), 401
+      return jsonify(error(re)), 401
 
   except: 
-    data_api_error={
-      "error": True,
-      "message": "請按照情境提供對應的錯誤訊息"
-    }
-    return jsonify(data_api_error)
+    mes = "伺服器錯誤"
+    return jsonify(error(mes)),404
   finally:
     mycursor.close()
     connection.close()
@@ -192,9 +139,7 @@ def api_user_auth_get():
 def api_user_auth_delete():
   try:
     # get info the client
-    logout= jsonify({
-      "ok": True
-    })
+    logout= jsonify(success())
 
     # set cookie time to zero, response to client
     logout.set_cookie("Token",max_age=0)
