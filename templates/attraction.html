@@ -24,15 +24,60 @@
 	<body>
 		<nav>
 			<div class="header-nav">
-				<a class="index-a" href="http://35.74.113.149:3000/">台北一日遊</a>
+				<a class="index-a" href="/">台北一日遊</a>
 				<nav>
 					<ul>
 						<li><a href="#">預定行程</a></li>
-						<li><a href="#">登入/註冊</a></li>
+						<!-- <li><a onclick="loginRegister()">登入/註冊</a></li> -->
+						<li><a id="login-register">登入/註冊</a></li>
+						<li><a id="logout-member">登出系統</a></li>
 					</ul>
 				</nav>
 			</div>
 		</nav>
+
+		<!-- ///// * login * ///// -->
+		<div class="login">
+			<div class="login-div">
+				<div class="decorator-bar"></div>
+				<form class="login-form">
+					<div class="login-close">
+						<img
+							src="{{ url_for('static', filename='images/icon_close.png') }}"
+							alt="close"
+						/>
+					</div>
+					<h2>登入會員帳號</h2>
+					<input type="email" placeholder="輸入電子信箱" name="email" />
+					<input type="password" placeholder="輸入密碼" name="password" />
+					<button class="login-div-button">登入帳戶</button>
+					<div id="login-give-back"></div>
+					<div class="login-register-button">還沒有帳戶？點此註冊</div>
+				</form>
+			</div>
+		</div>
+
+		<!-- ///// * Register Account * ///// -->
+		<div class="register">
+			<div class="register-div">
+				<div class="decorator-bar"></div>
+				<form class="register-form">
+					<div class="register-close">
+						<img
+							src="{{ url_for('static', filename='images/icon_close.png') }}"
+							alt="close"
+						/>
+					</div>
+					<h2>註冊會員帳號</h2>
+					<input type="text" placeholder="輸入姓名" name="name" />
+					<input type="email" placeholder="輸入電子郵件" name="email" />
+					<input type="password" placeholder="輸入密碼" name="password" />
+					<button class="register-div-button">註冊新帳號</button>
+					<div id="register-give-back"></div>
+					<div class="login-button">已經有帳戶了？點此登入</div>
+				</form>
+			</div>
+		</div>
 
 		<section class="attractions-section">
 			<div class="attractions-card">
@@ -122,5 +167,6 @@
 		</footer>
 		<!-- <script src="../static/js/attraction.js"></script> -->
 		<script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/loginLogout.js') }}"></script>
 	</body>
 </html>

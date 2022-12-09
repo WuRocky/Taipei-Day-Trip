@@ -1,9 +1,8 @@
+
 from flask import *
 
-from api.attractions_api import attractions_api
-from api.attractions_id_api import attractions_id_api
-from api.categories_api import categories_api
-
+from api.attractions.attractions_id_api import attractions_api
+from api.auth.api_user import user_api
 
 app=Flask(
   __name__,
@@ -13,6 +12,8 @@ app=Flask(
 
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+
+
 
 # Pages
 @app.route("/")
@@ -28,15 +29,12 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
+
 app.register_blueprint(attractions_api)
-app.register_blueprint(attractions_id_api)
-app.register_blueprint(categories_api)
-
-
-
+app.register_blueprint(user_api)
 
 if __name__ == "__main__": 
   # app.run(port=3000,debug=True)
-  # app.run(port=3001)
+  app.run(port=3000)
   # app.run(host = "0.0.0.0", port=3000,debug=True)
-  app.run(host = "0.0.0.0", port=3000)
+  # app.run(host = "0.0.0.0", port=3000)
