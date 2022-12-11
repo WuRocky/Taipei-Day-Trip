@@ -5,7 +5,7 @@ from myModules.mysql_pool import *
 from myModules.jwt import *
 from myModules.regular import *
 from myModules.success_or_error import *
-from password import *
+from jwt_password import *
 import bcrypt
 
 
