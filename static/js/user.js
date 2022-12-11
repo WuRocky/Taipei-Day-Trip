@@ -23,7 +23,7 @@ const passwrodRegex = new RegExp("(?=.{2,})");
 const nameRegex = new RegExp("(^[a-zA-Z0-9]+$)");
 const emailRegex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
 
-// make login and Register div
+///// * make login and Register div * /////
 window.addEventListener("mouseup", function (event) {
 	// show login div
 	loginRegister.addEventListener("click", (e) => {
@@ -56,7 +56,7 @@ window.addEventListener("mouseup", function (event) {
 	}
 });
 
-// click login button info
+///// * click login button info * /////
 loginDivButton.addEventListener("click", (e) => {
 	e.preventDefault();
 
@@ -105,7 +105,7 @@ loginDivButton.addEventListener("click", (e) => {
 	}
 });
 
-// click register button info
+///// * click register button info * /////
 registerDivButton.addEventListener("click", (e) => {
 	e.preventDefault();
 
@@ -115,6 +115,7 @@ registerDivButton.addEventListener("click", (e) => {
 	const email = form.children[3].value;
 	const password = form.children[4].value;
 	const url = "/api/user/auth";
+
 	// front-end exclusion error content
 	if (!nameRegex.test(name)) {
 		registerGiveBack.innerText = "輸入姓名錯誤";
@@ -172,7 +173,7 @@ registerDivButton.addEventListener("click", (e) => {
 	}
 });
 
-// get initial info
+///// * get initial info * /////
 function initialCheck() {
 	// get client cookie
 	const cookie = document.cookie.split("=");
@@ -201,7 +202,7 @@ function initialCheck() {
 }
 initialCheck();
 
-// click logout button info
+// click logout button info * /////
 logoutMember.addEventListener("click", (e) => {
 	const cookie = document.cookie.split("=");
 	const parser = cookie[1];

@@ -6,6 +6,8 @@ from myModules.jwt import *
 from myModules.regular import *
 from myModules.success_or_error import *
 from password import *
+import bcrypt
+
 
 user_api = Blueprint('user_api', __name__)
 CORS(user_api)
@@ -23,9 +25,15 @@ def api_user_post():
     email = request_api["email"]
     password = request_api["password"]
 
-    # if email wrong format
-    if not re.fullmatch(email_regex(), email):
+    # if data wrong format
+    if not re.fullmatch(name_regex(), name):
+      er = "姓名格式錯誤，須為3個字"
+      return jsonify(error(er)),404
+    elif not re.fullmatch(email_regex(), email):
       er = "信箱格式錯誤"
+      return jsonify(error(er)),404
+    elif not re.fullmatch(passwor_regex(), password):
+      er = "密碼格式錯誤，至少須有3個字"
       return jsonify(error(er)),404
 
     # search databases
@@ -35,11 +43,15 @@ def api_user_post():
     # if already have data return error
     if reuslt != None:
       res = "資料重複"
-      print("test1")
       return jsonify(error(res)),404
 
+    # used bcrypt store password
+    bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    bcrypt_hash = bcrypt.hashpw(bytes, salt)
+    
     # if there is no data, save it to the database, return success
-    mycursor.execute("insert into member(name, email, password) values(%s, %s, %s)",(name, email, password))
+    mycursor.execute("insert into member(name, email, password) values(%s, %s, %s)",(name, email, bcrypt_hash))
     connection.commit()
     return jsonify(success()), 200
 
@@ -57,30 +69,43 @@ def api_user_auth_put():
     connection = get_connection()
     mycursor = connection.cursor()
     
-    if request.method == "PUT":
-      # get put info from the client
-      email = request.json.get("email",None) 
-      password = request.json.get("password",None) 
+    # get put info from the client
+    request_api = request.json
+    email = request_api["email"]
+    password = request_api["password"] 
 
-      # search databases info
-      mycursor.execute("select id, name, email from member where email = %s and password = %s",(email,password,))
-      reuslt=mycursor.fetchone()
+    # if data wrong format
+    if not re.fullmatch(email_regex(), email):
+      er = "信箱格式錯誤"
+      return jsonify(error(er)),404
+    elif not re.fullmatch(passwor_regex(), password):
+      er = "密碼格式錯誤，至少須有3個字"
+      return jsonify(error(er)),404
+      
+    # search databases info
+    mycursor.execute("select id, name, email, password from member where email = %s ",(email,))
+    reuslt=mycursor.fetchone()
 
-      # if get data show success
-      if reuslt != None:
-        data_success = jsonify(success())
+    # bcrypt check password and database password
+    hash = reuslt[3].encode('utf-8')
+    userBytes = password.encode('utf-8')
+    result = bcrypt.checkpw(userBytes, hash)
 
-        # use jwt encode function make token        
-        jwt_encode = jwt_token(reuslt[0], reuslt[1], reuslt[2])
+    if reuslt != None and result:
+      data_success = jsonify(success())
 
-        # make jwt_encode in cookie and set time
-        data_success.set_cookie("Token",jwt_encode,60*60*24*7)
+      # use jwt encode function make token        
+      jwt_encode = jwt_token(reuslt[0], reuslt[1], reuslt[2])
 
-        # return success
-        return data_success, 200
-      re = "信箱密碼輸入錯誤"
-      # if not data return error
-      return jsonify(error(re)), 401
+      # make jwt_encode in cookie and set time
+      data_success.set_cookie("Token",jwt_encode,60*60*24*7)
+
+      # return success
+      return data_success, 200
+
+    # if data wrong format return error
+    res = "信箱或密碼輸入錯誤"
+    return jsonify(error(res)),404
 
   except: 
     mes = "伺服器錯誤"
