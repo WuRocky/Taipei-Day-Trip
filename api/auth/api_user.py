@@ -102,10 +102,10 @@ def api_user_auth_put():
 
       # return success
       return data_success, 200
-
-    # if data wrong format return error
-    res = "信箱或密碼輸入錯誤"
-    return jsonify(error(res)),404
+    else:
+      # if data wrong format return error
+      res = "信箱或密碼輸入錯誤"
+      return jsonify(error(res)),404
 
   except: 
     mes = "伺服器錯誤"
