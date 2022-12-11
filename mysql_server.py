@@ -22,7 +22,7 @@ def mysql():
       mycursor = connection.cursor()
       
       # if there is data in the database, delete the existing data
-      drop_data_SQL = """DROP TABLE IF EXISTS data,categories"""
+      drop_data_SQL = """DROP TABLE IF EXISTS data,categories,member"""
       mycursor.execute(drop_data_SQL)
 
       # create new data table
