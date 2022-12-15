@@ -105,6 +105,8 @@ nav {
 				text-align: center;
 				color: #666666;
 				margin-bottom: 15px;
+				font-size: 24px;
+				height: 27px;
 			}
 			input {
 				height: 47px;
@@ -127,6 +129,7 @@ nav {
 				border-radius: 5px;
 				font-size: 19px;
 				cursor: pointer;
+				margin-bottom: 10px;
 			}
 			.login-register-button {
 				width: 310px;
@@ -191,6 +194,8 @@ nav {
 				text-align: center;
 				color: #666666;
 				margin-bottom: 15px;
+				font-size: 24px;
+				height: 27px;
 			}
 			input {
 				height: 47px;
@@ -213,6 +218,7 @@ nav {
 				border-radius: 5px;
 				font-size: 19px;
 				cursor: pointer;
+				margin-bottom: 10px;
 			}
 			.login-button {
 				width: 310px;
@@ -392,8 +398,8 @@ nav {
 	border-width: 1px;
 	color: #e8e8e8;
 }
-#morning-panel,
-#afternoon-panel {
+#morning,
+#afternoon {
 	display: none;
 }
 #start {
@@ -403,17 +409,17 @@ nav {
 	padding: 5px 10px;
 }
 
-#morning,
-#afternoon {
+#morning-panel,
+#afternoon-panel {
 	accent-color: #448899;
 }
 
-#morning:checked ~ #morning-panel {
+#morning-panel:checked ~ #morning {
 	display: inline;
 	font-size: 16px;
 	font-size: medium;
 }
-#afternoon:checked ~ #afternoon-panel {
+#afternoon-panel:checked ~ #afternoon {
 	display: inline;
 	font-size: 16px;
 }
@@ -466,16 +472,15 @@ nav {
 
 footer {
 	width: 100%;
-	height: 104px;
+	height: 100%;
 	background-color: #757575;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	p {
+		margin: 45px 0;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 14px;
 		width: 234px;
 		font-size: 16px;
 		color: #ffffff;

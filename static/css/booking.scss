@@ -1,0 +1,610 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans TC", sans-serif;
+	font-weight: bold;
+}
+
+body {
+	// height: 100%;
+	min-height: 100vh;
+	max-width: 1920px;
+	position: relative;
+	display: flex; //啟用flex
+	flex-direction: column; //設定由上到下排列
+}
+footer {
+	flex: 1;
+	width: 100%;
+	background-color: #757575;
+	display: flex;
+	justify-content: center;
+	p {
+		margin: 45px 0;
+		display: flex;
+		justify-content: center;
+		width: 234px;
+		font-size: 16px;
+		color: #ffffff;
+	}
+}
+
+///// *  index * /////
+nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 1920px;
+	height: 54px;
+	border-bottom: 1px solid #e8e8e8;
+	.header-nav {
+		width: 1200px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 54px;
+		.index-a {
+			text-decoration: none;
+			font-size: 30px;
+			color: #448899;
+			margin: 10px 0;
+		}
+		nav {
+			ul {
+				display: flex;
+				list-style-type: none;
+				justify-content: space-around;
+				li {
+					font-size: 16px;
+					a {
+						color: #666666;
+						text-decoration: none;
+						margin: 10px;
+						font-weight: lighter;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}
+
+#logout-member #login-register {
+	color: #666666;
+	text-decoration: none;
+	margin: 10px;
+	font-weight: lighter;
+	cursor: pointer;
+}
+
+#img-item {
+	pointer-events: none;
+}
+
+#hidden-div {
+	position: absolute;
+	top: 51px;
+	height: 162px;
+	width: 400px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	grid-template-columns: repeat(3, 120px);
+	grid-auto-rows: 40px;
+	display: none;
+
+	.hidden-div-item {
+		padding: 10px 15px;
+		display: flex;
+		align-items: center;
+		color: #000000;
+		font-size: 14px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	.hidden-div-item:hover {
+		background-color: #e8e8e8;
+	}
+}
+
+///// * login * /////
+.login {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	z-index: 5;
+	// display: flex;
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	.login-div {
+		top: 80px;
+		width: 340px;
+		height: 275px;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		position: absolute;
+		border-radius: 5px;
+		.decorator-bar {
+			width: 340px;
+			height: 10px;
+			background: linear-gradient(90deg, #337788, #66aabb);
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+
+		form {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			width: 310px;
+			height: 235px;
+			margin: 15px;
+
+			.login-close {
+				position: absolute;
+				right: 17px;
+				cursor: pointer;
+			}
+			h2 {
+				text-align: center;
+				color: #666666;
+				margin-bottom: 15px;
+				font-size: 24px;
+				height: 27px;
+			}
+			input {
+				height: 47px;
+				width: 310px;
+				color: #757575;
+				border-radius: 5px;
+				font-weight: 500;
+				font-size: medium;
+				margin-bottom: 10px;
+				padding: 15px;
+				border: 1px solid #cccccc;
+			}
+			button {
+				width: 310px;
+				height: 47px;
+				background-color: #448899;
+				color: #ffffff;
+				font-weight: 300;
+				border-style: none;
+				border-radius: 5px;
+				font-size: 19px;
+				cursor: pointer;
+				margin-bottom: 10px;
+			}
+			.login-register-button {
+				width: 310px;
+				height: 22px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #666666;
+				font-weight: 500;
+				cursor: pointer;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+///// * Register Account * /////
+.register {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	z-index: 5;
+	// display: flex;
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	.register-div {
+		top: 80px;
+		width: 340px;
+		height: 332px;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		position: absolute;
+		border-radius: 5px;
+		.decorator-bar {
+			width: 340px;
+			height: 10px;
+			background: linear-gradient(90deg, #337788, #66aabb);
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+
+		form {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			width: 310px;
+			height: 292px;
+			margin: 15px;
+
+			.register-close {
+				position: absolute;
+				right: 17px;
+				cursor: pointer;
+			}
+			h2 {
+				text-align: center;
+				color: #666666;
+				margin-bottom: 15px;
+				font-size: 24px;
+				height: 27px;
+			}
+			input {
+				height: 47px;
+				width: 310px;
+				color: #757575;
+				border-radius: 5px;
+				font-weight: 500;
+				font-size: medium;
+				margin-bottom: 10px;
+				padding: 15px;
+				border: 1px solid #cccccc;
+			}
+			button {
+				width: 310px;
+				height: 47px;
+				background-color: #448899;
+				color: #ffffff;
+				font-weight: 300;
+				border-style: none;
+				border-radius: 5px;
+				font-size: 19px;
+				cursor: pointer;
+				margin-bottom: 10px;
+			}
+			.login-button {
+				width: 310px;
+				height: 22px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #666666;
+				font-weight: 500;
+				cursor: pointer;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+#register-give-back {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 47px;
+}
+#login-give-back {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 47px;
+}
+hr {
+	border: 0.5px solid #e8e8e8;
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	display: none;
+}
+////////////////////////////////////////////////////
+
+///// * Booking user name * /////
+.booking-attraction-user-name {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	.booking-attraction-p-itme {
+		display: flex;
+		align-items: center;
+		color: #666666;
+		margin-bottom: 30px;
+		width: 1000px;
+		margin: 46px 10px 35px 10px;
+		height: 27px;
+	}
+}
+////////////////////////////////////////////////////
+///// * Not Booking * /////
+.not-booking {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	.not-booking-itme {
+		display: flex;
+		align-items: center;
+		color: #666666;
+		margin: 0 10px 40px 10px;
+		width: 1000px;
+	}
+}
+////////////////////////////////////////////////////
+///// * Booking attraction * /////
+.booking-attraction-section {
+	display: none;
+	// display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+
+	.booking-attraction-div {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		margin: 0 10px 40px 10px;
+		height: 200px;
+		width: 980px;
+		height: 100%;
+		position: relative;
+		.booking-attraction-info-delete {
+			cursor: pointer;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
+		.booking-attraction-info {
+			height: 100%;
+			display: flex;
+
+			.booking-attraction-info-img {
+				width: 266px;
+				// height: 200px;
+				margin-right: 22px;
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+			.booking-attraction-info-div {
+				height: 170px;
+				.booking-attraction-info-title {
+					display: flex;
+					color: #448899;
+					margin-bottom: 25px;
+				}
+				.booking-attraction-info-itme {
+					display: flex;
+					color: #666666;
+					margin-top: 10px;
+				}
+				.info-itme-1 {
+					font-weight: 500;
+				}
+			}
+		}
+	}
+}
+
+///////////////////////////////////////////////////
+///// * Booking user * /////
+.booking-user-section {
+	display: none;
+	// display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	.booking-attraction-div {
+		height: 307px;
+		display: flex;
+		padding: 40px 0;
+		margin: 0 10px;
+		width: 980px;
+		height: 100%;
+		.booking-attraction-div-item {
+			display: flex;
+
+			height: 227px;
+			flex-direction: column;
+			color: #666666;
+		}
+		.booking-attraction-div-item-1 {
+			margin-bottom: 5px;
+			font-size: 19px;
+		}
+		.booking-attraction-div-item-2 {
+			font-size: 16px;
+		}
+		form {
+			div {
+				margin: 15px 0 15px 0;
+				input {
+					width: 200px;
+					height: 38px;
+					padding: 10px;
+				}
+				label {
+					font-weight: 500;
+				}
+			}
+		}
+	}
+}
+
+////////////////////////////////////////////////////
+///// * Booking credit card * /////
+.booking-credit-card-section {
+	display: none;
+	// display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	.booking-credit-card-div {
+		height: 268px;
+		display: flex;
+		padding: 40px 0;
+		margin: 0 10px;
+		width: 980px;
+		height: 100%;
+		.booking-credit-card-div-item {
+			display: flex;
+
+			height: 188px;
+			flex-direction: column;
+			color: #666666;
+			.booking-credit-card-div-item-1 {
+				margin-bottom: 5px;
+				font-size: 19px;
+			}
+			form {
+				div {
+					margin: 15px 0 15px 0;
+					input {
+						width: 200px;
+						height: 38px;
+						padding: 10px;
+					}
+					label {
+						font-weight: 500;
+					}
+				}
+			}
+		}
+	}
+}
+
+////////////////////////////////////////////////////
+///// * Booking info * /////
+.booking-info-section {
+	display: none;
+	// display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	.booking-info-div {
+		height: 180px;
+		display: flex;
+		align-items: flex-end;
+		flex-direction: column;
+		padding: 40px 0;
+		margin: 0 10px;
+		width: 980px;
+		height: 100%;
+		.booking-info-div-item {
+			display: flex;
+			align-items: flex-end;
+			flex-direction: column;
+			height: 100px;
+			.booking-info-div-total {
+				font-size: 16px;
+				margin-bottom: 25px;
+				color: #666666;
+			}
+			.booking-info-div-button {
+				button {
+					width: 173px;
+					height: 36px;
+					font-size: 16px;
+					background-color: #448899;
+					color: #ffffff;
+					border-radius: 5px;
+					border-style: none;
+					font-weight: 400;
+				}
+			}
+		}
+	}
+}
+
+////////////////////////////////////////////////////
+
+@media screen and (max-width: 550px) {
+	.booking-attraction-section {
+		margin-bottom: 0;
+		.booking-attraction-div {
+			height: 490px;
+			align-items: center;
+			height: 100%;
+			padding: 0;
+			.booking-attraction-info-delete {
+				position: absolute;
+				top: 95%;
+				right: 50px;
+			}
+			.booking-attraction-info {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				.booking-attraction-info-img {
+					width: 100%;
+				}
+				.booking-attraction-info-div {
+					display: flex;
+					justify-content: center;
+					flex-direction: column;
+					margin: 30px 0;
+				}
+			}
+		}
+	}
+
+	.booking-user-section {
+		.booking-attraction-div {
+			.booking-attraction-div-item {
+				align-items: center;
+			}
+		}
+	}
+
+	.booking-credit-card-section {
+		.booking-credit-card-div {
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.booking-attraction-user-name {
+		.booking-attraction-p-itme {
+			margin: 46px 10px 0 10px;
+		}
+	}
+	.booking-attraction-section {
+		margin: 30px 0 0 0;
+		height: 490px;
+		.booking-attraction-div {
+			align-items: stretch;
+			.booking-attraction-info-delete {
+				top: 90%;
+				right: 10px;
+			}
+		}
+	}
+	.booking-user-section {
+		.booking-attraction-div {
+			.booking-attraction-div-item {
+				align-items: stretch;
+			}
+		}
+	}
+	.booking-credit-card-section {
+		.booking-credit-card-div {
+			justify-content: flex-start;
+			align-items: stretch;
+		}
+	}
+}

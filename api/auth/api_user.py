@@ -86,6 +86,11 @@ def api_user_auth_put():
     mycursor.execute("select id, name, email, password from member where email = %s ",(email,))
     reuslt=mycursor.fetchone()
 
+    # if data unregistered
+    if reuslt== None:
+      res = "尚未註冊"
+      return jsonify(error(res)),404
+
     # bcrypt check password and database password
     hash = reuslt[3].encode('utf-8')
     userBytes = password.encode('utf-8')
@@ -102,10 +107,8 @@ def api_user_auth_put():
 
       # return success
       return data_success, 200
-    else:
-      # if data wrong format return error
-      res = "信箱或密碼輸入錯誤"
-      return jsonify(error(res)),404
+    
+
 
   except: 
     mes = "伺服器錯誤"

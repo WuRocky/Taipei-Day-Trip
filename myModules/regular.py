@@ -12,4 +12,7 @@ def passwor_regex():
   regex = re.compile(r"([a-zA-Z0-9_\s]+).{2,}$")
   return regex
 
+def numbers_regex():
+  numbers = re.compile('\d+')
+  return numbers
 
