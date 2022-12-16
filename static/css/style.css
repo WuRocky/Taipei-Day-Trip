@@ -129,6 +129,8 @@ nav .header-nav nav ul li a {
   text-align: center;
   color: #666666;
   margin-bottom: 15px;
+  font-size: 24px;
+  height: 27px;
 }
 .login .login-div form input {
   height: 47px;
@@ -151,6 +153,7 @@ nav .header-nav nav ul li a {
   border-radius: 5px;
   font-size: 19px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .login .login-div form .login-register-button {
   width: 310px;
@@ -210,6 +213,8 @@ nav .header-nav nav ul li a {
   text-align: center;
   color: #666666;
   margin-bottom: 15px;
+  font-size: 24px;
+  height: 27px;
 }
 .register .register-div form input {
   height: 47px;
@@ -232,6 +237,7 @@ nav .header-nav nav ul li a {
   border-radius: 5px;
   font-size: 19px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 .register .register-div form .login-button {
   width: 310px;
@@ -401,17 +407,16 @@ main section .main-container .attractions-item-2 .p-right {
 
 footer {
   width: 100%;
-  height: 104px;
+  height: 100%;
   background-color: #757575;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 footer p {
+  margin: 45px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 14px;
   width: 234px;
   font-size: 16px;
   color: #ffffff;

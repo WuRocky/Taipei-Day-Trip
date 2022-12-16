@@ -1,5 +1,18 @@
 import re
 
-def email_regex():
-  regex = re.compile(r"([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\"([]!#-[^-~ \t]|(\\[\t -~]))+\")@([-!#-'*+/-9=?A-Z^-~]+(\.[-!#-'*+/-9=?A-Z^-~]+)*|\[[\t -Z^-~]*])")
+def name_regex():
+  regex = re.compile(r"([a-zA-Z0-9_\s]+).{2,}$")
   return regex
+
+def email_regex():
+  regex = re.compile(r"[a-z0-9A-Z]+@[a-z]+.[a-z]{2,3}")
+  return regex
+
+def passwor_regex():
+  regex = re.compile(r"([a-zA-Z0-9_\s]+).{2,}$")
+  return regex
+
+def numbers_regex():
+  numbers = re.compile('\d+')
+  return numbers
+

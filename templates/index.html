@@ -35,7 +35,7 @@
 				<a class="index-a" href="/">台北一日遊</a>
 				<nav>
 					<ul>
-						<li><a href="#">預定行程</a></li>
+						<li><a id="booking-trip">預定行程</a></li>
 						<!-- <li><a onclick="loginRegister()">登入/註冊</a></li> -->
 						<li><a id="login-register">登入/註冊</a></li>
 						<li><a id="logout-member">登出系統</a></li>
@@ -117,14 +117,13 @@
 		</header>
 
 		<main>
-			<section></section>
+			<section class="index-section"></section>
 		</main>
 
 		<footer>
 			<p>COPYRIGHT © 2022 台北一日遊</p>
 		</footer>
-		<!-- <script src="../static/js/index.js"></script> -->
 		<script src="{{ url_for('static', filename='js/index.js') }}"></script>
-		<script src="{{ url_for('static', filename='js/loginLogout.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/user.js') }}"></script>
 	</body>
 </html>

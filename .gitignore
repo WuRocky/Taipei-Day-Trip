@@ -139,3 +139,4 @@ cython_debug/
 
 # mySQL password
 /mySQL.py
+/jwt_password.py

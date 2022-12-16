@@ -1,6 +1,6 @@
 import jwt
 from datetime import *
-from password import *
+from jwt_password import *
 
 # jwt encode function
 def jwt_token(user_id, name, email): 

@@ -1,10 +1,8 @@
 const inputCategories = document.querySelector("#clicker");
 const hidden = document.querySelector("#hidden-div");
-const form = document.querySelector("form");
 const searchButton = document.querySelector("#search");
-const section = document.querySelector("section");
+const section = document.querySelector(".index-section");
 const footer = document.querySelector("footer");
-
 // infinite Scrolling defind Listener place
 const opition = {
 	root: null,
@@ -19,7 +17,7 @@ function createNawData(arr) {
 		const attractionsItem1 = document.createElement("div");
 		attractionsItem1.classList.add("attractions-item-1");
 
-		// add url
+		// // add url
 		const urlHref = window.location + "attraction/" + item["id"];
 
 		const aItme = document.createElement("a");
@@ -193,4 +191,30 @@ searchButton.addEventListener("click", (e) => {
 	}
 
 	keywordApi();
+});
+
+////////////////////////////////////////////////////////////////
+
+const bookingTrip = document.querySelector("#booking-trip");
+
+bookingTrip.addEventListener("click", (e) => {
+	const cookie = document.cookie.split("=");
+	const parser = cookie[1];
+	const url = "/api/user/auth";
+
+	// send cookie info to server (GET)
+	fetch(url, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data == null) {
+				login.style = flexStyle;
+			} else {
+				window.location.href = "/booking";
+			}
+		});
 });

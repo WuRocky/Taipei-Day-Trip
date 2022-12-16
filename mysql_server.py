@@ -22,19 +22,22 @@ def mysql():
       mycursor = connection.cursor()
       
       # if there is data in the database, delete the existing data
-      drop_data_SQL = """DROP TABLE IF EXISTS data,categories"""
+      drop_data_SQL = """DROP TABLE IF EXISTS data,categories,member,booking"""
       mycursor.execute(drop_data_SQL)
-
+      
       # create new data table
-      create_data_SQL = """create table data (id bigint primary key auto_increment, name varchar(255) not null, category varchar(255), description text, address varchar(255), transport text, mrt varchar(255), lat float, lng float, images text) """
+      create_data_SQL = """create table data (id bigint primary key auto_increment, name varchar(255) not null, category varchar(255), description text, address varchar(255), transport text, mrt varchar(255), lat float, lng float, images text)"""
       mycursor.execute(create_data_SQL)
-
+      
       # create new categories table to search for category
       create_categories_SQL = """create table categories (id bigint primary key auto_increment, category varchar(255) UNIQUE KEY);"""
       mycursor.execute(create_categories_SQL)
 
       create_member_SQL = """create table member (id bigint primary key auto_increment, name varchar(255) not null, email varchar(255) not null, password varchar(255) not null)"""
       mycursor.execute(create_member_SQL)
+      
+      create_booking_SQL = """create table booking (id  bigint primary key auto_increment, member_id bigint not null, attractionId bigint not null, booking_date varchar(255) not null, booking_time varchar(255) not null, booking_price Decimal not null, booking_price_text varchar(255) not null, booking_img text not null, foreign key (member_id) references member(id)); """
+      mycursor.execute(create_booking_SQL)
 
       data=json.load(file)
       clist = data["result"]["results"]
@@ -56,9 +59,7 @@ def mysql():
         
         mycursor.execute("""insert into data(name, category, description, address, transport,mrt,lat,lng,images) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)""",(item_name,item_category, item_description,item_address, item_transport,item_mrt,item_lat,item_lng,json.dumps(new_list)))
         mycursor.execute("""insert into categories(category) values(%s) on duplicate key update category=%s""",(item_category,item_category,))
-
       
-
       connection.commit()
   except:
     print("Unexpected Error")

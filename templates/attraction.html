@@ -27,7 +27,7 @@
 				<a class="index-a" href="/">台北一日遊</a>
 				<nav>
 					<ul>
-						<li><a href="#">預定行程</a></li>
+						<li><a id="booking-trip">預定行程</a></li>
 						<!-- <li><a onclick="loginRegister()">登入/註冊</a></li> -->
 						<li><a id="login-register">登入/註冊</a></li>
 						<li><a id="logout-member">登出系統</a></li>
@@ -110,7 +110,11 @@
 					<div class="attractions-name"></div>
 					<div class="attractions-mrt"></div>
 					<div class="attractions-travel">
-						<form>
+						<form
+							action="/api/booking"
+							method="GET"
+							class="attractions-travel-form"
+						>
 							<h4>訂購導覽行程</h4>
 							<p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
 
@@ -120,7 +124,7 @@
 							<label for="data-time" class="label-item">選擇時間：</label>
 							<input
 								type="radio"
-								id="morning"
+								id="morning-panel"
 								name="data-time"
 								checked="checked"
 								value="新台幣2000元"
@@ -128,7 +132,7 @@
 							<span>上半天</span>
 							<input
 								type="radio"
-								id="afternoon"
+								id="afternoon-panel"
 								name="data-time"
 								value="新台幣2500元"
 							/>
@@ -136,10 +140,11 @@
 							<br />
 
 							<label class="label-item">導覽費用：</label>
-							<p id="morning-panel" class="panel-style">新台幣 2000 元</p>
-							<p id="afternoon-panel" class="panel-style">新台幣 2500 元</p>
+							<span id="morning" class="panel-style">新台幣2000元</span>
 							<br />
-							<button type="submit">開始預約行程</button>
+							<button type="submit" id="attractions-booking-button">
+								開始預約行程
+							</button>
 						</form>
 					</div>
 				</div>
@@ -167,6 +172,7 @@
 		</footer>
 		<!-- <script src="../static/js/attraction.js"></script> -->
 		<script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
-		<script src="{{ url_for('static', filename='js/loginLogout.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/user.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/checkBook.js') }}"></script>
 	</body>
 </html>
