@@ -13,6 +13,8 @@ body {
 	position: relative;
 	display: flex; //啟用flex
 	flex-direction: column; //設定由上到下排列
+	// align-items: center;
+	// justify-content: center;
 }
 footer {
 	flex: 1;
@@ -297,12 +299,18 @@ nav {
 	justify-content: center;
 	height: 47px;
 }
-hr {
-	border: 0.5px solid #e8e8e8;
-	width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
-	display: none;
+.hr-item-1,
+.hr-item-2,
+.hr-item-3 {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	hr {
+		border: 0.5px solid #e8e8e8;
+		text-align: center;
+		width: 1200px;
+		margin: 0 10px;
+	}
 }
 ////////////////////////////////////////////////////
 
@@ -530,6 +538,21 @@ hr {
 }
 
 ////////////////////////////////////////////////////
+// @media screen and (max-width: 1200px) {
+// 	hr {
+// 		width: 100%;
+// 		justify-content: center;
+// 		align-items: center;
+// 		// max-width: 1200px;
+// 		margin: 0 -10px;
+// 		// padding: 0 -10px;
+// 		// margin-left: 10px;
+// 		// margin-right: 30px;
+// 		// margin-top: 50px;
+// 		// margin-bottom: 100px;
+// 		// padding-: ;
+// 	}
+// }
 
 @media screen and (max-width: 550px) {
 	.booking-attraction-section {
