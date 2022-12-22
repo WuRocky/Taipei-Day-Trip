@@ -1,0 +1,636 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans TC", sans-serif;
+	font-weight: bold;
+}
+
+body {
+	min-height: 100vh;
+	max-width: 1920px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+footer {
+	flex: 1;
+	width: 100%;
+	background-color: #757575;
+	display: flex;
+	justify-content: center;
+	p {
+		margin: 45px 0;
+		display: flex;
+		justify-content: center;
+		width: 234px;
+		font-size: 16px;
+		color: #ffffff;
+	}
+}
+///////////////////////////////////////////////
+
+//////////////////////////////////////////////
+///// *  index * /////
+nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	max-width: 1920px;
+	height: 54px;
+	border-bottom: 1px solid #e8e8e8;
+	.header-nav {
+		width: 1200px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 54px;
+		.index-a {
+			text-decoration: none;
+			font-size: 30px;
+			color: #448899;
+			margin: 10px 0;
+		}
+		nav {
+			ul {
+				display: flex;
+				list-style-type: none;
+				justify-content: space-around;
+				li {
+					font-size: 16px;
+					a {
+						color: #666666;
+						text-decoration: none;
+						margin: 10px;
+						font-weight: lighter;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}
+
+#logout-member #login-register {
+	color: #666666;
+	text-decoration: none;
+	margin: 10px;
+	font-weight: lighter;
+	cursor: pointer;
+}
+
+#img-item {
+	pointer-events: none;
+}
+
+#hidden-div {
+	position: absolute;
+	top: 51px;
+	height: 162px;
+	width: 400px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	grid-template-columns: repeat(3, 120px);
+	grid-auto-rows: 40px;
+	display: none;
+
+	.hidden-div-item {
+		padding: 10px 15px;
+		display: flex;
+		align-items: center;
+		color: #000000;
+		font-size: 14px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	.hidden-div-item:hover {
+		background-color: #e8e8e8;
+	}
+}
+
+///// * login * /////
+.login {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	z-index: 5;
+	// display: flex;
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	.login-div {
+		top: 80px;
+		width: 340px;
+		height: 275px;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		position: absolute;
+		border-radius: 5px;
+		.decorator-bar {
+			width: 340px;
+			height: 10px;
+			background: linear-gradient(90deg, #337788, #66aabb);
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+
+		form {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			width: 310px;
+			height: 235px;
+			margin: 15px;
+
+			.login-close {
+				position: absolute;
+				right: 17px;
+				cursor: pointer;
+			}
+			h2 {
+				text-align: center;
+				color: #666666;
+				margin-bottom: 15px;
+				font-size: 24px;
+				height: 27px;
+			}
+			input {
+				height: 47px;
+				width: 310px;
+				color: #757575;
+				border-radius: 5px;
+				font-weight: 500;
+				font-size: medium;
+				margin-bottom: 10px;
+				padding: 15px;
+				border: 1px solid #cccccc;
+			}
+			button {
+				width: 310px;
+				height: 47px;
+				background-color: #448899;
+				color: #ffffff;
+				font-weight: 300;
+				border-style: none;
+				border-radius: 5px;
+				font-size: 19px;
+				cursor: pointer;
+				margin-bottom: 10px;
+			}
+			.login-register-button {
+				width: 310px;
+				height: 22px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #666666;
+				font-weight: 500;
+				cursor: pointer;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+///// * Register Account * /////
+.register {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	z-index: 5;
+	// display: flex;
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	.register-div {
+		top: 80px;
+		width: 340px;
+		height: 332px;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		position: absolute;
+		border-radius: 5px;
+		.decorator-bar {
+			width: 340px;
+			height: 10px;
+			background: linear-gradient(90deg, #337788, #66aabb);
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+
+		form {
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			width: 310px;
+			height: 292px;
+			margin: 15px;
+
+			.register-close {
+				position: absolute;
+				right: 17px;
+				cursor: pointer;
+			}
+			h2 {
+				text-align: center;
+				color: #666666;
+				margin-bottom: 15px;
+				font-size: 24px;
+				height: 27px;
+			}
+			input {
+				height: 47px;
+				width: 310px;
+				color: #757575;
+				border-radius: 5px;
+				font-weight: 500;
+				font-size: medium;
+				margin-bottom: 10px;
+				padding: 15px;
+				border: 1px solid #cccccc;
+			}
+			button {
+				width: 310px;
+				height: 47px;
+				background-color: #448899;
+				color: #ffffff;
+				font-weight: 300;
+				border-style: none;
+				border-radius: 5px;
+				font-size: 19px;
+				cursor: pointer;
+				margin-bottom: 10px;
+			}
+			.login-button {
+				width: 310px;
+				height: 22px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #666666;
+				font-weight: 500;
+				cursor: pointer;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+#register-give-back {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 47px;
+}
+#login-give-back {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	height: 47px;
+}
+
+///// * message * /////
+.message {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	z-index: 5;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	.message-div {
+		top: 200px;
+		width: 240px;
+		height: 100px;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		position: absolute;
+		border-radius: 5px;
+		.decorator-bar {
+			width: 240px;
+			height: 10px;
+			background: linear-gradient(90deg, #337788, #66aabb);
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+		.message-content {
+			flex: 1;
+			font-size: 20px;
+			color: #666666;
+			font-weight: 600;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+.thankyou-section {
+	height: 81vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.thankyou-section-div {
+		background-color: #66aabb;
+		width: 70%;
+		height: 80%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		$dash-size: 5px;
+		$theme-color: #8c5838;
+		$fill-color: #7c6b60;
+		background: lighten(#d5b7a6, 20%);
+		border: $dash-size dashed $theme-color;
+		box-shadow: 0 0 0 ($dash-size / 2) darken($theme-color, 20%),
+			inset 0 0 0 ($dash-size / 2) darken($theme-color, 20%);
+
+		.card {
+			background: radial-gradient(#bbdaef, #6ba4d0);
+			margin: 20px;
+			padding: 20px;
+			width: 95%;
+			height: 90%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			border-radius: 10px;
+			transition: all 0.2s;
+			position: relative;
+			box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+			color: #666666;
+
+			.card-title {
+				position: relative;
+				font-weight: 700;
+				margin: 10px 0;
+				.card-icon {
+					position: absolute;
+					right: 150px;
+					bottom: 5px;
+					width: 50px;
+					height: 50px;
+				}
+				.thankyou-animation-div-item-2 {
+					position: absolute;
+					left: 100px;
+					bottom: 5px;
+					.gopher {
+						height: 15rem;
+						width: 15rem;
+					}
+
+					.gopher-animation,
+					.left-arm,
+					.right-arm,
+					.right-foot,
+					.left-foot,
+					.belly,
+					.shadow,
+					.left-eye,
+					.right-eye,
+					.mouth,
+					.tongue {
+						animation-duration: 4s;
+						animation-iteration-count: infinite;
+						animation-timing-function: linear;
+					}
+
+					.left-eye,
+					.right-eye {
+						animation-name: blink;
+					}
+
+					@keyframes blink {
+						0%,
+						18%,
+						100% {
+							visibility: hidden;
+						}
+						15% {
+							visibility: visible;
+						}
+					}
+
+					.mouth,
+					.tongue {
+						animation-name: shout;
+					}
+
+					@keyframes shout {
+						0%,
+						18%,
+						100% {
+							visibility: hidden;
+						}
+						10% {
+							visibility: visible;
+						}
+					}
+
+					.gopher-animation {
+						animation-name: jump;
+					}
+
+					@keyframes jump {
+						0%,
+						15%,
+						100% {
+							transform: translateY(0);
+						}
+						6% {
+							transform: translateY(5%);
+						}
+						12% {
+							transform: translateY(-30%);
+						}
+					}
+
+					.right-arm {
+						animation-name: rotateRightArm;
+						transform-box: fill-box;
+					}
+
+					@keyframes rotateRightArm {
+						0%,
+						6%,
+						18%,
+						100% {
+							transform: rotate(0deg);
+						}
+						13% {
+							transform: rotate(-120deg) translateX(-50%);
+						}
+					}
+
+					.left-arm {
+						animation-name: rotateLeftArm;
+						transform-box: fill-box;
+						transform-origin: top right;
+					}
+
+					@keyframes rotateLeftArm {
+						0%,
+						6%,
+						18%,
+						100% {
+							transform: rotate(0deg);
+						}
+						13% {
+							transform: rotate(120deg) translateX(50%);
+						}
+					}
+
+					.right-foot {
+						animation-name: bendRightFoot;
+						transform-origin: top left;
+					}
+
+					@keyframes bendRightFoot {
+						0%,
+						15%,
+						100% {
+							transform: translateY(0);
+						}
+						6% {
+							transform: translateY(-3%);
+						}
+						12% {
+							transform: translateY(5%) rotate(-5deg);
+						}
+					}
+
+					.left-foot {
+						animation-name: bendLeftFoot;
+						transform-origin: top right;
+					}
+
+					@keyframes bendLeftFoot {
+						0%,
+						15%,
+						100% {
+							transform: translateY(0);
+						}
+						6% {
+							transform: translateY(-3%);
+						}
+						12% {
+							transform: translateY(5%) rotate(5deg);
+						}
+					}
+
+					.belly {
+						animation-name: bounce;
+					}
+
+					@keyframes bounce {
+						0%,
+						10%,
+						15%,
+						18%,
+						100% {
+							transform: translateY(0);
+						}
+						6% {
+							transform: translateY(1%);
+						}
+						12% {
+							transform: translateY(-2%);
+						}
+						16% {
+							transform: translateY(1%);
+						}
+					}
+
+					.shadow {
+						animation-name: scaleShadow;
+						transform-origin: center center;
+						transform: scaleX(1);
+					}
+
+					@keyframes scaleShadow {
+						0%,
+						8%,
+						15%,
+						100% {
+							transform: scaleX(1);
+						}
+						12% {
+							transform: scaleX(0.65);
+						}
+					}
+				}
+			}
+			.card-item-1 {
+				font-weight: 700;
+				margin: 20px 0 30px 0;
+			}
+			.order-number {
+				margin-bottom: 50px;
+			}
+
+			p {
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.header-nav {
+		margin: 0 10px;
+	}
+	.thankyou-section {
+		.thankyou-section-div {
+			.card {
+				.card-title {
+					.thankyou-animation-div-item-2 {
+						.gopher {
+							height: 10rem;
+							width: 10rem;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.thankyou-section {
+		.thankyou-section-div {
+			margin: 0 10px;
+			width: 100%;
+			.card {
+				.card-title {
+					.thankyou-animation-div-item-2 {
+						.gopher {
+							height: 9rem;
+							width: 9rem;
+						}
+					}
+				}
+				p {
+					text-align: center;
+				}
+			}
+		}
+	}
+}

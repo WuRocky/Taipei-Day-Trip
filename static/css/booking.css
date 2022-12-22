@@ -285,6 +285,45 @@ nav .header-nav nav ul li a {
   height: 47px;
 }
 
+.message {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  z-index: 5;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.message .message-div {
+  top: 200px;
+  width: 240px;
+  height: 100px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  border-radius: 5px;
+}
+.message .message-div .decorator-bar {
+  width: 240px;
+  height: 10px;
+  background: linear-gradient(90deg, #337788, #66aabb);
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+.message .message-div .message-content {
+  flex: 1;
+  font-size: 20px;
+  color: #666666;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .hr-item-1,
 .hr-item-2,
 .hr-item-3 {
@@ -361,6 +400,36 @@ nav .header-nav nav ul li a {
 .booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img {
   width: 266px;
   margin-right: 22px;
+  position: relative;
+}
+.booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  top: 50px;
+}
+.booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update p {
+  top: 50px;
+  color: #448899;
+  position: absolute;
+}
+.booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update div {
+  width: 1rem;
+  height: 1rem;
+  margin: 2rem 0.3rem;
+  background: #448899;
+  border-radius: 50%;
+  -webkit-animation: 0.9s bounce infinite alternate;
+          animation: 0.9s bounce infinite alternate;
+}
+.booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update div:nth-child(2) {
+  -webkit-animation-delay: 0.3s;
+          animation-delay: 0.3s;
+}
+.booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update div:nth-child(3) {
+  -webkit-animation-delay: 0.6s;
+          animation-delay: 0.6s;
 }
 .booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img img {
   width: 100%;
@@ -450,6 +519,16 @@ nav .header-nav nav ul li a {
 }
 .booking-credit-card-section .booking-credit-card-div .booking-credit-card-div-item form div {
   margin: 15px 0 15px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.booking-credit-card-section .booking-credit-card-div .booking-credit-card-div-item form div .tpfield {
+  width: 200px;
+  height: 38px;
+  border: 1px solid gray;
+  margin: 5px 0;
+  padding: 10px;
 }
 .booking-credit-card-section .booking-credit-card-div .booking-credit-card-div-item form div input {
   width: 200px;
@@ -487,7 +566,7 @@ nav .header-nav nav ul li a {
   margin-bottom: 25px;
   color: #666666;
 }
-.booking-info-section .booking-info-div .booking-info-div-item .booking-info-div-button button {
+.booking-info-section .booking-info-div .booking-info-div-item .booking-info-div-button .btn {
   width: 173px;
   height: 36px;
   font-size: 16px;
@@ -496,6 +575,11 @@ nav .header-nav nav ul li a {
   border-radius: 5px;
   border-style: none;
   font-weight: 400;
+  cursor: pointer;
+}
+.booking-info-section .booking-info-div .booking-info-div-item .booking-info-div-button .btn[disabled] {
+  cursor: not-allowed;
+  opacity: 0.65;
 }
 
 @media screen and (max-width: 550px) {

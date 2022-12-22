@@ -203,11 +203,18 @@ def book_aip_delete():
     # get token data info user_id
     data = jwt_decod_token["data"]
     user_id = data["id"]
-
-    # delete booking data
-    mycursor.execute("""DELETE FROM booking WHERE member_id = %s;""",(user_id,))
-    connection.commit()
-    return jsonify(success()),200
+    user_name = data["name"]
+    request_api = request.json
+    user_name_web = request_api["userName"]
+    
+    if user_name != user_name_web:
+      mes = "沒有權限"
+      return error(mes),403
+    else:
+      # delete booking data
+      mycursor.execute("""DELETE FROM booking WHERE member_id = %s;""",(user_id,))
+      connection.commit()
+      return jsonify(success()),200
   except:
     mes = "伺服器錯誤"
     return jsonify(error(mes)),404

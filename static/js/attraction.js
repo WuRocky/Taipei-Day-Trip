@@ -2,70 +2,89 @@
 const urlParse = window.location.pathname.split("/").pop();
 ///// * add the id to the URL of the api * /////
 const url = "/api/attractions/" + urlParse;
+// const imgUpdate = document.querySelector(".img-update");
 
 ///// * create attraction container * /////
 async function attractionData() {
 	// fetch categories id url api and convert to json format
-	let attractionData = await fetch(url);
-	let attractionDataJson = await attractionData.json();
-	let attractionDataApi = attractionDataJson["data"];
+	const attractionData = await fetch(url);
+	const attractionDataJson = await attractionData.json();
+	const attractionDataApi = attractionDataJson["data"];
 
 	// separate the content of each API
-	let nameApi = attractionDataApi["name"];
-	let mrtApi = attractionDataApi["mrt"];
-	let categoryApi = attractionDataApi["category"];
-	let addressApi = attractionDataApi["address"];
-	let transportApi = attractionDataApi["transport"];
-	let descriptionApi = attractionDataApi["description"];
-	let imagesApi = attractionDataApi["images"];
+	const nameApi = attractionDataApi["name"];
+	const mrtApi = attractionDataApi["mrt"];
+	const categoryApi = attractionDataApi["category"];
+	const addressApi = attractionDataApi["address"];
+	const transportApi = attractionDataApi["transport"];
+	const descriptionApi = attractionDataApi["description"];
+	const imagesApi = attractionDataApi["images"];
 
 	///// * add api to content * /////
-	let attractionsName = document.querySelector(".attractions-name");
-	let attractionsNameH2 = document.createElement("h2");
+	const attractionsName = document.querySelector(".attractions-name");
+	const attractionsNameH2 = document.createElement("h2");
 	attractionsNameH2.innerText = nameApi;
 	attractionsName.appendChild(attractionsNameH2);
 
-	let attractionsMrt = document.querySelector(".attractions-mrt");
-	let attractionsMrtP = document.createElement("p");
+	const attractionsMrt = document.querySelector(".attractions-mrt");
+	const attractionsMrtP = document.createElement("p");
 	attractionsMrtP.innerText = categoryApi + " at " + mrtApi;
 	attractionsMrt.appendChild(attractionsMrtP);
 
-	let attractionsDescribeItme1 = document.querySelector(
+	const attractionsDescribeItme1 = document.querySelector(
 		".attractions-describe-itme-1"
 	);
 	attractionsDescribeItme1.innerText = descriptionApi;
 
-	let attractionsDescribeItme2 = document.querySelector(
+	const attractionsDescribeItme2 = document.querySelector(
 		".attractions-describe-itme-2 p"
 	);
 	attractionsDescribeItme2.innerText = addressApi;
 
-	let ttractionsDescribeItme3 = document.querySelector(
+	const tractionsDescribeItme3 = document.querySelector(
 		".attractions-describe-itme-3 p"
 	);
-	ttractionsDescribeItme3.innerText = transportApi;
+	tractionsDescribeItme3.innerText = transportApi;
 
-	let attractionsImgDiv = document.querySelector(".attractions-img-div");
+	const attractionsImgDiv = document.querySelector(".attractions-img-div");
 
 	// add css for each image separately
 	imagesApi.forEach((item) => {
 		// add carousel effect css
-		let attractionsImgDivContainer = document.createElement("div");
+		const attractionsImgDivContainer = document.createElement("div");
 		attractionsImgDivContainer.classList.add("slides");
 		attractionsImgDivContainer.classList.add("effect");
 		attractionsImgDivContainer.id = "booking-img";
 
-		// add a few pictures
-		let attractionsImgSrcContainer = document.createElement("img");
-		attractionsImgSrcContainer.src = item;
-		// attractionsImgSrcContainer.rel = "preload";
+		const imgUpdate = document.createElement("div");
+		imgUpdate.classList.add("img-update");
+		const imgUpdateItem1 = document.createElement("div");
+		const imgUpdateItem2 = document.createElement("div");
+		const imgUpdateItem3 = document.createElement("div");
+		const imgUpdateItemP = document.createElement("P");
+		imgUpdateItemP.innerText = "Loading..";
+		imgUpdate.appendChild(imgUpdateItem1);
+		imgUpdate.appendChild(imgUpdateItem2);
+		imgUpdate.appendChild(imgUpdateItem3);
+		imgUpdate.appendChild(imgUpdateItemP);
+		attractionsImgDivContainer.appendChild(imgUpdate);
 
-		attractionsImgDivContainer.appendChild(attractionsImgSrcContainer);
+		// Preload image
+		const attractionsImgs = new Image();
+		attractionsImgs.src = item;
+
+		attractionsImgs.onload = function () {
+			attractionsImgDivContainer.appendChild(attractionsImgs);
+			if (attractionsImgs.complete) {
+				imgUpdate.style = "display:none";
+			}
+		};
+
 		attractionsImgDiv.appendChild(attractionsImgDivContainer);
 
 		// decide how many dot
-		let dotItem = document.querySelector(".dot-item");
-		let dotItemSpan = document.createElement("span");
+		const dotItem = document.querySelector(".dot-item");
+		const dotItemSpan = document.createElement("span");
 		dotItemSpan.classList.add("dot");
 		dotItem.appendChild(dotItemSpan);
 	});
@@ -73,13 +92,13 @@ async function attractionData() {
 	///// * carousel function * /////
 
 	// click prev "<" page to go back one step
-	let prev = document.querySelector(".prev");
+	const prev = document.querySelector(".prev");
 	prev.addEventListener("click", function () {
 		plusSlides(-1);
 	});
 
 	// click next ">" page go in the next step
-	let next = document.querySelector(".next");
+	const next = document.querySelector(".next");
 	next.addEventListener("click", function () {
 		plusSlides(1);
 	});
@@ -89,12 +108,12 @@ async function attractionData() {
 		let i;
 
 		// check how many pictures
-		let slides = document.querySelectorAll(
+		const slides = document.querySelectorAll(
 			".attractions-section .attractions-card .attractions-img-div .slides"
 		);
 
 		// check how many dot
-		let dots = document.querySelectorAll(
+		const dots = document.querySelectorAll(
 			".attractions-section .attractions-card .attractions-img-div .dot-item .dot"
 		);
 
@@ -141,9 +160,8 @@ attractionData();
 const attrctionForm = document.querySelector(".attractions-travel-form");
 const timePanel = document.querySelector(".panel-style");
 attrctionForm.addEventListener("change", function (e) {
-	let attributes = e.target.attributes;
-	let target = e.target;
-	let message;
+	const attributes = e.target.attributes;
+	const target = e.target;
 	if (attributes["name"].value == "data-time") {
 		switch (target.id) {
 			case "morning-panel":
@@ -209,6 +227,9 @@ attractionsBookingForm.addEventListener("click", (e) => {
 	const id = window.location.pathname.split("/").pop();
 	const img = document.querySelector("#booking-img img").src;
 
+	const message = document.querySelector(".message");
+	const messageContent = document.querySelector(".message-content");
+
 	// get booking server data
 	fetch(urlBookApi, {
 		method: "POST",
@@ -232,10 +253,23 @@ attractionsBookingForm.addEventListener("click", (e) => {
 				login.style = flexStyle;
 			} else if (date == "") {
 				// if not choose date remind
-				alert(api.message);
+				message.style = "display :flex;";
+				messageContent.innerText = api.message;
+				message.addEventListener("click", (e) => {
+					if (message.style.display == "flex") {
+						message.style = "display :none";
+					}
+				});
 			} else {
 				// if booked successfully move to booking page
-				alert("預定成功");
+				message.style = "display :flex;";
+				messageContent.innerText = "預定成功";
+				messageContent.style = "color : #666666";
+				message.addEventListener("click", (e) => {
+					if (message.style.display == "flex") {
+						message.style = "display :none";
+					}
+				});
 				setTimeout(() => (location.href = urlBook), 1000);
 			}
 		});

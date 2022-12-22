@@ -26,8 +26,6 @@
 			rel="stylesheet"
 			href="{{ url_for('static', filename='css/style.css') }}"
 		/>
-
-		<!-- <link rel="stylesheet" href="/static/css/style.css" /> -->
 	</head>
 	<body>
 		<nav>
@@ -36,7 +34,6 @@
 				<nav>
 					<ul>
 						<li><a id="booking-trip">預定行程</a></li>
-						<!-- <li><a onclick="loginRegister()">登入/註冊</a></li> -->
 						<li><a id="login-register">登入/註冊</a></li>
 						<li><a id="logout-member">登出系統</a></li>
 					</ul>
@@ -93,7 +90,7 @@
 			</div>
 		</div>
 
-		<header>
+		<header class="homepage-header">
 			<div class="header-section">
 				<h1>輕鬆享受台北一日悠閒</h1>
 				<p>探索每個角落，體驗城市的深度旅遊行程</p>
@@ -106,13 +103,15 @@
 							alt="search"
 							id="img-item"
 						/>
-						<!-- <img
-							src="/static/images/icon_search.png"
-							alt="search"
-							id="img-item"
-						/> -->
 					</button>
 				</form>
+			</div>
+
+			<div class="img-update">
+				<div></div>
+				<div></div>
+				<div></div>
+				<p>Loading..</p>
 			</div>
 		</header>
 
