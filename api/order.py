@@ -84,7 +84,7 @@ def order_api_post():
       mycursor.execute("""
         insert into orders (
         order_number,
-        order_mamber_id,
+        order_member_id,
         prime, 
         price, 
         id,
@@ -184,7 +184,7 @@ def order_api_post():
         # add completed order_done database
         mycursor.execute("""
         insert into orders_done (
-        order_mamber_id,
+        order_member_id,
         order_number,
         price, 
         id,
@@ -246,6 +246,7 @@ def order_api_get():
 
     # check if there is any data in the orders_done database
     mycursor.execute("""select 
+    order_member_id,
     order_number,
     price,
     id,
@@ -268,6 +269,7 @@ def order_api_get():
       return jsonify(error(mes)),400
     
     # get orders_done info
+    order_member=orders_done_number_reuslt["order_member_id"]
     orders_done_number=orders_done_number_reuslt["order_number"]
     price=orders_done_number_reuslt["price"]
     id=orders_done_number_reuslt["id"]
@@ -282,7 +284,14 @@ def order_api_get():
     status=orders_done_number_reuslt["status"]
     
     # search orders database order number
-    mycursor.execute("""select order_number from orders where order_number= %s""",(orders_done_number,))
+    mycursor.execute("""select 
+    order_number 
+    from 
+    orders 
+    where 
+    order_number= %s
+    """,
+    (orders_done_number,))
     orders_number_reuslt = mycursor.fetchone()
 
     # check the order number of the orders and orders_done database and modify the orders database to done
@@ -290,6 +299,15 @@ def order_api_get():
     if orders_number == orders_done_number:
       mycursor.execute("""UPDATE orders set status=%s where order_number=%s""",("done",orders_done_number))
       connection.commit()
+    
+    mycursor.execute("""delete 
+    from 
+    booking 
+    where 
+    member_id = %s;
+    """,
+    (order_member,))
+
 
     # return the orders_done data to the front end
     get_order_number_info = {
@@ -314,6 +332,7 @@ def order_api_get():
         "status": status
       }
     }
+    connection.commit()
     return jsonify(get_order_number_info)
   except:
     mes = "伺服器錯誤"

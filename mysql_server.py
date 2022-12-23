@@ -81,7 +81,7 @@ def mysql():
       # create new categories table order_undone
       create_order_SQL = """CREATE TABLE orders (
         order_id bigint primary key auto_increment,
-        order_mamber_id bigint,
+        order_member_id bigint,
         order_number VARCHAR(255) NOT NULL,
         status VARCHAR(255) NOT NULL DEFAULT 'undone',
         prime text NOT NULL,
@@ -95,7 +95,7 @@ def mysql():
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(255) NOT NULL,
-        foreign key (order_mamber_id) 
+        foreign key (order_member_id) 
         references member(id));
         """
       mycursor.execute(create_order_SQL)
@@ -103,7 +103,7 @@ def mysql():
       # create new categories table order_undone
       create_order_done_SQL = """CREATE TABLE orders_done (
         order_id bigint primary key auto_increment,
-        order_mamber_id bigint,
+        order_member_id bigint,
         order_number VARCHAR(255) NOT NULL,
         price  Decimal NOT NULL,
         id bigint NOT NULL,
@@ -116,7 +116,7 @@ def mysql():
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(255) NOT NULL,
         status VARCHAR(255) NOT NULL DEFAULT '1',
-        foreign key (order_mamber_id) 
+        foreign key (order_member_id) 
         references member(id));
         """
       mycursor.execute(create_order_done_SQL)

@@ -45,3 +45,27 @@ fetch(apiOthor, {
 		///// * get the data and order number return by the backend add to screen * ////
 		getOrderNumber.innerHTML = api.data["number"];
 	});
+
+const bookingTrip = document.querySelector("#booking-trip");
+
+bookingTrip.addEventListener("click", (e) => {
+	const cookie = document.cookie.split("=");
+	const parser = cookie[1];
+	const url = "/api/user/auth";
+
+	// send cookie info to server (GET)
+	fetch(url, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data == null) {
+				login.style = flexStyle;
+			} else {
+				window.location.href = "/booking";
+			}
+		});
+});
