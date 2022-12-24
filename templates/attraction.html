@@ -79,21 +79,18 @@
 			</div>
 		</div>
 
+		<!-- ///// * message * ///// -->
+		<div class="message">
+			<div class="message-div">
+				<div class="decorator-bar"></div>
+				<div class="message-content"></div>
+			</div>
+		</div>
+
 		<section class="attractions-section">
 			<div class="attractions-card">
 				<div class="attractions-img-div">
 					<div class="dot-item"></div>
-					<!-- <img
-						class="prev"
-						src="../static/images/btn_leftArrow.png"
-						alt="prev"
-					/>
-					<img
-						class="next"
-						src="../static/images/btn_rightArrow.png"
-						alt="next"
-					/> -->
-
 					<img
 						class="prev"
 						src="{{ url_for('static', filename='images/btn_leftArrow.png') }}"
@@ -170,7 +167,6 @@
 		<footer>
 			<p>COPYRIGHT © 2022 台北一日遊</p>
 		</footer>
-		<!-- <script src="../static/js/attraction.js"></script> -->
 		<script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/user.js') }}"></script>
 		<script src="{{ url_for('static', filename='js/checkBook.js') }}"></script>

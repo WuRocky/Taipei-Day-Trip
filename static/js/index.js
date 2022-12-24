@@ -10,12 +10,44 @@ const opition = {
 	threshold: 0,
 };
 
+const imgUpdate = document.querySelector(".img-update");
+const homepageHeaderImage = document.querySelector(".homepage-header");
+const loadImage = document.createElement("img");
+const image = new Image();
+image.classList.add("homepage-header-img");
+
+image.onload = () => {
+	if (image.complete) {
+		homepageHeaderImage.appendChild(image);
+
+		imgUpdate.style = "display:none";
+	} else {
+		homepageHeaderImage.appendChild(loadImage);
+	}
+};
+image.src = `../images/welcome.png`;
+
 ///// * create container * /////
 function createNawData(arr) {
 	arr.forEach((item) => {
 		// div-1
 		const attractionsItem1 = document.createElement("div");
 		attractionsItem1.classList.add("attractions-item-1");
+
+		const imgUpdateItem1 = document.createElement("div");
+		imgUpdateItem1.classList.add("img-update-item1");
+
+		const divItem1 = document.createElement("div");
+		const divItem2 = document.createElement("div");
+		const divItem3 = document.createElement("div");
+
+		const divItemh1 = document.createElement("p");
+		divItemh1.innerText = "Loading..";
+
+		imgUpdateItem1.appendChild(divItem1);
+		imgUpdateItem1.appendChild(divItem2);
+		imgUpdateItem1.appendChild(divItem3);
+		imgUpdateItem1.appendChild(divItemh1);
 
 		// // add url
 		const urlHref = window.location + "attraction/" + item["id"];
@@ -24,16 +56,30 @@ function createNawData(arr) {
 		aItme.classList.add("a-itme");
 		aItme.href = urlHref;
 
-		const imgItem1 = document.createElement("img");
-		imgItem1.classList.add("main-imgs");
-		imgItem1.src = item["images"][0];
+		// Preload image
+		const imgMainImgs = new Image();
+		imgMainImgs.src = item["images"][0];
+
+		// Wait for image to load before adding it to the DOM
+		imgMainImgs.onload = function () {
+			const imgItem1 = document.createElement("img");
+			imgItem1.classList.add("main-imgs");
+			imgItem1.src = item["images"][0];
+			aItme.appendChild(imgItem1);
+
+			if (imgMainImgs.complete) {
+				imgUpdateItem1.style = "display:none";
+			}
+		};
 
 		const pItem1 = document.createElement("p");
 		pItem1.classList.add("main-name-p");
 		pItem1.innerText = item["name"];
 
-		aItme.appendChild(imgItem1);
+		// aItme.appendChild(imgItem1);
 		aItme.appendChild(pItem1);
+		attractionsItem1.appendChild(imgUpdateItem1);
+		attractionsItem1.appendChild(imgUpdateItem1);
 		attractionsItem1.appendChild(aItme);
 
 		// div-2

@@ -1,9 +1,11 @@
 
 from flask import *
 
-from api.attractions.attractions_id_api import attractions_api
-from api.auth.api_user import user_api
-from api.booking.booking import booking_api
+from api.attractions_id_api import attractions_api
+from api.api_user import user_api
+from api.booking import booking_api
+from api.order import order_api
+
 app=Flask(
   __name__,
   static_folder="static", 
@@ -33,7 +35,7 @@ def thankyou():
 app.register_blueprint(attractions_api)
 app.register_blueprint(user_api)
 app.register_blueprint(booking_api)
-
+app.register_blueprint(order_api)
 
 if __name__ == "__main__": 
   # app.run(port=3000,debug=True)
