@@ -43,7 +43,7 @@ fetch(apiOthor, {
 	.then((response) => response.json())
 	.then((api) => {
 		///// * get the data and order number return by the backend add to screen * ////
-		getOrderNumber.innerHTML = api.data["number"];
+		getOrderNumber.innerHTML = api.data["number"][0];
 	});
 
 const bookingTrip = document.querySelector("#booking-trip");

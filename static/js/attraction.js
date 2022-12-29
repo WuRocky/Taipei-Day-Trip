@@ -260,6 +260,15 @@ attractionsBookingForm.addEventListener("click", (e) => {
 						message.style = "display :none";
 					}
 				});
+			} else if (api.error) {
+				// if repeat booking show error
+				message.style = "display :flex;";
+				messageContent.innerText = api.message;
+				message.addEventListener("click", (e) => {
+					if (message.style.display == "flex") {
+						message.style = "display :none";
+					}
+				});
 			} else {
 				// if booked successfully move to booking page
 				message.style = "display :flex;";

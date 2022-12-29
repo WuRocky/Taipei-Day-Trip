@@ -128,7 +128,7 @@ def mysql():
         split_url = item_file.split("https://")
         
         item_name = item["name"] # name
-        item_category = item["CAT"].replace(u"\u3000","")  # category
+        item_category = item["CAT"]  # category
         item_description = re.sub(r'\n', '',item["description"]) # description
         item_address = item["address"].replace(" ", "")  # address
         item_transport = item["direction"] # transport

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Taipei-Day-Trip</title>
+		<meta name="robots" content="index, follow" />
+		<base target="_self" />
+		<meta name="description" content="台北一日遊網站" />
+		<meta name="author" content="Rocky Wu" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+			integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			type="text/css"
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/base.css') }}"
+		/>
+		{% block css %}{% endblock %} {% block basecss %}{% endblock %}
+	</head>
+	<body>
+		<nav>
+			<div class="header-nav">
+				<a class="h2-style" href="/">台北一日遊</a>
+				<div>
+					<ul>
+						<li>
+							<a id="booking-trip"
+								><img
+									src="{{ url_for('static', filename='images/shopping-cart.png') }}"
+								/>
+							</a>
+						</li>
+						<li>
+							<a id="login-register"
+								><img src="{{ url_for('static', filename='images/user.png') }}"
+							/></a>
+						</li>
+						<li>
+							<a id="logout-member"
+								><img
+									src="{{ url_for('static', filename='images/logout.png') }}"
+							/></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- ///// * login * ///// -->
+		<div class="login">
+			<div class="login-div">
+				<div class="decorator-bar"></div>
+				<form class="login-form">
+					<div class="login-close">
+						<img
+							src="{{ url_for('static', filename='images/icon_close.png') }}"
+							alt="close"
+						/>
+					</div>
+					<h3 class="h3-style-bold">登入會員帳號</h3>
+					<input type="email" placeholder="輸入電子信箱" name="email" />
+					<input type="password" placeholder="輸入密碼" name="password" />
+					<button class="login-div-button btn-style-regular">登入帳戶</button>
+					<div id="login-give-back"></div>
+					<div class="login-register-button">還沒有帳戶？點此註冊</div>
+				</form>
+			</div>
+		</div>
+
+		<!-- ///// * Register Account * ///// -->
+		<div class="register">
+			<div class="register-div">
+				<div class="decorator-bar"></div>
+				<form class="register-form">
+					<div class="register-close">
+						<img
+							src="{{ url_for('static', filename='images/icon_close.png') }}"
+							alt="close"
+						/>
+					</div>
+					<h2>註冊會員帳號</h2>
+					<input type="text" placeholder="輸入姓名" name="name" required />
+					<input type="email" placeholder="輸入電子郵件" name="email" />
+					<input
+						type="password"
+						placeholder="輸入密碼"
+						name="password"
+						minlength="8"
+						required
+					/>
+					<button class="register-div-button">註冊新帳號</button>
+					<div id="register-give-back"></div>
+					<div class="login-button">已經有帳戶了？點此登入</div>
+				</form>
+			</div>
+		</div>
+		<!-- ///// * message * ///// -->
+		<div class="message">
+			<div class="message-div">
+				<div class="decorator-bar"></div>
+				<div class="message-content"></div>
+			</div>
+		</div>
+		{% block main %}{% endblock %}
+
+		<footer>
+			<p>COPYRIGHT © 2022 台北一日遊</p>
+		</footer>
+	</body>
+	{% block script %}{% endblock %}
+</html>

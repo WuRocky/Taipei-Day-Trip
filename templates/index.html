@@ -1,128 +1,42 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Taipei-Day-Trip</title>
-		<meta name="robots" content="index, follow" />
-		<base target="_self" />
-		<meta name="description" content="台北一日遊網站" />
-		<meta name="author" content="Rocky Wu" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-			integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
-		/>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;700&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			type="text/css"
-			rel="stylesheet"
-			href="{{ url_for('static', filename='css/style.css') }}"
-		/>
-	</head>
-	<body>
-		<nav>
-			<div class="header-nav">
-				<a class="index-a" href="/">台北一日遊</a>
-				<nav>
-					<ul>
-						<li><a id="booking-trip">預定行程</a></li>
-						<li><a id="login-register">登入/註冊</a></li>
-						<li><a id="logout-member">登出系統</a></li>
-					</ul>
-				</nav>
-			</div>
-		</nav>
+{% extends "base.html" %} {% block css %}
+<link
+	type="text/css"
+	rel="stylesheet"
+	href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %} {% block main %}
+<!-- ///// *  homepage-header * ///// -->
+<header class="homepage-header">
+	<div class="header-section">
+		<h1>輕鬆享受台北一日悠閒</h1>
+		<p>探索每個角落，體驗城市的深度旅遊行程</p>
+		<form>
+			<input id="clicker" type="search" placeholder="輸入景點名稱查詢" />
+			<div id="hidden-div"></div>
+			<button id="search">
+				<img
+					src="{{ url_for('static', filename='images/icon_search.png') }}"
+					alt="search"
+					id="img-item"
+				/>
+			</button>
+		</form>
+	</div>
 
-		<!-- ///// * login * ///// -->
-		<div class="login">
-			<div class="login-div">
-				<div class="decorator-bar"></div>
-				<form class="login-form">
-					<div class="login-close">
-						<img
-							src="{{ url_for('static', filename='images/icon_close.png') }}"
-							alt="close"
-						/>
-					</div>
-					<h2>登入會員帳號</h2>
-					<input type="email" placeholder="輸入電子信箱" name="email" />
-					<input type="password" placeholder="輸入密碼" name="password" />
-					<button class="login-div-button">登入帳戶</button>
-					<div id="login-give-back"></div>
-					<div class="login-register-button">還沒有帳戶？點此註冊</div>
-				</form>
-			</div>
-		</div>
+	<div class="img-update">
+		<div></div>
+		<div></div>
+		<div></div>
+		<p>Loading..</p>
+	</div>
+</header>
 
-		<!-- ///// * Register Account * ///// -->
-		<div class="register">
-			<div class="register-div">
-				<div class="decorator-bar"></div>
-				<form class="register-form">
-					<div class="register-close">
-						<img
-							src="{{ url_for('static', filename='images/icon_close.png') }}"
-							alt="close"
-						/>
-					</div>
-					<h2>註冊會員帳號</h2>
-					<input type="text" placeholder="輸入姓名" name="name" required />
-					<input type="email" placeholder="輸入電子郵件" name="email" />
-					<input
-						type="password"
-						placeholder="輸入密碼"
-						name="password"
-						minlength="8"
-						required
-					/>
-					<button class="register-div-button">註冊新帳號</button>
-					<div id="register-give-back"></div>
-					<div class="login-button">已經有帳戶了？點此登入</div>
-				</form>
-			</div>
-		</div>
+<!-- ///// *  homepage-section-main * ///// -->
+<section class="homepage-section-main">
+	<div class="index-section"></div>
+</section>
 
-		<header class="homepage-header">
-			<div class="header-section">
-				<h1>輕鬆享受台北一日悠閒</h1>
-				<p>探索每個角落，體驗城市的深度旅遊行程</p>
-				<form>
-					<input id="clicker" type="search" placeholder="輸入景點名稱查詢" />
-					<div id="hidden-div"></div>
-					<button id="search">
-						<img
-							src="{{ url_for('static', filename='images/icon_search.png') }}"
-							alt="search"
-							id="img-item"
-						/>
-					</button>
-				</form>
-			</div>
-
-			<div class="img-update">
-				<div></div>
-				<div></div>
-				<div></div>
-				<p>Loading..</p>
-			</div>
-		</header>
-
-		<main>
-			<section class="index-section"></section>
-		</main>
-
-		<footer>
-			<p>COPYRIGHT © 2022 台北一日遊</p>
-		</footer>
-		<script src="{{ url_for('static', filename='js/index.js') }}"></script>
-		<script src="{{ url_for('static', filename='js/user.js') }}"></script>
-	</body>
-</html>
+{% endblock %} {% block script %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user.js') }}"></script>
+{% endblock %}
