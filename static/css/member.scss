@@ -1,0 +1,469 @@
+///// * member section * /////
+.member-sectoion {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: white;
+	.member-section-div {
+		width: 1200px;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		grid-gap: 10px;
+
+		.calendar-title {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			color: #448899;
+			margin: 10px 0;
+			width: 100%;
+			font-size: 1.5rem;
+			.calendar-control {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 50px;
+				width: 100%;
+				font-size: 16px;
+				color: #448899;
+				background-color: rgb(223, 223, 223);
+				user-select: none;
+				cursor: pointer;
+				.calendar-control-2 {
+					display: none;
+				}
+			}
+		}
+
+		.member-info-div {
+			flex: 1;
+			width: 100%;
+			padding: 10px;
+
+			.member-info-div-title {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				color: #448899;
+				margin: 10px 0;
+				font-size: 1.5rem;
+			}
+			.member-info-div-info {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+
+				flex-direction: column;
+
+				.member-info-div-info-item {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100%;
+					margin: 20px 0;
+					.picture {
+						width: 50%;
+						margin: 10px;
+						position: relative;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.picture-div {
+							height: 20vh;
+							width: 100%;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							img {
+								border-radius: 50%;
+								width: 15vw;
+								height: 15vw;
+							}
+						}
+						.modify-picture {
+							position: absolute;
+							right: 100px;
+							top: -30px;
+							height: 30px;
+							width: 30px;
+							cursor: pointer;
+						}
+						// div {
+						// 	img {
+						// 		border-radius: 50%;
+						// 		width: 15vw;
+						// 		height: 15vw;
+						// 	}
+						// }
+					}
+					.member-info-name-email {
+						display: flex;
+						width: 50%;
+						height: 100%;
+						justify-content: center;
+						grid-gap: 15px;
+						flex-direction: column;
+						text-align: center;
+						margin: 10px;
+						font-size: 20px;
+						color: #666666;
+						position: relative;
+						.modify-info {
+							position: absolute;
+							right: 150px;
+							top: 0;
+							cursor: pointer;
+						}
+						.member-info-name-email-itme {
+							display: flex;
+							width: 100%;
+							font-size: 1.5rem;
+						}
+					}
+				}
+			}
+		}
+
+		.memrber-booking {
+			// background-color: aquamarine;
+			flex: 1;
+			width: 100%;
+			padding: 10px;
+			.booking-title {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				color: #448899;
+				margin: 10px 0;
+				font-size: 1.5rem;
+			}
+			.booking-control {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				// flex-direction: column;
+				height: 50px;
+				color: #448899;
+				background-color: rgb(223, 223, 223);
+				user-select: none;
+				cursor: pointer;
+				.booking-control-2 {
+					display: none;
+				}
+			}
+			.member-booking-info {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+
+				flex-direction: column;
+
+				.member-booking-info-itme {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100%;
+					margin: 20px 0;
+					.member-booking-info-itme-1 {
+						display: flex;
+						width: 50%;
+						height: 100%;
+						justify-content: center;
+						grid-gap: 15px;
+						flex-direction: column;
+						text-align: center;
+						margin: 10px;
+						font-size: 20px;
+						color: #666666;
+						div {
+							display: flex;
+							height: 100%;
+						}
+						.booking-attraction-itme {
+							font-size: 20px;
+							margin-right: 10px;
+							color: #448899;
+							min-width: 50px;
+						}
+						.booking-attraction-itme-p {
+							text-align: start;
+							// overflow: hidden;
+							// text-overflow: ellipsis;
+							// white-space: nowrap;
+						}
+					}
+					.member-booking-info-itme-2 {
+						width: 50%;
+						margin: 10px;
+						div {
+							height: 100%;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							img {
+								width: 80%;
+								height: 80%;
+							}
+						}
+					}
+				}
+			}
+		}
+		.memrber-order {
+			flex: 1;
+			width: 100%;
+			padding: 10px;
+			.order-title {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				color: #448899;
+				margin: 10px 0;
+				font-size: 1.5rem;
+			}
+			.order-control {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				// flex-direction: column;
+				height: 50px;
+				color: #448899;
+				background-color: rgb(223, 223, 223);
+				user-select: none;
+				cursor: pointer;
+				.order-control-2 {
+					display: none;
+				}
+			}
+			.member-order-info {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				.member-order-info-itme {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100%;
+					margin: 20px 0;
+
+					.member-order-info-itme-1 {
+						display: flex;
+						width: 50%;
+						height: 100%;
+						justify-content: center;
+						flex-direction: column;
+						text-align: center;
+						margin: 10px;
+						font-size: 20px;
+						color: #666666;
+
+						div {
+							display: flex;
+						}
+						.member-order-info-p {
+							font-size: 20px;
+							color: #448899;
+							min-width: 90px;
+						}
+						.member-order-info-itme-p {
+							text-align: start;
+						}
+					}
+					.member-order-info-itme-2 {
+						width: 50%;
+						margin: 10px;
+						div {
+							height: 100%;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							img {
+								width: 80%;
+								height: 80%;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#calendar {
+	width: 100%;
+	font-size: 18px;
+}
+
+hr {
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	border: 0.5px solid #e8e8e8;
+	text-align: center;
+}
+.order-hr {
+	width: 80%;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+	border: 0.5px dashed #c2bfbf;
+	text-align: center;
+}
+#user-picture {
+	width: 230px;
+	height: 230px;
+}
+
+@media screen and (max-width: 1200px) {
+	.member-sectoion {
+		.member-section-div {
+			width: 100%;
+			.member-info-div {
+				.member-info-div-info {
+					.member-info-div-info-item {
+						.picture {
+							.modify-picture {
+								right: 25px;
+							}
+						}
+						.member-info-name-email {
+							.modify-info {
+								right: 20px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#calendar {
+		width: 80%;
+		font-size: 16px;
+	}
+	// #user-picture {
+	// 	width: 18vw;
+	// 	height: 18vw;
+	// }
+}
+
+@media screen and (max-width: 800px) {
+	.member-sectoion {
+		.member-section-div {
+			.member-info-div {
+				.member-info-div-info {
+					.member-info-div-info-item {
+						flex-direction: column;
+						.picture {
+							height: 100%;
+							.modify-picture {
+								top: 20px;
+								right: -50px;
+							}
+						}
+						.member-info-name-email {
+							width: 80%;
+							.member-info-name-email-itme {
+								font-size: 20px;
+							}
+							// grid-gap: 10px;
+						}
+					}
+				}
+			}
+			.memrber-booking {
+				.member-booking-info {
+					.member-booking-info-itme {
+						flex-direction: column-reverse;
+						.member-booking-info-itme-1 {
+							width: 80%;
+							grid-gap: 0px;
+						}
+						.member-booking-info-itme-2 {
+							width: 80%;
+							div {
+								width: 100%;
+								height: 100%;
+								img {
+									width: 100%;
+									height: 100%;
+								}
+							}
+						}
+					}
+				}
+			}
+			.memrber-order {
+				.member-order-info {
+					.member-order-info-itme {
+						flex-direction: column-reverse;
+						.member-order-info-itme-1 {
+							width: 80%;
+						}
+						.member-order-info-itme-2 {
+							width: 80%;
+							div {
+								width: 100%;
+								height: 100%;
+								img {
+									width: 100%;
+									height: 100%;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	#calendar {
+		font-size: 10px;
+	}
+	#user-picture {
+		border-radius: 100%;
+		width: 150px;
+		height: 150px;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	#calendar {
+		font-size: 8px;
+	}
+}
+
+@media screen and (max-width: 360px) {
+	.member-sectoion {
+		.member-section-div {
+			.member-info-div {
+				.member-info-div-info {
+					.member-info-div-info-item {
+						.picture {
+							height: 200px;
+							.picture-div {
+								height: 100%;
+							}
+						}
+						.member-info-name-email {
+							.member-info-name-email-itme {
+								text-align: start;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

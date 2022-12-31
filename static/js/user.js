@@ -11,6 +11,7 @@ const logingGiveBack = document.querySelector("#login-give-back");
 const loginDiv = document.querySelector(".login-div");
 const loginForm = document.querySelector(".login-form");
 const logoutMember = document.querySelector("#logout-member");
+const memberCentre = document.querySelector("#member-centre");
 const registerDivStyle = "height: 379px";
 const registerFormStyle = "height: 339px";
 const loginDivStyle = "height: 332px";
@@ -193,10 +194,9 @@ function initialCheck() {
 	const cookieCheck = document.cookie;
 	let parts = document.cookie.split("=");
 	if (cookieCheck == "" && parts == "") {
-		loginRegister.classList.add("#login-register");
 		logoutMember.style = noneStyle;
+		memberCentre.style = noneStyle;
 	} else if (cookieCheck != NaN && parts[0] == "Token") {
-		logoutMember.classList.add("#logout-member");
 		loginRegister.style = noneStyle;
 	}
 }
@@ -223,6 +223,54 @@ logoutMember.addEventListener("click", (e) => {
 				window.location.reload();
 			} else {
 				alert("伺服器錯誤");
+			}
+		});
+});
+
+///// * chick book trip is there a login * /////
+const bookingTrip = document.querySelector("#booking-trip");
+
+bookingTrip.addEventListener("click", (e) => {
+	const cookie = document.cookie.split("=");
+	const parser = cookie[1];
+	const url = "/api/user/auth";
+
+	// send cookie info to server (GET)
+	fetch(url, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data == null) {
+				login.style = flexStyle;
+			} else {
+				window.location.href = "/booking";
+			}
+		});
+});
+
+memberCentre.addEventListener("click", (e) => {
+	const cookie = document.cookie.split("=");
+	const parser = cookie[1];
+	const url = "/api/user/auth";
+
+	// send cookie info to server (GET)
+	fetch(url, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			if (data == null) {
+				window.location.href = "/";
+			} else {
+				window.location.href = "/member";
 			}
 		});
 });

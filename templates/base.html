@@ -35,6 +35,13 @@
 				<div>
 					<ul>
 						<li>
+							<a id="member-centre">
+								<img
+									src="{{ url_for('static', filename='images/user.png') }}"
+								/>
+							</a>
+						</li>
+						<li>
 							<a id="booking-trip"
 								><img
 									src="{{ url_for('static', filename='images/shopping-cart.png') }}"
@@ -118,5 +125,6 @@
 			<p>COPYRIGHT © 2022 台北一日遊</p>
 		</footer>
 	</body>
+	<script src="{{ url_for('static', filename='js/user.js') }}"></script>
 	{% block script %}{% endblock %}
 </html>

@@ -201,12 +201,13 @@ def order_api_get():
   try:
     # get order number from client 
     order_number = request.args.get("number","訂單編號")
+
     db = Order_api_get()
     # check if there is any data in the orders_done database
     orders_done_number_reuslt = db.check_orders_done(order_number)
     
     # if orders_done database not data return error
-    if orders_done_number_reuslt == None:
+    if not orders_done_number_reuslt:
       return{
         "error": True,
         "message": "查無訂單編號"

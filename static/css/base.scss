@@ -24,6 +24,13 @@
 		height: 32px;
 	}
 }
+#member-centre {
+	img {
+		width: 30px;
+		height: 30px;
+	}
+}
+
 #booking-trip:hover {
 	transform: translateY(-2px);
 	transition: transform 0.2s;
@@ -36,7 +43,10 @@
 	transform: translateY(-2px);
 	transition: transform 0.2s;
 }
-
+#member-centre:hover {
+	transform: translateY(-2px);
+	transition: transform 0.2s;
+}
 :root {
 	--cyan-color: #448899;
 	--gray-color: #666666;

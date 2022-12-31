@@ -212,6 +212,19 @@ class Order_api_get:
     self.connection.commit()
     return True
 
+  def order_member_id(self, order_memner_id):
+    self.mycursor.execute(
+      """
+      select * from 
+      orders_done
+      where
+      order_member_id = %s
+      """,
+      (order_memner_id,)
+    )
+    reuslt = self.mycursor.fetchall()
+    return reuslt
+
   def close_connection(self):
     self.mycursor.close()
     self.connection.close()

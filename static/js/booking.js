@@ -4,21 +4,6 @@ const parser = cookie[1];
 const urlBook = window.location.origin + "/booking";
 const urlBookApi = window.location.origin + "/api/booking";
 
-///// * get member username * /////
-fetch(urlUser, {
-	method: "GET",
-	headers: {
-		"Content-type": "application/json;",
-		Authorization: `Bearer ${parser}`,
-	},
-})
-	.then((response) => response.json())
-	.then((api) => {
-		const userName = api.data["name"];
-		const bookingUsername = document.querySelector(".booking-username");
-		bookingUsername.innerText = userName;
-	});
-
 ///// * check the user is login and get booking trip * /////
 fetch(urlBookApi, {
 	method: "GET",
@@ -32,9 +17,8 @@ fetch(urlBookApi, {
 		// if not login move to homepage
 		if (api.message == "未登入系統，拒絕存取") {
 			location.href = "/";
-		}
-		// check member booking trip
-		if (api.booking == false) {
+		} else if (api.booking == false) {
+			// check member booking trip
 			const notBooking = document.querySelector(".not-booking");
 			const notBookingItme = document.createElement("div");
 			notBookingItme.classList.add("not-booking-itme");
@@ -44,14 +28,8 @@ fetch(urlBookApi, {
 			const bookingAttractionSection = document.querySelector(
 				".booking-attraction-section"
 			);
-			// console.log(bookingAttractionSection);
-
-			// for (let i of api.data["price"]) {
-			// 	console.log(numbers[i]);
-			// }
 			let total = 0;
 			api.forEach((item) => {
-				// console.log(item);
 				const name = item.data["attraction"]["name"];
 				const address = item.data["attraction"]["address"];
 				const image = item.data["attraction"]["image"];
@@ -59,17 +37,7 @@ fetch(urlBookApi, {
 				const time = item.data["time"];
 				const price = item.data["price"];
 
-				// console.log(name);
-				// console.log(address);
-				// console.log(image);
-				// console.log(date);
-				// console.log(time);
-				// console.log(price);
-
 				total += Math.floor(price);
-
-				// const section = document.createElement("section")
-				// section.classList.add("booking-attraction-section")
 
 				const bookingAttractionDiv = document.createElement("div");
 				bookingAttractionDiv.classList.add("booking-attraction-div");
@@ -181,12 +149,6 @@ fetch(urlBookApi, {
 				bookingAttractionDiv.appendChild(bookingAttractionInfo);
 				bookingAttractionSection.appendChild(bookingAttractionDiv);
 
-				// const bookingAttractionInfoImg = document.querySelectorAll(
-				//   ".booking-attraction-info-img"
-				// );
-				// console.log(bookingAttractionInfoImg);
-				// const imgUpdate = document.querySelectorAll(".img-update");
-				// console.log(imgUpdate);
 				const bookingAttractionImg = document.createElement("img");
 				bookingAttractionImg.classList.add("#booking-attraction-img");
 				bookingAttractionImg.onload = () => {
@@ -198,51 +160,6 @@ fetch(urlBookApi, {
 
 				bookingAttractionImg.src = image;
 			});
-
-			// // get server booking api data
-			// const name = api.data["attraction"]["name"];
-			// const address = api.data["attraction"]["address"];
-			// const image = api.data["attraction"]["image"];
-			// const date = api.data["date"];
-			// const time = api.data["time"];
-			// const price = api.data["price"];
-
-			// ///// * booking-attraction * /////
-			// const bookingAttractionSection = document.querySelector(
-			// 	".booking-attraction-section"
-			// );
-			// bookingAttractionSection.style = "display:flex";
-
-			// const bookingAttractionInfoImg = document.querySelectorAll(
-			// 	".booking-attraction-info-img"
-			// );
-			// console.log(bookingAttractionInfoImg);
-			// const imgUpdate = document.querySelectorAll(".img-update");
-			// console.log(imgUpdate);
-			// const bookingAttractionImg = document.createElement("img");
-			// bookingAttractionImg.classList.add("#booking-attraction-img");
-			// bookingAttractionImg.onload = () => {
-			// 	bookingAttractionInfoImg.appendChild(bookingAttractionImg);
-			// 	if (bookingAttractionImg.complete) {
-			// 		imgUpdate.style = "display:none";
-			// 	}
-			// };
-
-			// bookingAttractionImg.src = image;
-
-			// const infoTitleName = document.querySelector(".info-title-name");
-			// infoTitleName.innerText = name;
-			// const infoTitleData = document.querySelector(".info-title-data");
-			// infoTitleData.innerText = date;
-
-			// const infoTitleTime = document.querySelector(".info-title-time");
-			// infoTitleTime.innerText = time;
-
-			// const infoTitlePay = document.querySelector(".info-title-pay");
-			// infoTitlePay.innerText = price;
-
-			// const infoTitlePlace = document.querySelector(".info-title-place");
-			// infoTitlePlace.innerText = address;
 
 			///// * booking-user * /////
 			const bookingUserSection = document.querySelector(
@@ -277,10 +194,7 @@ fetch(urlBookApi, {
 		const deleteButtons = document.querySelectorAll(
 			".booking-attraction-info-delete"
 		);
-		// console.log(deleteButtons);
 
-		// console.log(test);
-		// console.log(infoTitleName);
 		///// * delete booking trip * /////
 		deleteButtons.forEach((button) => {
 			button.addEventListener("click", (e) => {
@@ -328,4 +242,19 @@ fetch(urlBookApi, {
 					});
 			});
 		});
+	});
+
+///// * get member username * /////
+fetch(urlUser, {
+	method: "GET",
+	headers: {
+		"Content-type": "application/json;",
+		Authorization: `Bearer ${parser}`,
+	},
+})
+	.then((response) => response.json())
+	.then((api) => {
+		const userName = api.data["name"];
+		const bookingUsername = document.querySelector(".booking-username");
+		bookingUsername.innerText = userName;
 	});
