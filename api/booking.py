@@ -1,22 +1,23 @@
 from flask import *
 from flask import Blueprint
 from flask_cors import CORS
-from myModules.mysql_pool import *
-from myModules.jwt import *
-from myModules.regular import *
-from myModules.success_or_error import *
+from models.jwt import *
+from utils.regular import *
 from jwt_password import *
 
+from models.booking_db import Booking_api_get
+from models.booking_db import Booking_api_post
+from models.booking_db import Booking_api_delete
+from models.booking_db import reuslt_booking_api
 
 booking_api = Blueprint('booking_api', __name__)
 CORS(booking_api)
 
-
+# check user booking
 @booking_api.route("/api/booking", methods=["GET"])
-def book_aip_get():
+def book_api_get():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
+
     # get cookies from the client
     token = request.headers.get('authorization')
     
@@ -28,72 +29,75 @@ def book_aip_get():
 
     # if not login return error
     if encoded == "undefined":
-      mes = "未登入系統，拒絕存取"
-      return error(mes),403
+      return jsonify({
+        "error": True,
+        "message": "未登入系統，拒絕存取"
+      }),403
     
     # use jwt decod function ， decod token
     jwt_decod_token = jwt_decod(encoded)
-
+    
     # get token data info user_id and username
     data = jwt_decod_token["data"]
     user_id = data["id"]
     user_name = data["name"]
-    
-    mycursor.execute("""select * from booking where member_id = %s """,(user_id,))
-    reuslt_check_booking=mycursor.fetchone()
-    
+
+    # use models booking_db
+    booking_db = Booking_api_get()
+    reuslt_check_booking = booking_db.check_booking_user(user_id)
+
     # if not booking trip return message
-    if reuslt_check_booking == None:
+    if not reuslt_check_booking:
       not_booking_api={
         "name":user_name,
         "booking":False
       }
       return jsonify(not_booking_api)
-    
-    # search database table data info
-    mycursor.execute("""select name,address from data where id = %s """,(reuslt_check_booking[2],))
-    reuslt_data=mycursor.fetchone()
-    
+
+    booking_data = []
     # get all need data
-    attractions_name = reuslt_data[0]
-    attractions_adrress = reuslt_data[1]
-    attraction_id = reuslt_check_booking[2]
-    date = reuslt_check_booking[3]
-    time = reuslt_check_booking[4]
-    price = reuslt_check_booking[5]
-    img = reuslt_check_booking[7]
+    for data in reuslt_check_booking:
+      result=booking_db.search_data_database(data["attractionId"])
+      booking_data.append(reuslt_booking_api(
+        data["attractionId"],
+        result["name"],
+        result["address"],
+        data["booking_img"],
+        data["booking_date"],
+        data["booking_time"],
+        data["booking_price"],
+      ))
 
-
-    reuslt_booking_api = {
-      "data":{
-        "attraction": {
-          "id": attraction_id,
-          "name": attractions_name,
-          "address": attractions_adrress,
-          "image": img
-        },
-        "date": date,
-        "time": time,
-        "price": price
-      }
-    }
-    return jsonify(reuslt_booking_api),200
+    # reuslt_booking_api = {
+    #   "data":{
+    #     "attraction": {
+    #       "id": attraction_id,
+    #       "name": attractions_name,
+    #       "address": attractions_adrress,
+    #       "image": img
+    #     },
+    #     "date": date,
+    #     "time": time,
+    #     "price": price
+    #   }
+    # }
+    
+    return jsonify(booking_data),200
 
   except:
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),404
-  
+    return jsonify({
+    "error": True,
+    "message": "伺服器內部錯誤"
+    }),500
+
   finally:
-    mycursor.close()
-    connection.close()
+    Booking_api_get().close_connection()
 
 
 
 @booking_api.route("/api/booking", methods=["POST"])
 def book_api_post():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
 
     request_api = request.json
     attraction_id = request_api["id"]
@@ -114,13 +118,17 @@ def book_api_post():
 
     # if not login return error
     if encoded == "undefined":
-      mes = "未登入系統，拒絕存取"
-      return error(mes),403
+      return{
+      "error": True,
+      "message": "未登入系統，拒絕存取"
+      },403
     
     # if not choose date return message
     if date == "":
-      mes = "請輸入日期"
-      return error(mes),206 
+      return{
+      "error": True,
+      "message": "請輸入日期"
+      },400
 
     # use jwt decod function ， decod token
     jwt_decod_token = jwt_decod(encoded)
@@ -132,58 +140,44 @@ def book_api_post():
     # get price_numbers
     price_numbers = sum(map(int, numbers_regex().findall(price_text)))
     
-    # check if the database table booking has data
-    mycursor.execute("""select member_id from booking where member_id = %s """,(user_id,))
-    reuslt=mycursor.fetchone()
-    if reuslt == None:
-      mycursor.execute("""
-      insert into booking(
-      member_id,
-      attractionId, 
-      booking_date,
-      booking_time,
-      booking_price,
-      booking_price_text,
-      booking_img) 
-      values(%s, %s, %s, %s, %s, %s, %s)"""
-      ,(user_id, attraction_id, date, time, price_numbers, price_text, img))
-      connection.commit()
+    # use models booking_db
+    booking_db = Booking_api_post()
 
-    # if there is already data update data
-    elif reuslt != None:
-      mycursor.execute("""UPDATE booking SET attractionId=%s,
-      booking_date=%s,
-      booking_time=%s,
-      booking_price=%s,
-      booking_price_text=%s,
-      booking_img = %s
-      where member_id =%s
-      """, (attraction_id, date, time, price_numbers, price_text, img, user_id))
-      connection.commit()
-    
-    # booking_post_api ={
-    #   "attractionId": attraction_id,
-    #   "date": date,
-    #   "time": time,
-    #   "price": price_numbers
-    # }
-    return jsonify(success()),200
+    # # check if the database table booking has data
+    reuslt= booking_db.check_booking(user_id, attraction_id, date, price_numbers, time)
+    if reuslt != None:
+      return{
+        "error": True,
+        "message": "重複預定行程"
+      },400
+    else:
+      booking_db.add_booking(
+        user_id, 
+        attraction_id, 
+        date, 
+        time, 
+        price_numbers, 
+        price_text, 
+        img
+      )
+      return jsonify({
+        "ok":True
+        }),200
   
   except:
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),404
+    return{
+      "error": True,
+      "message": "伺服器內部錯誤"
+      },500
   
   finally:
-    mycursor.close()
-    connection.close()
+    Booking_api_post().close_connection()
 
 
 
 @booking_api.route("/api/booking", methods=["DELETE"])
-def book_aip_delete():
+def book_api_delete():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
     token = request.headers.get('authorization')
     
     # parser client cookies get token
@@ -194,30 +188,46 @@ def book_aip_delete():
 
     # if not login return error
     if encoded == "undefined":
-      mes = "未登入系統，拒絕存取"
-      return error(mes),403
+      return{
+        "error": True,
+        "message": "未登入系統，拒絕存取"
+      },403
 
-    # use jwt decod function ， decod token
+    # use jwt decod function decod token
     jwt_decod_token = jwt_decod(encoded)
 
     # get token data info user_id
     data = jwt_decod_token["data"]
     user_id = data["id"]
-    user_name = data["name"]
+
     request_api = request.json
-    user_name_web = request_api["userName"]
-    
-    if user_name != user_name_web:
-      mes = "沒有權限"
-      return error(mes),403
-    else:
+    name = request_api["attractionsName"]
+    date = request_api["attractionsdate"]
+    time = request_api["attractionsTime"]
+    pay = request_api["attractionsPay"]
+
+    # use models booking_db
+    db = Booking_api_delete()
+    attraction_id = db.check_attractions_name(name)["id"]
+
+    # check user id
+    check_user = db.check_member(user_id)
+
+    if check_user:
       # delete booking data
-      mycursor.execute("""DELETE FROM booking WHERE member_id = %s;""",(user_id,))
-      connection.commit()
-      return jsonify(success()),200
+      db.delete_booking(user_id, attraction_id, date, time, pay)
+      return jsonify( {
+        "ok":True
+      }),200
+    else:
+      return{
+        "error": True,
+        "message": "沒有權限"
+      },403
   except:
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),404
+    return jsonify({
+      "error": True,
+      "message": "伺服器錯誤"
+    }),500
   finally:
-    mycursor.close()
-    connection.close()
+    Booking_api_delete().close_connection()

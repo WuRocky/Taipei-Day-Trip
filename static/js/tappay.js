@@ -1,10 +1,3 @@
-///// * use TapPay Fields SetupSDK * /////
-TPDirect.setupSDK(
-	126871,
-	"app_a3gfmunokavPpeW1DAkFdxMzFWltrGbmwDMO0R7Wtl7dDTEE98QUA6xPSXLp",
-	"sandbox"
-);
-
 ///// * use TapPay Fields TPDirect.card.setup element and style * /////
 TPDirect.card.setup({
 	fields: {
@@ -122,7 +115,18 @@ btn.addEventListener("click", (e) => {
 		})
 			.then((response) => response.json())
 			.then((api) => {
-				if (api) {
+				if (api.error) {
+					message.style = "display:flex;";
+					messageContent.innerText = api.message;
+					messageContent.style =
+						"color: red; font-size:18px; padding:10px; text-align: center;";
+
+					message.addEventListener("click", (e) => {
+						if (message.style.display == "flex") {
+							message.style = "display :none";
+						}
+					});
+				} else {
 					///// *  get backend order number lead to thank you page * /////
 					message.style = "display :flex;";
 					messageContent.innerText = "訂單完成";
