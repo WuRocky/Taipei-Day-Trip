@@ -8,6 +8,10 @@ import requests
 
 from models.order_db import Order_api_post
 from models.order_db import Order_api_get
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 order_api = Blueprint('order_api', __name__)
 CORS(order_api)
@@ -115,7 +119,7 @@ def order_api_post():
 
       # send prime and user info to TapPay server to complete payment
       url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
-      x_api_key ="partner_fTPTUBgu1qwzBE1RFE0g9jWsCp8Kpfdc8d6nkkWUOyskprRueUbo3cvT"
+      x_api_key =os.getenv("x_api_key")
 
       headers = {
         'x-api-key': x_api_key
@@ -142,7 +146,9 @@ def order_api_post():
       TapPay_res_msg = response.json()["msg"]
       TapPay_status = response.json()["status"]
       
-      # if TapPay server return success
+
+
+      # # if TapPay server return success
       if TapPay_status == 0:
         TapPay_success = {
           "data": {
@@ -153,6 +159,7 @@ def order_api_post():
             }
           }
         }
+        
 
         # add completed order_done database
         db.orders_done(
@@ -170,15 +177,68 @@ def order_api_post():
           phone
         )
         return jsonify(TapPay_success),200
-      # if TapPay server return error show message
-      elif TapPay_status != 0:
+      # # if TapPay server return error show message
+      elif TapPay_status == 915:
         TapPay_error = {
           "error": True,
-          "message": TapPay_res_msg
+          "message": "未知錯誤，請聯繫TapPay客服"
         }
         return jsonify(TapPay_error),400
-      
-      
+      elif TapPay_status == 10003:
+        TapPay_error = {
+          "error": True,
+          "message": "卡片錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10005:
+        TapPay_error = {
+          "error": True,
+          "message": "銀行系統錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10006:
+        TapPay_error = {
+          "error": True,
+          "message": "重複交易"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10008:
+        TapPay_error = {
+          "error": True,
+          "message": "銀行商家賬戶數據錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10009:
+        TapPay_error = {
+          "error": True,
+          "message": "數量錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10013:
+        TapPay_error = {
+          "error": True,
+          "message": "訂單號重複"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10023:
+        TapPay_error = {
+          "error": True,
+          "message": "銀行錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10015:
+        TapPay_error = {
+          "error": True,
+          "message": "兌換失敗"
+        }
+        return jsonify(TapPay_error),400
+      # else:
+      #   TapPay_error = {
+      #     "error": True,
+      #     "message": "伺服器錯誤"
+      #   }
+      #   return jsonify(TapPay_error),400
+
       return jsonify(reuslt_order_api)
     # if not user return message
     else:

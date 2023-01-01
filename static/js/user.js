@@ -266,7 +266,6 @@ memberCentre.addEventListener("click", (e) => {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log(data);
 			if (data == null) {
 				window.location.href = "/";
 			} else {

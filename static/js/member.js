@@ -20,6 +20,12 @@ const orderControl2 = document.querySelector(".order-control-2");
 
 const memberBookingNum = document.querySelector("#member-booking");
 const memberOrdersNum = document.querySelector("#member-orders");
+const calendarTitle = document.querySelector(".calendar-title");
+const bookingTitle = document.querySelector(".booking-title");
+const orderTitle = document.querySelector(".order-title");
+
+const calendarControl = document.querySelector(".calendar-control");
+const calendar = document.querySelector("#calendar");
 
 fetch(urlMemberApi, {
 	method: "GET",
@@ -32,12 +38,27 @@ fetch(urlMemberApi, {
 	.then((api) => {
 		if (api.error) {
 			location.href = "/";
+		} else if (api.message == "找無資料") {
+			bookingControl.style = "display :none";
+			orderControl.style = "display :none";
+			// calendarControl.style = "display :none";
+			// calendar.style = "display : none";
+			// const notDatamessage1 = document.createElement("div");
+			// notDatamessage1.classList.add("not-data-message");
+			// notDatamessage1.innerText = api.message;
+			// calendarTitle.appendChild(notDatamessage1);
+			const notDatamessage2 = document.createElement("div");
+			notDatamessage2.classList.add("not-data-message");
+			notDatamessage2.innerText = api.message;
+			bookingTitle.appendChild(notDatamessage2);
+			const notDatamessage3 = document.createElement("div");
+			notDatamessage3.classList.add("not-data-message");
+			notDatamessage3.innerText = api.message;
+			orderTitle.appendChild(notDatamessage3);
 		} else {
 			const bookingNum = api.data.booking.length;
 			const orderNum = api.data.order_done.length;
 
-			// console.log(bookingNum);
-			// console.log(orderNum);
 			memberBookingNum.innerText = bookingNum;
 			memberOrdersNum.innerText = orderNum;
 
@@ -47,6 +68,12 @@ fetch(urlMemberApi, {
 			memnerName.innerText = member.name;
 			memnerEmail.innerText = member.email;
 
+			if (!booking.length) {
+				bookingControl.style = "display :none";
+			}
+			if (!orders.length) {
+				orderControl.style = "display :none";
+			}
 			booking.forEach((item) => {
 				const bookingName = item.data.attraction.name;
 				const bookingAddress = item.data.attraction.address;
@@ -272,33 +299,30 @@ fetch(urlMemberApi, {
 			});
 
 			bookingControl.addEventListener("click", (e) => {
-				if (memberBookingInfo.style.display === "none") {
-					memberBookingInfo.style.display = "block";
+				if (memberBookingInfo.style.display === "block") {
+					memberBookingInfo.style.display = "none";
 					bookingControl1.style.display = "block";
 					bookingControl2.style.display = "none";
 				} else {
-					memberBookingInfo.style.display = "none";
+					memberBookingInfo.style.display = "block";
 					bookingControl1.style.display = "none";
 					bookingControl2.style.display = "block";
 				}
 			});
 
 			orderControl.addEventListener("click", (e) => {
-				if (memberOrderInfo.style.display === "none") {
-					memberOrderInfo.style.display = "block";
+				if (memberOrderInfo.style.display === "block") {
+					memberOrderInfo.style.display = "none";
 					orderControl1.style.display = "block";
 					orderControl2.style.display = "none";
 				} else {
-					memberOrderInfo.style.display = "none";
+					memberOrderInfo.style.display = "block";
 					orderControl1.style.display = "none";
 					orderControl2.style.display = "block";
 				}
 			});
 		}
 	});
-
-const calendarControl = document.querySelector(".calendar-control");
-const calendar = document.querySelector("#calendar");
 
 const calendarControl1 = document.querySelector(".calendar-control-1");
 const calendarControl2 = document.querySelector(".calendar-control-2");
@@ -313,3 +337,124 @@ calendarControl.addEventListener("click", (e) => {
 		calendarControl2.style.display = "block";
 	}
 });
+
+const modifyInfo = document.querySelector(".modify-info");
+
+const formItem1 = document.querySelector(".form-item-1");
+const formItem2 = document.querySelector(".form-item-2");
+
+modifyInfo.addEventListener("click", (e) => {
+	if (memnerName.style.display === "none") {
+		memnerName.style.display = "block";
+		memnerEmail.style.display = "block";
+		formItem1.style.display = "none";
+		formItem2.style.display = "none";
+	} else {
+		memnerName.style.display = "none";
+		memnerEmail.style.display = "none";
+		formItem1.style.display = "flex";
+		formItem2.style.display = "flex";
+	}
+});
+
+const message = document.querySelector(".message");
+const messageContent = document.querySelector(".message-content");
+const userButton = document.querySelector("#user-button");
+const userNmae = document.querySelector("#user-name");
+const userEmail = document.querySelector("#user-email");
+const messageStyle =
+	"color: red; font-size:18px; padding:10px; text-align: center;";
+
+userButton.addEventListener("click", (e) => {
+	e.preventDefault();
+	const updateUserNmae = userNmae.value;
+	const updateUserEmail = userEmail.value;
+
+	if (updateUserNmae === "" || updateUserEmail === "") {
+		message.style = "display:flex;";
+		messageContent.innerText = "請輸入內容";
+		messageContent.style = messageStyle;
+		message.addEventListener("click", (e) => {
+			if (message.style.display == "flex") {
+				message.style = "display :none";
+			}
+		});
+	} else if (!emailRegex.test(updateUserEmail)) {
+		message.style = "display:flex;";
+		messageContent.innerText = "信箱輸入錯誤";
+		messageContent.style = messageStyle;
+		message.addEventListener("click", (e) => {
+			if (message.style.display == "flex") {
+				message.style = "display :none";
+			}
+		});
+	} else if (!nameRegex.test(updateUserNmae)) {
+		message.style = "display:flex;";
+		messageContent.innerText = "輸入姓名錯誤";
+		messageContent.style = messageStyle;
+		message.addEventListener("click", (e) => {
+			if (message.style.display == "flex") {
+				message.style = "display :none";
+			}
+		});
+	} else {
+		fetch(urlMemberApi, {
+			method: "POST",
+			body: JSON.stringify({
+				name: updateUserNmae,
+				email: updateUserEmail,
+			}),
+			headers: {
+				"Content-type": "application/json;",
+				Authorization: `Bearer ${parser}`,
+			},
+		})
+			.then((response) => response.json())
+			.then((api) => {
+				if (api.error) {
+					message.style = "display:flex;";
+					messageContent.innerText = "沒有權限";
+					messageContent.style = messageStyle;
+					message.addEventListener("click", (e) => {
+						if (message.style.display == "flex") {
+							message.style = "display :none";
+						}
+					});
+				} else {
+					message.style = "display:flex;";
+					messageContent.innerText = api.message;
+					messageContent.style = messageStyle;
+					message.addEventListener("click", (e) => {
+						if (message.style.display == "flex") {
+							message.style = "display :none";
+						}
+					});
+
+					setTimeout(() => window.location.reload(), 2000);
+				}
+			});
+	}
+});
+
+// const modifyPicture = document.querySelector(".modify-picture");
+
+// const userPicture = document.querySelector("#user-picture");
+
+// modifyPicture.addEventListener("click", (e) => {
+// 	const userImge = e.target.parentElement.parentElement.children[0].children[0]
+
+// });
+
+// modifyPicture.addEventListener("change", (e) => {
+// 	console.log(e);
+// 	const file = e.target.files[0];
+// 	console.log(file);
+
+// 	const reader = new FileReader();
+
+// 	reader.addEventListener("load", () => {
+// 		document.getElementById("profile-picture").src = reader.result;
+// 	});
+
+// 	reader.readAsDataURL(file);
+// });

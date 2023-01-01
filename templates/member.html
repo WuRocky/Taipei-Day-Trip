@@ -21,7 +21,7 @@
 						<div class="picture-div">
 							<img
 								id="user-picture"
-								src="{{ url_for('static', filename='images/img.png') }}"
+								src="{{ url_for('static', filename='images/user.png') }}"
 								alt=""
 							/>
 						</div>
@@ -45,10 +45,17 @@
 						<div class="member-info-name-email-itme">
 							<p>會員姓名: &nbsp;</p>
 							<p id="member-name"></p>
+							<form class="form-item-1">
+								<input id="user-name" type="text" />
+							</form>
 						</div>
 						<div class="member-info-name-email-itme">
 							<p>會員信箱: &nbsp;</p>
 							<p id="member-email"></p>
+							<form class="form-item-2">
+								<input id="user-email" type="email" />
+								<button id="user-button" type="submit">送出</button>
+							</form>
 						</div>
 						<hr />
 						<div class="member-info-name-email-itme">

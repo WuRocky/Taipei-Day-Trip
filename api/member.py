@@ -6,6 +6,8 @@ from utils.regular import *
 from jwt_password import *
 
 from models.member_db import Member_api_get
+from models.member_db import Member_api_post
+
 
 from models.booking_db import Booking_api_get
 from models.order_db import Order_api_get
@@ -88,3 +90,57 @@ def mamber_api_get():
 
   finally:
     Member_api_get().close_connection()
+
+
+@mamber_api.route("/api/member", methods=["POST"])
+def mamber_api_patch():
+  try:
+    # get cookies from the client
+    token = request.headers.get('authorization')
+
+    # parser client cookies get token
+    jwt_toke = token.split(' ', 1)
+    
+    # get correct token info
+    encoded = jwt_toke[1]
+
+    # use jwt decod function ， decod token
+    jwt_decod_token = jwt_decod(encoded)
+
+    # get token data info id, email, name
+    data = jwt_decod_token["data"]
+    user_id = data["id"]
+
+    db=Member_api_post()
+    reuslt = db.check_member_user(user_id)
+    if reuslt:
+      # get put info from the client
+      request_api = request.json
+      update_user_name = request_api["name"]
+      update_user_email = request_api["email"]
+
+      db.update_member(
+        user_id, 
+        update_user_name, 
+        update_user_email
+      )
+
+      logout= jsonify({
+        "ok":True,
+        "message": "更新完成，請重新登入"
+      })
+      logout.set_cookie("Token",max_age=0)
+      return logout,200
+
+    return jsonify({
+      "error": True,
+      "message": "沒有權限"
+    }),403
+
+  except:
+    return jsonify({
+    "error": True,
+    "message": "伺服器內部錯誤"
+    }),500
+  finally:
+    Member_api_post().close_connection()
