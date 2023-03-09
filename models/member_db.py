@@ -48,8 +48,8 @@ class Member_api_post:
   def update_member(self, user_id,  update_user_name , update_user_email):
     self.mycursor.execute(
       """
-      update member 
-      set name = %s, 
+      UPDATE member 
+      SET name = %s, 
       email = %s
       where id = %s
       """,(

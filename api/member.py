@@ -113,6 +113,13 @@ def mamber_api_patch():
 
     db=Member_api_post()
     reuslt = db.check_member_user(user_id)
+    print(user_id)
+    request_api = request.json
+    update_user_name = request_api["name"]
+    update_user_email = request_api["email"]
+    print(update_user_name)
+    print(update_user_email)
+
     if reuslt:
       # get put info from the client
       request_api = request.json

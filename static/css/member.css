@@ -40,7 +40,6 @@
   background-color: #448899;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   cursor: pointer;
 }
@@ -189,7 +188,6 @@
   background-color: #448899;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   cursor: pointer;
 }
@@ -280,7 +278,6 @@
   background-color: #448899;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   cursor: pointer;
 }
@@ -341,6 +338,21 @@
   height: 80%;
 }
 
+.fc-daygrid-event {
+  white-space: break-spaces !important;
+}
+
+.fc-event-title {
+  width: 90px !important;
+  font-size: 12px !important;
+  overflow: visible !important;
+  word-wrap: break-word !important;
+}
+
+.fc-event-time {
+  display: none;
+}
+
 #calendar {
   width: 80%;
   margin: 10px;
@@ -395,7 +407,7 @@ hr {
   margin: 10px 0;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
   .member-sectoion .member-section-div .member-info-div .member-info-div-info .member-info-div-info-item {
     flex-direction: column;
   }
@@ -454,6 +466,15 @@ hr {
     border-radius: 100%;
     width: 150px;
     height: 150px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .member-sectoion .member-section-div .member-info-div .member-info-div-info .member-info-div-info-item .member-info-name-email {
+    width: 100%;
+  }
+  .member-sectoion .member-section-div .member-info-div .member-info-div-info .member-info-div-info-item .member-info-name-email .member-info-name-email-itme .form-item-1 input,
+  .member-sectoion .member-section-div .member-info-div .member-info-div-info .member-info-div-info-item .member-info-name-email .member-info-name-email-itme .form-item-2 input {
+    width: 120px;
   }
 }
 @media screen and (max-width: 420px) {

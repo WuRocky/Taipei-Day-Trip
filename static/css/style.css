@@ -34,22 +34,13 @@
   margin: 2rem 0.3rem;
   background: #448899;
   border-radius: 50%;
-  -webkit-animation: 0.9s bounce infinite alternate;
-          animation: 0.9s bounce infinite alternate;
+  animation: 0.9s bounce infinite alternate;
 }
 .homepage-header .img-update div:nth-child(2) {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 .homepage-header .img-update div:nth-child(3) {
-  -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
-}
-@-webkit-keyframes bounce {
-  to {
-    opacity: 0.3;
-    transform: translate3d(0, -1rem, 0);
-  }
+  animation-delay: 0.6s;
 }
 @keyframes bounce {
   to {
@@ -155,22 +146,13 @@
   margin: 2rem 0.3rem;
   background: #448899;
   border-radius: 50%;
-  -webkit-animation: 0.9s bounce1 infinite alternate;
-          animation: 0.9s bounce1 infinite alternate;
+  animation: 0.9s bounce1 infinite alternate;
 }
 .homepage-section-main .index-section .main-container .attractions-item-1 .img-update-item1 div:nth-child(2) {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 .homepage-section-main .index-section .main-container .attractions-item-1 .img-update-item1 div:nth-child(3) {
-  -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
-}
-@-webkit-keyframes bounce1 {
-  to {
-    opacity: 0.3;
-    transform: translate3d(0, -1rem, 0);
-  }
+  animation-delay: 0.6s;
 }
 @keyframes bounce1 {
   to {

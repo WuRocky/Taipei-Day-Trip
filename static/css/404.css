@@ -5,20 +5,9 @@ FULL SCREEN MODE: http://salehriaz.com/404Page/404.html
 DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
 */
 @import url("https://fonts.googleapis.com/css?family=Dosis:300,400,500");
-@-webkit-keyframes rocket-movement {
-  100% {
-    -webkit-transform: translate(1200px, -600px);
-  }
-}
 @keyframes rocket-movement {
   100% {
     transform: translate(1200px, -600px);
-  }
-}
-@-webkit-keyframes spin-earth {
-  100% {
-    -webkit-transform: rotate(-360deg);
-    transition: transform 20s;
   }
 }
 @keyframes spin-earth {
@@ -27,33 +16,14 @@ DRIBBBLE: https://dribbble.com/shots/4330167-404-Page-Lost-In-Space
     transition: transform 20s;
   }
 }
-@-webkit-keyframes move-astronaut {
-  100% {
-    -webkit-transform: translate(-160px, -160px);
-  }
-}
 @keyframes move-astronaut {
   100% {
     transform: translate(-160px, -160px);
   }
 }
-@-webkit-keyframes rotate-astronaut {
-  100% {
-    -webkit-transform: rotate(-720deg);
-  }
-}
 @keyframes rotate-astronaut {
   100% {
     transform: rotate(-720deg);
-  }
-}
-@-webkit-keyframes glow-star {
-  40% {
-    -webkit-opacity: 0.3;
-  }
-  90%, 100% {
-    -webkit-opacity: 1;
-    -webkit-transform: scale(1.2);
   }
 }
 @keyframes glow-star {
@@ -81,8 +51,7 @@ body {
   font-family: "Dosis", sans-serif;
   font-weight: 300;
   -webkit-user-select: none; /* Safari 3.1+ */
-  -moz-user-select: none; /* Firefox 2+ */
-  -ms-user-select: none; /* IE 10+ */
+  -moz-user-select: none; /* Firefox 2+ */ /* IE 10+ */
   user-select: none; /* Standard syntax */
 }
 
@@ -196,8 +165,7 @@ li a:hover {
   transform: translateX(-50px);
   top: 75%;
   pointer-events: none;
-  -webkit-animation: rocket-movement 200s linear infinite both running;
-          animation: rocket-movement 200s linear infinite both running;
+  animation: rocket-movement 200s linear infinite both running;
 }
 
 .object_earth {
@@ -219,8 +187,7 @@ li a:hover {
 }
 
 .object_astronaut {
-  -webkit-animation: rotate-astronaut 200s infinite linear both alternate;
-          animation: rotate-astronaut 200s infinite linear both alternate;
+  animation: rotate-astronaut 200s infinite linear both alternate;
 }
 
 .box_astronaut {
@@ -229,8 +196,7 @@ li a:hover {
   top: 60%;
   right: 20%;
   will-change: transform;
-  -webkit-animation: move-astronaut 50s infinite linear both alternate;
-          animation: move-astronaut 50s infinite linear both alternate;
+  animation: move-astronaut 50s infinite linear both alternate;
 }
 
 .image-404 {
@@ -259,36 +225,31 @@ li a:hover {
 .glowing_stars .star:nth-child(1) {
   top: 80%;
   left: 25%;
-  -webkit-animation: glow-star 2s infinite ease-in-out alternate 1s;
-          animation: glow-star 2s infinite ease-in-out alternate 1s;
+  animation: glow-star 2s infinite ease-in-out alternate 1s;
 }
 
 .glowing_stars .star:nth-child(2) {
   top: 20%;
   left: 40%;
-  -webkit-animation: glow-star 2s infinite ease-in-out alternate 3s;
-          animation: glow-star 2s infinite ease-in-out alternate 3s;
+  animation: glow-star 2s infinite ease-in-out alternate 3s;
 }
 
 .glowing_stars .star:nth-child(3) {
   top: 25%;
   left: 25%;
-  -webkit-animation: glow-star 2s infinite ease-in-out alternate 5s;
-          animation: glow-star 2s infinite ease-in-out alternate 5s;
+  animation: glow-star 2s infinite ease-in-out alternate 5s;
 }
 
 .glowing_stars .star:nth-child(4) {
   top: 75%;
   left: 80%;
-  -webkit-animation: glow-star 2s infinite ease-in-out alternate 7s;
-          animation: glow-star 2s infinite ease-in-out alternate 7s;
+  animation: glow-star 2s infinite ease-in-out alternate 7s;
 }
 
 .glowing_stars .star:nth-child(5) {
   top: 90%;
   left: 50%;
-  -webkit-animation: glow-star 2s infinite ease-in-out alternate 9s;
-          animation: glow-star 2s infinite ease-in-out alternate 9s;
+  animation: glow-star 2s infinite ease-in-out alternate 9s;
 }
 
 @media only screen and (max-width: 600px) {

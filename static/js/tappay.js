@@ -49,6 +49,7 @@ TPDirect.card.onUpdate(function (update) {
 ///// * if user not input personal information and card show error * /////
 const apiOthor = window.location.origin + "/api/order";
 const thankyou = window.location.origin + "/thankyou";
+
 btn.addEventListener("click", (e) => {
 	e.preventDefault();
 	const message = document.querySelector(".message");
@@ -56,7 +57,9 @@ btn.addEventListener("click", (e) => {
 	const userName = document.querySelector("#user-name").value;
 	const userEmail = document.querySelector("#user-email").value;
 	const userPhone = document.querySelector("#user-phone").value;
-	const userNameWeb = document.querySelector(".booking-username").innerText;
+	const userNameWeb = document.querySelector(
+		".booking-username"
+	).innerText;
 	const tappayStatus = TPDirect.card.getTappayFieldsStatus();
 	if (
 		(userName == null || userName == "",
@@ -137,7 +140,9 @@ btn.addEventListener("click", (e) => {
 					});
 					setTimeout(
 						///// * get the order number directed to thank you page * /////
-						() => (location.href = thankyou + "?number=" + api.data["number"]),
+						() =>
+							(location.href =
+								thankyou + "?number=" + api.data["number"]),
 						1000
 					);
 				}

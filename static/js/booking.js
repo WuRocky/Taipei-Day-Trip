@@ -43,10 +43,15 @@ fetch(urlBookApi, {
 				bookingAttractionDiv.classList.add("booking-attraction-div");
 
 				const bookingAttractionInfo = document.createElement("div");
-				bookingAttractionInfo.classList.add("booking-attraction-info");
+				bookingAttractionInfo.classList.add(
+					"booking-attraction-info"
+				);
 
-				const bookingAttractionInfoImg = document.createElement("div");
-				bookingAttractionInfoImg.classList.add("booking-attraction-info-img");
+				const bookingAttractionInfoImg =
+					document.createElement("div");
+				bookingAttractionInfoImg.classList.add(
+					"booking-attraction-info-img"
+				);
 
 				const imgUpdate = document.createElement("div");
 				imgUpdate.classList.add("img-update");
@@ -62,90 +67,130 @@ fetch(urlBookApi, {
 
 				bookingAttractionInfoImg.appendChild(imgUpdate);
 
-				const bookingAttractionInfoDiv = document.createElement("div");
-				bookingAttractionInfoDiv.classList.add("booking-attraction-info-div");
+				const bookingAttractionInfoDiv =
+					document.createElement("div");
+				bookingAttractionInfoDiv.classList.add(
+					"booking-attraction-info-div"
+				);
 
-				const bookingAttractionInfoTitle = document.createElement("div");
+				const bookingAttractionInfoTitle =
+					document.createElement("div");
 				bookingAttractionInfoTitle.classList.add(
 					"booking-attraction-info-title"
 				);
-				const bookingAttractionInfoTitleP = document.createElement("p");
+				const bookingAttractionInfoTitleP =
+					document.createElement("p");
 				bookingAttractionInfoTitleP.innerText = "台北一日遊：";
 				const infoTitleName = document.createElement("p");
 				infoTitleName.classList.add("info-title-name");
 				infoTitleName.innerText = name;
-				bookingAttractionInfoTitle.appendChild(bookingAttractionInfoTitleP);
+				bookingAttractionInfoTitle.appendChild(
+					bookingAttractionInfoTitleP
+				);
 				bookingAttractionInfoTitle.appendChild(infoTitleName);
 
-				const bookingAttractionInfoItme1 = document.createElement("div");
+				const bookingAttractionInfoItme1 =
+					document.createElement("div");
 				bookingAttractionInfoItme1.classList.add(
 					"booking-attraction-info-itme"
 				);
-				const bookingAttractionInfoItme1P = document.createElement("p");
+				const bookingAttractionInfoItme1P =
+					document.createElement("p");
 				bookingAttractionInfoItme1P.innerText = "日期：";
 				const infoTitleDate = document.createElement("p");
 				infoTitleDate.classList.add("info-title-data");
 				infoTitleDate.classList.add("info-itme-1");
 				infoTitleDate.innerText = date;
-				bookingAttractionInfoItme1.appendChild(bookingAttractionInfoItme1P);
+				bookingAttractionInfoItme1.appendChild(
+					bookingAttractionInfoItme1P
+				);
 				bookingAttractionInfoItme1.appendChild(infoTitleDate);
 
-				const bookingAttractionInfoItme2 = document.createElement("div");
+				const bookingAttractionInfoItme2 =
+					document.createElement("div");
 				bookingAttractionInfoItme2.classList.add(
 					"booking-attraction-info-itme"
 				);
-				const bookingAttractionInfoItme2P = document.createElement("p");
+				const bookingAttractionInfoItme2P =
+					document.createElement("p");
 				bookingAttractionInfoItme2P.innerText = "時間：";
 				const infoTitleTime = document.createElement("p");
 				infoTitleTime.classList.add("info-title-time");
 				infoTitleTime.classList.add("info-itme-1");
 				infoTitleTime.innerText = time;
-				bookingAttractionInfoItme2.appendChild(bookingAttractionInfoItme2P);
+				bookingAttractionInfoItme2.appendChild(
+					bookingAttractionInfoItme2P
+				);
 				bookingAttractionInfoItme2.appendChild(infoTitleTime);
 
-				const bookingAttractionInfoItme3 = document.createElement("div");
+				const bookingAttractionInfoItme3 =
+					document.createElement("div");
 				bookingAttractionInfoItme3.classList.add(
 					"booking-attraction-info-itme"
 				);
-				const bookingAttractionInfoItme3P = document.createElement("p");
+				const bookingAttractionInfoItme3P =
+					document.createElement("p");
 				bookingAttractionInfoItme3P.innerText = "費用：";
 				const infoTitlePay = document.createElement("p");
 				infoTitlePay.classList.add("info-title-pay");
 				infoTitlePay.classList.add("info-itme-1");
 				infoTitlePay.innerText = price;
-				bookingAttractionInfoItme3.appendChild(bookingAttractionInfoItme3P);
+				bookingAttractionInfoItme3.appendChild(
+					bookingAttractionInfoItme3P
+				);
 				bookingAttractionInfoItme3.appendChild(infoTitlePay);
 
-				const bookingAttractionInfoItme4 = document.createElement("div");
+				const bookingAttractionInfoItme4 =
+					document.createElement("div");
 				bookingAttractionInfoItme4.classList.add(
 					"booking-attraction-info-itme"
 				);
-				const bookingAttractionInfoItme4P = document.createElement("p");
+				const bookingAttractionInfoItme4P =
+					document.createElement("p");
 				bookingAttractionInfoItme4P.innerText = "地點：";
 				const infoTitlePlace = document.createElement("p");
 				infoTitlePlace.classList.add("info-title-place");
 				infoTitlePlace.classList.add("info-itme-1");
 				infoTitlePlace.innerText = address;
-				bookingAttractionInfoItme4.appendChild(bookingAttractionInfoItme4P);
+				bookingAttractionInfoItme4.appendChild(
+					bookingAttractionInfoItme4P
+				);
 				bookingAttractionInfoItme4.appendChild(infoTitlePlace);
 
-				bookingAttractionInfoDiv.appendChild(bookingAttractionInfoTitle);
-				bookingAttractionInfoDiv.appendChild(bookingAttractionInfoItme1);
-				bookingAttractionInfoDiv.appendChild(bookingAttractionInfoItme2);
-				bookingAttractionInfoDiv.appendChild(bookingAttractionInfoItme3);
-				bookingAttractionInfoDiv.appendChild(bookingAttractionInfoItme4);
+				bookingAttractionInfoDiv.appendChild(
+					bookingAttractionInfoTitle
+				);
+				bookingAttractionInfoDiv.appendChild(
+					bookingAttractionInfoItme1
+				);
+				bookingAttractionInfoDiv.appendChild(
+					bookingAttractionInfoItme2
+				);
+				bookingAttractionInfoDiv.appendChild(
+					bookingAttractionInfoItme3
+				);
+				bookingAttractionInfoDiv.appendChild(
+					bookingAttractionInfoItme4
+				);
 
-				const bookingAttractionInfoDelete = document.createElement("div");
+				const bookingAttractionInfoDelete =
+					document.createElement("div");
 				bookingAttractionInfoDelete.classList.add(
 					"booking-attraction-info-delete"
 				);
-				const bookingAttractionInfoDeleteImg = document.createElement("img");
-				bookingAttractionInfoDeleteImg.src = "../images/icon_delete.png";
-				bookingAttractionInfoDelete.appendChild(bookingAttractionInfoDeleteImg);
+				const bookingAttractionInfoDeleteImg =
+					document.createElement("img");
+				bookingAttractionInfoDeleteImg.src =
+					"../images/icon_delete.png";
+				bookingAttractionInfoDelete.appendChild(
+					bookingAttractionInfoDeleteImg
+				);
 
 				bookingAttractionInfo.appendChild(bookingAttractionInfoImg);
 				bookingAttractionInfo.appendChild(bookingAttractionInfoDiv);
-				bookingAttractionInfo.appendChild(bookingAttractionInfoDelete);
+				bookingAttractionInfo.appendChild(
+					bookingAttractionInfoDelete
+				);
 				bookingAttractionDiv.appendChild(bookingAttractionInfo);
 				bookingAttractionSection.appendChild(bookingAttractionDiv);
 
@@ -200,19 +245,25 @@ fetch(urlBookApi, {
 			button.addEventListener("click", (e) => {
 				e.preventDefault();
 				const message = document.querySelector(".message");
-				const messageContent = document.querySelector(".message-content");
+				const messageContent = document.querySelector(
+					".message-content"
+				);
 				const deleteDiv = e.target.parentElement;
 				const attractionsName =
-					deleteDiv.parentElement.children[1].children[0].children[1].innerText;
+					deleteDiv.parentElement.children[1].children[0].children[1]
+						.innerText;
 
 				const attractionsdate =
-					deleteDiv.parentElement.children[1].children[1].children[1].innerText;
+					deleteDiv.parentElement.children[1].children[1].children[1]
+						.innerText;
 
 				const attractionsTime =
-					deleteDiv.parentElement.children[1].children[2].children[1].innerText;
+					deleteDiv.parentElement.children[1].children[2].children[1]
+						.innerText;
 
 				const attractionsPay =
-					deleteDiv.parentElement.children[1].children[3].children[1].innerText;
+					deleteDiv.parentElement.children[1].children[3].children[1]
+						.innerText;
 
 				fetch(urlBookApi, {
 					method: "DELETE",
@@ -255,6 +306,10 @@ fetch(urlUser, {
 	.then((response) => response.json())
 	.then((api) => {
 		const userName = api.data["name"];
-		const bookingUsername = document.querySelector(".booking-username");
+		const bookingUsername = document.querySelector(
+			".booking-username"
+		);
 		bookingUsername.innerText = userName;
+		const userNameDefault = document.querySelector("#user-name");
+		userNameDefault.defaultValue = userName;
 	});

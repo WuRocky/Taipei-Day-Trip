@@ -357,7 +357,24 @@
 		}
 	}
 }
-
+.fc-daygrid-event {
+	white-space: break-spaces !important;
+}
+.fc-event-title {
+	width: 90px !important;
+	font-size: 12px !important;
+	// overflow-wrap: break-word !important;
+	overflow: visible !important;
+	word-wrap: break-word !important;
+}
+// .fc-daygrid-dot-event {
+// 	display: flex !important;
+// 	// justify-content: center !important;
+// 	align-items: center !important;
+// }
+.fc-event-time {
+	display: none;
+}
 #calendar {
 	width: 80%;
 	margin: 10px;
@@ -423,7 +440,7 @@ hr {
 	margin: 10px 0;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
 	.member-sectoion {
 		.member-section-div {
 			.member-info-div {
@@ -502,6 +519,29 @@ hr {
 	}
 }
 
+@media screen and (max-width: 550px) {
+	.member-sectoion {
+		.member-section-div {
+			.member-info-div {
+				.member-info-div-info {
+					.member-info-div-info-item {
+						.member-info-name-email {
+							width: 100%;
+							.member-info-name-email-itme {
+								.form-item-1,
+								.form-item-2 {
+									input {
+										width: 120px;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
 @media screen and (max-width: 420px) {
 	#calendar {
 		font-size: 8px;

@@ -1,10 +1,16 @@
 const loginRegister = document.querySelector("#login-register");
 const login = document.querySelector(".login");
-const loginRegisterButton = document.querySelector(".login-register-button");
+const loginRegisterButton = document.querySelector(
+	".login-register-button"
+);
 const register = document.querySelector(".register");
 const loginDivButton = document.querySelector(".login-div-button");
-const registerDivButton = document.querySelector(".register-div-button");
-const registerGiveBack = document.querySelector("#register-give-back");
+const registerDivButton = document.querySelector(
+	".register-div-button"
+);
+const registerGiveBack = document.querySelector(
+	"#register-give-back"
+);
 const registerDiv = document.querySelector(".register-div");
 const registerForm = document.querySelector(".register-form");
 const logingGiveBack = document.querySelector("#login-give-back");
@@ -66,7 +72,6 @@ loginDivButton.addEventListener("click", (e) => {
 	const email = form.children[2].value;
 	const password = form.children[3].value;
 	const url = "/api/user/auth";
-
 	if (!emailRegex.test(email)) {
 		logingGiveBack.innerText = "信箱輸入錯誤";
 		logingGiveBack.style = giveBackRed;
@@ -193,6 +198,7 @@ function initialCheck() {
 	// according cookie show login or logout text to client
 	const cookieCheck = document.cookie;
 	let parts = document.cookie.split("=");
+
 	if (cookieCheck == "" && parts == "") {
 		logoutMember.style = noneStyle;
 		memberCentre.style = noneStyle;

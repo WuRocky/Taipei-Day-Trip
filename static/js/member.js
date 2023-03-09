@@ -1,12 +1,13 @@
 const cookie = document.cookie.split("=");
 const parser = cookie[1];
 const urlMember = window.location.origin + "/member";
-const urlMemberApi = window.location.origin + "/api/member";
 
 const memnerName = document.querySelector("#member-name");
 const memnerEmail = document.querySelector("#member-email");
 
-const memberBookingInfo = document.querySelector(".member-booking-info");
+const memberBookingInfo = document.querySelector(
+	".member-booking-info"
+);
 
 const memberOrderInfo = document.querySelector(".member-order-info");
 
@@ -27,6 +28,7 @@ const orderTitle = document.querySelector(".order-title");
 const calendarControl = document.querySelector(".calendar-control");
 const calendar = document.querySelector("#calendar");
 
+const urlMemberApi = window.location.origin + "/api/member";
 fetch(urlMemberApi, {
 	method: "GET",
 	headers: {
@@ -74,6 +76,7 @@ fetch(urlMemberApi, {
 			if (!orders.length) {
 				orderControl.style = "display :none";
 			}
+
 			booking.forEach((item) => {
 				const bookingName = item.data.attraction.name;
 				const bookingAddress = item.data.attraction.address;
@@ -83,10 +86,14 @@ fetch(urlMemberApi, {
 				const bookingImage = item.data.attraction.image;
 
 				const memberBookingInfoItme = document.createElement("div");
-				memberBookingInfoItme.classList.add("member-booking-info-itme");
+				memberBookingInfoItme.classList.add(
+					"member-booking-info-itme"
+				);
 
 				const memberBookingInfoItme1 = document.createElement("div");
-				memberBookingInfoItme1.classList.add("member-booking-info-itme-1");
+				memberBookingInfoItme1.classList.add(
+					"member-booking-info-itme-1"
+				);
 
 				const divItme1 = document.createElement("div");
 				const divItme1P = document.createElement("p");
@@ -145,7 +152,9 @@ fetch(urlMemberApi, {
 				memberBookingInfoItme1.appendChild(divItme5);
 
 				const memberBookingInfoItme2 = document.createElement("div");
-				memberBookingInfoItme2.classList.add("member-booking-info-itme-2");
+				memberBookingInfoItme2.classList.add(
+					"member-booking-info-itme-2"
+				);
 
 				const divItme6 = document.createElement("div");
 				const divItmeImage = document.createElement("img");
@@ -176,7 +185,9 @@ fetch(urlMemberApi, {
 				memberOrderInfoItme.classList.add("member-order-info-itme");
 
 				const memberOrderInfoItme1 = document.createElement("div");
-				memberOrderInfoItme1.classList.add("member-order-info-itme-1");
+				memberOrderInfoItme1.classList.add(
+					"member-order-info-itme-1"
+				);
 
 				const divItme1 = document.createElement("div");
 				const divItme1P = document.createElement("p");
@@ -279,7 +290,9 @@ fetch(urlMemberApi, {
 				memberOrderInfoItme1.appendChild(divItme9);
 
 				const memberOrderInfoItme2 = document.createElement("div");
-				memberOrderInfoItme2.classList.add("member-order-info-itme-2");
+				memberOrderInfoItme2.classList.add(
+					"member-order-info-itme-2"
+				);
 
 				const divItme10 = document.createElement("div");
 				const divItmeImage = document.createElement("img");
@@ -324,8 +337,12 @@ fetch(urlMemberApi, {
 		}
 	});
 
-const calendarControl1 = document.querySelector(".calendar-control-1");
-const calendarControl2 = document.querySelector(".calendar-control-2");
+const calendarControl1 = document.querySelector(
+	".calendar-control-1"
+);
+const calendarControl2 = document.querySelector(
+	".calendar-control-2"
+);
 calendarControl.addEventListener("click", (e) => {
 	if (calendar.style.display === "none") {
 		calendar.style.display = "block";
@@ -364,7 +381,10 @@ const userNmae = document.querySelector("#user-name");
 const userEmail = document.querySelector("#user-email");
 const messageStyle =
 	"color: red; font-size:18px; padding:10px; text-align: center;";
-
+const nameNewRegex = new RegExp("(^[a-zA-Z0-9]+$)");
+const emailNewRegex = new RegExp(
+	"^[a-z0-9]+@[a-z]+.([a-z]{2,3}|[a-z]{2,3}.[a-z]{2,3})$"
+);
 userButton.addEventListener("click", (e) => {
 	e.preventDefault();
 	const updateUserNmae = userNmae.value;
@@ -379,7 +399,7 @@ userButton.addEventListener("click", (e) => {
 				message.style = "display :none";
 			}
 		});
-	} else if (!emailRegex.test(updateUserEmail)) {
+	} else if (!emailNewRegex.test(updateUserEmail)) {
 		message.style = "display:flex;";
 		messageContent.innerText = "信箱輸入錯誤";
 		messageContent.style = messageStyle;
@@ -388,7 +408,7 @@ userButton.addEventListener("click", (e) => {
 				message.style = "display :none";
 			}
 		});
-	} else if (!nameRegex.test(updateUserNmae)) {
+	} else if (!nameNewRegex.test(updateUserNmae)) {
 		message.style = "display:flex;";
 		messageContent.innerText = "輸入姓名錯誤";
 		messageContent.style = messageStyle;
@@ -435,26 +455,18 @@ userButton.addEventListener("click", (e) => {
 			});
 	}
 });
-
 // const modifyPicture = document.querySelector(".modify-picture");
-
+// const pictureInput = document.querySelector("#picture-input");
 // const userPicture = document.querySelector("#user-picture");
 
-// modifyPicture.addEventListener("click", (e) => {
-// 	const userImge = e.target.parentElement.parentElement.children[0].children[0]
-
+// modifyPicture.addEventListener("click", () => {
+// 	pictureInput.click();
 // });
-
-// modifyPicture.addEventListener("change", (e) => {
-// 	console.log(e);
-// 	const file = e.target.files[0];
-// 	console.log(file);
-
+// pictureInput.addEventListener("change", () => {
+// 	const file = pictureInput.files[0];
 // 	const reader = new FileReader();
-
-// 	reader.addEventListener("load", () => {
-// 		document.getElementById("profile-picture").src = reader.result;
-// 	});
-
+// 	reader.onload = () => {
+// 		userPicture.src = reader.result;
+// 	};
 // 	reader.readAsDataURL(file);
 // });

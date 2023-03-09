@@ -95,16 +95,13 @@
   margin: 2rem 0.3rem;
   background: #448899;
   border-radius: 50%;
-  -webkit-animation: 0.9s bounce infinite alternate;
-          animation: 0.9s bounce infinite alternate;
+  animation: 0.9s bounce infinite alternate;
 }
 .booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update div:nth-child(2) {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 .booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img .img-update div:nth-child(3) {
-  -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 .booking-attraction-section .booking-attraction-div .booking-attraction-info .booking-attraction-info-img img {
   width: 100%;

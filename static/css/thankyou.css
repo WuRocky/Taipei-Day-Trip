@@ -64,25 +64,13 @@
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .right-eye,
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .mouth,
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .tongue {
-  -webkit-animation-duration: 4s;
-          animation-duration: 4s;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .left-eye,
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .right-eye {
-  -webkit-animation-name: blink;
-          animation-name: blink;
-}
-@-webkit-keyframes blink {
-  0%, 18%, 100% {
-    visibility: hidden;
-  }
-  15% {
-    visibility: visible;
-  }
+  animation-name: blink;
 }
 @keyframes blink {
   0%, 18%, 100% {
@@ -94,16 +82,7 @@
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .mouth,
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .tongue {
-  -webkit-animation-name: shout;
-          animation-name: shout;
-}
-@-webkit-keyframes shout {
-  0%, 18%, 100% {
-    visibility: hidden;
-  }
-  10% {
-    visibility: visible;
-  }
+  animation-name: shout;
 }
 @keyframes shout {
   0%, 18%, 100% {
@@ -114,19 +93,7 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .gopher-animation {
-  -webkit-animation-name: jump;
-          animation-name: jump;
-}
-@-webkit-keyframes jump {
-  0%, 15%, 100% {
-    transform: translateY(0);
-  }
-  6% {
-    transform: translateY(5%);
-  }
-  12% {
-    transform: translateY(-30%);
-  }
+  animation-name: jump;
 }
 @keyframes jump {
   0%, 15%, 100% {
@@ -140,17 +107,8 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .right-arm {
-  -webkit-animation-name: rotateRightArm;
-          animation-name: rotateRightArm;
+  animation-name: rotateRightArm;
   transform-box: fill-box;
-}
-@-webkit-keyframes rotateRightArm {
-  0%, 6%, 18%, 100% {
-    transform: rotate(0deg);
-  }
-  13% {
-    transform: rotate(-120deg) translateX(-50%);
-  }
 }
 @keyframes rotateRightArm {
   0%, 6%, 18%, 100% {
@@ -161,18 +119,9 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .left-arm {
-  -webkit-animation-name: rotateLeftArm;
-          animation-name: rotateLeftArm;
+  animation-name: rotateLeftArm;
   transform-box: fill-box;
   transform-origin: top right;
-}
-@-webkit-keyframes rotateLeftArm {
-  0%, 6%, 18%, 100% {
-    transform: rotate(0deg);
-  }
-  13% {
-    transform: rotate(120deg) translateX(50%);
-  }
 }
 @keyframes rotateLeftArm {
   0%, 6%, 18%, 100% {
@@ -183,20 +132,8 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .right-foot {
-  -webkit-animation-name: bendRightFoot;
-          animation-name: bendRightFoot;
+  animation-name: bendRightFoot;
   transform-origin: top left;
-}
-@-webkit-keyframes bendRightFoot {
-  0%, 15%, 100% {
-    transform: translateY(0);
-  }
-  6% {
-    transform: translateY(-3%);
-  }
-  12% {
-    transform: translateY(5%) rotate(-5deg);
-  }
 }
 @keyframes bendRightFoot {
   0%, 15%, 100% {
@@ -210,20 +147,8 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .left-foot {
-  -webkit-animation-name: bendLeftFoot;
-          animation-name: bendLeftFoot;
+  animation-name: bendLeftFoot;
   transform-origin: top right;
-}
-@-webkit-keyframes bendLeftFoot {
-  0%, 15%, 100% {
-    transform: translateY(0);
-  }
-  6% {
-    transform: translateY(-3%);
-  }
-  12% {
-    transform: translateY(5%) rotate(5deg);
-  }
 }
 @keyframes bendLeftFoot {
   0%, 15%, 100% {
@@ -237,22 +162,7 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .belly {
-  -webkit-animation-name: bounce;
-          animation-name: bounce;
-}
-@-webkit-keyframes bounce {
-  0%, 10%, 15%, 18%, 100% {
-    transform: translateY(0);
-  }
-  6% {
-    transform: translateY(1%);
-  }
-  12% {
-    transform: translateY(-2%);
-  }
-  16% {
-    transform: translateY(1%);
-  }
+  animation-name: bounce;
 }
 @keyframes bounce {
   0%, 10%, 15%, 18%, 100% {
@@ -269,18 +179,9 @@
   }
 }
 .thankyou-section .thankyou-section-div .card .card-title .thankyou-animation-div-item-2 .shadow {
-  -webkit-animation-name: scaleShadow;
-          animation-name: scaleShadow;
+  animation-name: scaleShadow;
   transform-origin: center center;
   transform: scaleX(1);
-}
-@-webkit-keyframes scaleShadow {
-  0%, 8%, 15%, 100% {
-    transform: scaleX(1);
-  }
-  12% {
-    transform: scaleX(0.65);
-  }
 }
 @keyframes scaleShadow {
   0%, 8%, 15%, 100% {
