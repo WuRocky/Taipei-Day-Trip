@@ -5,9 +5,9 @@ This website offers several features and advantages. Firstly, it provides a clea
 
 Test account password :
 
-account : **test@test**
+Account : **test@test**
 
-password : **123456**
+Password : **123456**
 
 ## Demo
 
