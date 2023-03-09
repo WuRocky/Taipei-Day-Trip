@@ -58,7 +58,7 @@ password : **123456**
 
 # Database Schema
 
-<img src="https://user-images.githubusercontent.com/84265782/223971262-14690e81-7e60-4413-b4fe-5bd8cedf604e.png" alt="myslq" width="1000px" height="500px">
+<img src="https://user-images.githubusercontent.com/84265782/223971262-14690e81-7e60-4413-b4fe-5bd8cedf604e.png" alt="myslq" width="800px" height="500px">
 
 # API Doc
 
