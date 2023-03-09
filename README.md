@@ -10,8 +10,7 @@ account : **test@test**
 password : **123456**
 
 ## Demo
-![txhh5-kdm0r](https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif)
-<img src="https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif" alt="Demo" width="300px" height="200px">
+<img src="https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif" alt="Demo" width="50vw" height="20vh">
 
 
 
