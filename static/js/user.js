@@ -193,8 +193,15 @@ function initialCheck() {
 			// give server cookie Authorization
 			Authorization: `Bearer ${parser}`,
 		},
-	}).then((response) => response.json());
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			const memnerName = document.querySelector("#member-name");
+			const memnerEmail = document.querySelector("#member-email");
 
+			memnerName.innerText = data.data.name;
+			memnerEmail.innerText = data.data.email;
+		});
 	// according cookie show login or logout text to client
 	const cookieCheck = document.cookie;
 	let parts = document.cookie.split("=");

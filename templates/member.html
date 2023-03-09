@@ -150,69 +150,73 @@
 	})
 		.then((response) => response.json())
 		.then((api) => {
-			const bookingNum = api.data.booking.length;
-			const orderNum = api.data.order_done.length;
+			if (api.message == "找無資料") {
+				return;
+			} else {
+				const bookingNum = api.data.booking.length;
+				const orderNum = api.data.order_done.length;
 
-			memberBookingNum.innerText = bookingNum;
-			memberOrdersNum.innerText = orderNum;
+				memberBookingNum.innerText = bookingNum;
+				memberOrdersNum.innerText = orderNum;
 
-			const member = api.data.member;
-			const booking = api.data.booking;
-			const orders = api.data.order_done;
-			const calendarEvents = [];
-			booking.forEach((item) => {
-				const start = new Date(item.data.date);
-				const end = new Date(item.data.date);
-				// end.setHours(end.getHours() + 2); // 結束時間為開始時間往後 2 小時
-				const title = `【預定行程】${item.data.attraction.name}`;
-				calendarEvents.push({
-					title,
-					start,
-					end,
-					color: "#FFC107", // 設定顏色
+				const member = api.data.member;
+				const booking = api.data.booking;
+				const orders = api.data.order_done;
+				const calendarEvents = [];
+				booking.forEach((item) => {
+					const start = new Date(item.data.date);
+					const end = new Date(item.data.date);
+					// end.setHours(end.getHours() + 2); // 結束時間為開始時間往後 2 小時
+					const title = `【預定行程】${item.data.attraction.name}`;
+					calendarEvents.push({
+						title,
+						start,
+						end,
+						color: "#FFC107", // 設定顏色
+					});
 				});
-			});
 
-			orders.forEach((item) => {
-				const start = new Date(item.date);
-				const end = new Date(start);
-				end.setHours(end.getHours() + 2);
-				const title = `【完成付款行程】${item.attraction_name}`;
-				calendarEvents.push({
-					title,
-					start,
-					end,
-					color: "#4CAF50",
+				orders.forEach((item) => {
+					const start = new Date(item.date);
+					const end = new Date(start);
+					end.setHours(end.getHours() + 2);
+					const title = `【完成付款行程】${item.attraction_name}`;
+					calendarEvents.push({
+						title,
+						start,
+						end,
+						color: "#4CAF50",
+					});
 				});
-			});
-			const calendarEl = document.getElementById("calendar");
-			const calendar = new Calendar(calendarEl, {
-				plugins: [dayGridPlugin],
-				events: calendarEvents,
+				const calendarEl = document.getElementById("calendar");
+				const calendar = new Calendar(calendarEl, {
+					plugins: [dayGridPlugin],
+					events: calendarEvents,
 
-				eventRender: function (info) {
-					// 取得事件元素
-					const eventEl = info.el;
-					// 設定事件元素的 HTML 內容
-					eventEl.innerHTML = `<div class="fc-title">${info.event.title}</div>`;
-					// 取得事件元素中的標題元素
-					const titleEl = eventEl.querySelector(".fc-title");
-					// 設定標題元素的 CSS 樣式
-					titleEl.style.whiteSpace = "normal"; // 允許文字換行
-					titleEl.style.overflow = "visible"; // 不隱藏多出的文字
-					titleEl.style.fontSize = "10px"; // 設定文字大小
-					titleEl.style.fontWeight = "bold"; // 設定文字粗細
-				},
-				// eventTimeFormat: {
-				// 	// 設定事件時間顯示的格式
-				// 	// hour: "numeric",
-				// 	// minute: "2-digit",
-				// 	meridiem: true, // 不顯示上午/下午
-				// },
-				// eventDisplay: "block", // 顯示為區塊狀式
-			});
-			calendar.render();
-			// FullCalendar code ends here
+					eventRender: function (info) {
+						// 取得事件元素
+						const eventEl = info.el;
+						// 設定事件元素的 HTML 內容
+						eventEl.innerHTML = `<div class="fc-title">${info.event.title}</div>`;
+						// 取得事件元素中的標題元素
+						const titleEl = eventEl.querySelector(".fc-title");
+						// 設定標題元素的 CSS 樣式
+						titleEl.style.whiteSpace = "normal"; // 允許文字換行
+						titleEl.style.overflow = "visible"; // 不隱藏多出的文字
+						titleEl.style.fontSize = "10px"; // 設定文字大小
+						titleEl.style.fontWeight = "bold"; // 設定文字粗細
+					},
+					// eventTimeFormat: {
+					// 	// 設定事件時間顯示的格式
+					// 	// hour: "numeric",
+					// 	// minute: "2-digit",
+					// 	meridiem: true, // 不顯示上午/下午
+					// },
+					// eventDisplay: "block", // 顯示為區塊狀式
+				});
+				calendar.render();
+				// FullCalendar code ends here
+			}
 		});
 </script>
 <script src="{{ url_for('static', filename='js/member.js') }}"></script>

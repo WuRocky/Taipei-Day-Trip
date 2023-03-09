@@ -306,6 +306,7 @@ fetch(urlUser, {
 	.then((response) => response.json())
 	.then((api) => {
 		const userName = api.data["name"];
+
 		const bookingUsername = document.querySelector(
 			".booking-username"
 		);

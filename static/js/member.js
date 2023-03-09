@@ -43,6 +43,7 @@ fetch(urlMemberApi, {
 		} else if (api.message == "找無資料") {
 			bookingControl.style = "display :none";
 			orderControl.style = "display :none";
+
 			// calendarControl.style = "display :none";
 			// calendar.style = "display : none";
 			// const notDatamessage1 = document.createElement("div");
