@@ -18,6 +18,10 @@ password : **123456**
 - [Main Features](#main-features)
 - [Frontend Technique](#frontend-technique)
 - [Backend Technique](#backend-technique)
+- [Architecture](#architecture)
+- [Database Schema](#database-schema)
+- [API Doc](#api-doc)
+
 
 # Main Features
 
@@ -41,4 +45,15 @@ password : **123456**
     - MySQL
 - Cloud Services
     - EC2
+- Third Party Library
+    - bcrypt
+    - Blueprint
+    - JWT
+- Version Control
+    - Git/GitHub
+ 
+# Architecture
 
+# Database Schema
+
+# API Doc
