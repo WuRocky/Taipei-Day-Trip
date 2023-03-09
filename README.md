@@ -54,12 +54,16 @@ password : **123456**
  
 # Architecture
 
+<p align="center">
 ![tp](https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png)
+</p>
 
 # Database Schema
 
+<p align="center">
 <img src="https://user-images.githubusercontent.com/84265782/223971262-14690e81-7e60-4413-b4fe-5bd8cedf604e.png" alt="myslq" width="800px" height="500px">
-
+</p>
+    
 # API Doc
 
 [API doc](https://app.swaggerhub.com/apis-docs/padax/taipei-day-trip/1.1.0)
