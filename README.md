@@ -10,8 +10,10 @@ account : **test@test**
 password : **123456**
 
 ## Demo
-<img src="https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif" alt="Demo" width="900px" height="700px">
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif" alt="Demo" width="900px" height="700px">
+</p>
 
 # Table of Contents
 
@@ -57,7 +59,6 @@ password : **123456**
 <p align="center">
 <img src="https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png" alt="Architecture">
 </p>
-
 
 # Database Schema
 
