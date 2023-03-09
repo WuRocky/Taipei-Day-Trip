@@ -18,14 +18,27 @@ password : **123456**
 - [Main Features](#main-features)
 - [Frontend Technique](#frontend-technique)
 - [Backend Technique](#backend-technique)
-- [Database Schema](#database-schema)
 
 # Main Features
 
+- Member Login and Registration
+- Browse popular attractions
+- Reserve and book guided tour time and location
+- Purchase guided tour itineraries
+- Member system records shopping and booking itineraries, completed bookings, calendar and modifying member information.
 
-# Main Features
+# Frontend Technique
 
+- HTML
+- JavaScript
+- SCSS
+- RWD
 
 # Backend Technique
+- Framework
+    - Flask (Python)
+- Database
+    - MySQL
+- Cloud Services
+    - EC2
 
-# Database Schema
