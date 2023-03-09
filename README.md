@@ -57,7 +57,8 @@ password : **123456**
 ![tp](https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png)
 
 # Database Schema
-<img src="https://user-images.githubusercontent.com/84265782/223969218-4bab6292-decb-408c-a591-08c0cac92152.png" alt="mysql" width="900px" height="600px">
+
+![mysql1](https://user-images.githubusercontent.com/84265782/223971262-14690e81-7e60-4413-b4fe-5bd8cedf604e.png)
 
 # API Doc
 
