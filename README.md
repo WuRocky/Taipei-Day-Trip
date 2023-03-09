@@ -15,9 +15,9 @@ password : **123456**
 
 # Table of Contents
 
-- Main Features(#main-features)
-- Frontend Technique
-- Backend Technique
-- Database Schema
+- [Main Features](#main-features)
+- [Frontend Technique](#main-features)
+- [Backend Technique](#main-features)
+- [Database Schema](#main-features)
 
 # Main Features
