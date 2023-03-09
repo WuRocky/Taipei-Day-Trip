@@ -55,7 +55,7 @@ password : **123456**
 # Architecture
 
 <p align="center">
-![tp](https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png)
+<img src="https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png" alt="Architecture">
 </p>
 
 
