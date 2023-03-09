@@ -10,7 +10,7 @@ account : **test@test**
 password : **123456**
 
 ## Demo
-<img src="https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif" alt="Demo" width="900px" height="500px">
+<img src="https://user-images.githubusercontent.com/84265782/223932233-79b2cca4-8e17-49a5-97bb-f8ad4f4977af.gif" alt="Demo" width="900px" height="700px">
 
 
 
