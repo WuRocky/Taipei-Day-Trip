@@ -7,4 +7,4 @@ Test account password :
 
 account : **test@test**
 
-password : **testtest**
+password : **123456**
