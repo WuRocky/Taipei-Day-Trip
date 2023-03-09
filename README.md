@@ -45,7 +45,7 @@ password : **123456**
 - RWD
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/84265782/224014319-9126bb2d-d170-4ab4-9b02-232bf0428edc.png" alt="RWD">
+<img src="https://user-images.githubusercontent.com/84265782/224018487-404ea1dd-8cdc-4eaa-be73-f418a63c1bf2.png" alt="RWD">
 </p>
 
 # Backend Technique
