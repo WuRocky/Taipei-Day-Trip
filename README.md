@@ -18,9 +18,9 @@ password : **123456**
 # Table of Contents
 
 - [Main Features](#main-features)
+- [Architecture](#architecture)
 - [Frontend Technique](#frontend-technique)
 - [Backend Technique](#backend-technique)
-- [Architecture](#architecture)
 - [Database Schema](#database-schema)
 
 # Main Features
@@ -30,6 +30,12 @@ password : **123456**
 - Reserve and book guided tour time and location
 - Purchase guided tour itineraries
 - Member system records shopping and booking itineraries, completed bookings, calendar and modifying member information.
+
+# Architecture
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png" alt="Architecture">
+</p>
 
 # Frontend Technique
 
@@ -52,12 +58,6 @@ password : **123456**
 - Version Control
     - Git/GitHub
  
-# Architecture
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/84265782/223967737-c93aaa51-2e0e-43c4-87e1-92b5777424db.png" alt="Architecture">
-</p>
-
 # Database Schema
 
 <p align="center">
