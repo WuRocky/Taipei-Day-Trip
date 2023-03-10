@@ -1,281 +1,3 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "Noto Sans TC", sans-serif;
-  font-weight: bold;
-}
-
-body {
-  height: 100%;
-  max-width: 1920px;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 1920px;
-  height: 54px;
-}
-nav .header-nav {
-  width: 1200px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 54px;
-}
-nav .header-nav .index-a {
-  text-decoration: none;
-  font-size: 30px;
-  color: #448899;
-  margin: 10px 0;
-}
-nav .header-nav nav ul {
-  display: flex;
-  list-style-type: none;
-  justify-content: space-around;
-}
-nav .header-nav nav ul li {
-  font-size: 16px;
-}
-nav .header-nav nav ul li a {
-  color: #666666;
-  text-decoration: none;
-  margin: 10px;
-  font-weight: lighter;
-  cursor: pointer;
-}
-
-#logout-member #login-register {
-  color: #666666;
-  text-decoration: none;
-  margin: 10px;
-  font-weight: lighter;
-  cursor: pointer;
-}
-
-.login {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  z-index: 5;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-.login .login-div {
-  top: 80px;
-  width: 340px;
-  height: 275px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  border-radius: 5px;
-}
-.login .login-div .decorator-bar {
-  width: 340px;
-  height: 10px;
-  background: linear-gradient(90deg, #337788, #66aabb);
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-}
-.login .login-div form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 310px;
-  height: 235px;
-  margin: 15px;
-}
-.login .login-div form .login-close {
-  position: absolute;
-  right: 17px;
-  cursor: pointer;
-}
-.login .login-div form h2 {
-  text-align: center;
-  color: #666666;
-  margin-bottom: 15px;
-  font-size: 24px;
-  height: 27px;
-}
-.login .login-div form input {
-  height: 47px;
-  width: 310px;
-  color: #757575;
-  border-radius: 5px;
-  font-weight: 500;
-  font-size: medium;
-  margin-bottom: 10px;
-  padding: 15px;
-  border: 1px solid #cccccc;
-}
-.login .login-div form button {
-  width: 310px;
-  height: 47px;
-  background-color: #448899;
-  color: #ffffff;
-  font-weight: 300;
-  border-style: none;
-  border-radius: 5px;
-  font-size: 19px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-.login .login-div form .login-register-button {
-  width: 310px;
-  height: 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #666666;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.register {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  z-index: 5;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-.register .register-div {
-  top: 80px;
-  width: 340px;
-  height: 332px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  border-radius: 5px;
-}
-.register .register-div .decorator-bar {
-  width: 340px;
-  height: 10px;
-  background: linear-gradient(90deg, #337788, #66aabb);
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-}
-.register .register-div form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 310px;
-  height: 292px;
-  margin: 15px;
-}
-.register .register-div form .register-close {
-  position: absolute;
-  right: 17px;
-  cursor: pointer;
-}
-.register .register-div form h2 {
-  text-align: center;
-  color: #666666;
-  margin-bottom: 15px;
-  font-size: 24px;
-  height: 27px;
-}
-.register .register-div form input {
-  height: 47px;
-  width: 310px;
-  color: #757575;
-  border-radius: 5px;
-  font-weight: 500;
-  font-size: medium;
-  margin-bottom: 10px;
-  padding: 15px;
-  border: 1px solid #cccccc;
-}
-.register .register-div form button {
-  width: 310px;
-  height: 47px;
-  background-color: #448899;
-  color: #ffffff;
-  font-weight: 300;
-  border-style: none;
-  border-radius: 5px;
-  font-size: 19px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-.register .register-div form .login-button {
-  width: 310px;
-  height: 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #666666;
-  font-weight: 500;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#register-give-back {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  height: 47px;
-}
-
-#login-give-back {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  height: 47px;
-}
-
-.message {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  z-index: 5;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
-.message .message-div {
-  top: 200px;
-  width: 240px;
-  height: 100px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  border-radius: 5px;
-}
-.message .message-div .decorator-bar {
-  width: 240px;
-  height: 10px;
-  background: linear-gradient(90deg, #337788, #66aabb);
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-}
-.message .message-div .message-content {
-  flex: 1;
-  font-size: 20px;
-  color: #e43e3e;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .attractions-section {
   width: 100%;
   min-height: 400px;
@@ -299,12 +21,6 @@ nav .header-nav nav ul li a {
   margin: auto;
   width: 100%;
   height: 100%;
-}
-@-webkit-keyframes bounce {
-  to {
-    opacity: 0.3;
-    transform: translate3d(0, -1rem, 0);
-  }
 }
 @keyframes bounce {
   to {
@@ -335,16 +51,13 @@ nav .header-nav nav ul li a {
   margin: 2rem 0.3rem;
   background: #448899;
   border-radius: 50%;
-  -webkit-animation: 0.9s bounce infinite alternate;
-          animation: 0.9s bounce infinite alternate;
+  animation: 0.9s bounce infinite alternate;
 }
 .attractions-section .attractions-card .attractions-img-div .slides .img-update div:nth-child(2) {
-  -webkit-animation-delay: 0.3s;
-          animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 .attractions-section .attractions-card .attractions-img-div .slides .img-update div:nth-child(3) {
-  -webkit-animation-delay: 0.6s;
-          animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
 .attractions-section .attractions-card .attractions-img-div .slides img {
   border-radius: 5px;
@@ -429,6 +142,7 @@ nav .header-nav nav ul li a {
   font-weight: 400;
 }
 .attractions-section .attractions-news .attractions-travel form input {
+  cursor: pointer;
   margin: 0 0 15px 0;
 }
 .attractions-section .attractions-news .attractions-travel form span {
@@ -449,10 +163,11 @@ nav .header-nav nav ul li a {
   margin: 25px 0 0 0;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .dividing-line {
-  max-width: 1200px;
+  width: 1200px;
   text-align: center;
   margin: 40px auto 40px auto;
   border-style: groove;
@@ -470,6 +185,7 @@ nav .header-nav nav ul li a {
   height: 35px;
   margin: 20px 0;
   padding: 5px 10px;
+  cursor: pointer;
 }
 
 #morning-panel,
@@ -530,23 +246,6 @@ nav .header-nav nav ul li a {
   line-height: 23px;
   font-weight: 400;
   margin-bottom: 80px;
-}
-
-footer {
-  width: 100%;
-  height: 100%;
-  background-color: #757575;
-  display: flex;
-  justify-content: center;
-}
-footer p {
-  margin: 45px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 234px;
-  font-size: 16px;
-  color: #ffffff;
 }
 
 @media screen and (max-width: 1200px) {

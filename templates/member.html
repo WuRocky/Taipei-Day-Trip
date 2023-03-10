@@ -1,0 +1,223 @@
+{% extends "base.html" %} {% block css %}
+<link
+	type="text/css"
+	rel="stylesheet"
+	href="{{ url_for('static', filename='css/member.css') }}"
+/>
+
+{% endblock %} {% block main %}
+
+<section class="member-sectoion">
+	<div class="member-section-div">
+		<!-- member-info-di -->
+
+		<div class="member-info-div">
+			<div class="member-info-div-title">
+				<h1>會員資訊</h1>
+			</div>
+			<div class="member-info-div-info">
+				<div class="member-info-div-info-item">
+					<!-- <div class="picture">
+						<div class="picture-div">
+							<img
+								id="user-picture"
+								src="{{ url_for('static', filename='images/user.png') }}"
+								alt=""
+							/>
+						</div>
+
+						<div>
+							<input
+								type="file"
+								id="picture-input"
+								style="display: none"
+							/>
+							<img
+								class="modify-picture"
+								src="{{ url_for('static', filename='images/pencil.png') }}"
+								alt=""
+							/>
+						</div>
+					</div> -->
+
+					<div class="member-info-name-email">
+						<div class="modify-info">
+							<img
+								src="{{ url_for('static', filename='images/pencil.png') }}"
+								alt=""
+							/>
+						</div>
+						<div class="member-info-name-email-itme">
+							<p>會員姓名: &nbsp;</p>
+							<p id="member-name"></p>
+							<form class="form-item-1">
+								<input
+									id="user-name"
+									type="text"
+									placeholder="更新姓名"
+								/>
+							</form>
+						</div>
+						<div class="member-info-name-email-itme">
+							<p>會員信箱: &nbsp;</p>
+							<p id="member-email"></p>
+							<form class="form-item-2">
+								<input
+									id="user-email"
+									type="email"
+									placeholder="更新信箱"
+								/>
+								<button id="user-button" type="submit">送出</button>
+							</form>
+						</div>
+						<hr />
+						<div class="member-info-name-email-itme">
+							<p>您預定的行程(未完成訂單): &nbsp;</p>
+							<p id="member-booking"></p>
+						</div>
+						<div class="member-info-name-email-itme">
+							<p>您已完成預定的行程: &nbsp;</p>
+							<p id="member-orders"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="calendar-title">
+			<h1>行事曆</h1>
+			<div class="calendar-control">
+				<h1 class="calendar-control-1">隱藏行事曆</h1>
+				<h1 class="calendar-control-2">顯示行事曆</h1>
+			</div>
+			<div id="calendar"></div>
+		</div>
+
+		<hr />
+
+		<!-- memrber-booking -->
+		<div class="memrber-booking">
+			<div class="booking-title">
+				<h1>預定行程</h1>
+			</div>
+			<div class="booking-control">
+				<h1 class="booking-control-1">隱藏預定行程</h1>
+				<h1 class="booking-control-2">顯示預定行程</h1>
+			</div>
+			<div class="member-booking-info"></div>
+		</div>
+
+		<hr />
+
+		<!-- memrber-order -->
+		<div class="memrber-order">
+			<div class="order-title">
+				<h1>完成預定行程</h1>
+			</div>
+			<div class="order-control">
+				<h1 class="order-control-1">隱藏預定行程</h1>
+				<h1 class="order-control-2">顯示預定行程</h1>
+			</div>
+			<div class="member-order-info"></div>
+		</div>
+	</div>
+</section>
+
+{% endblock %} {% block script %}
+
+<script type="importmap">
+	{
+		"imports": {
+			"@fullcalendar/core": "https://cdn.skypack.dev/@fullcalendar/core@6.0.2",
+			"@fullcalendar/daygrid": "https://cdn.skypack.dev/@fullcalendar/daygrid@6.0.2"
+		}
+	}
+</script>
+<script type="module">
+	// FullCalendar code starts here
+	import { Calendar } from "@fullcalendar/core";
+	import dayGridPlugin from "@fullcalendar/daygrid";
+
+	const urlMemberApi = window.location.origin + "/api/member";
+	fetch(urlMemberApi, {
+		method: "GET",
+		headers: {
+			"Content-type": "application/json;",
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((api) => {
+			if (api.message == "找無資料") {
+				return;
+			} else {
+				const bookingNum = api.data.booking.length;
+				const orderNum = api.data.order_done.length;
+
+				memberBookingNum.innerText = bookingNum;
+				memberOrdersNum.innerText = orderNum;
+
+				const member = api.data.member;
+				const booking = api.data.booking;
+				const orders = api.data.order_done;
+				const calendarEvents = [];
+				booking.forEach((item) => {
+					const start = new Date(item.data.date);
+					const end = new Date(item.data.date);
+					// end.setHours(end.getHours() + 2); // 結束時間為開始時間往後 2 小時
+					const title = `【預定行程】${item.data.attraction.name}`;
+					calendarEvents.push({
+						title,
+						start,
+						end,
+						color: "#FFC107", // 設定顏色
+					});
+				});
+
+				orders.forEach((item) => {
+					const start = new Date(item.date);
+					const end = new Date(start);
+					end.setHours(end.getHours() + 2);
+					const title = `【完成付款行程】${item.attraction_name}`;
+					calendarEvents.push({
+						title,
+						start,
+						end,
+						color: "#4CAF50",
+					});
+				});
+				const calendarEl = document.getElementById("calendar");
+				const calendar = new Calendar(calendarEl, {
+					plugins: [dayGridPlugin],
+					events: calendarEvents,
+
+					eventRender: function (info) {
+						// 取得事件元素
+						const eventEl = info.el;
+						// 設定事件元素的 HTML 內容
+						eventEl.innerHTML = `<div class="fc-title">${info.event.title}</div>`;
+						// 取得事件元素中的標題元素
+						const titleEl = eventEl.querySelector(".fc-title");
+						// 設定標題元素的 CSS 樣式
+						titleEl.style.whiteSpace = "normal"; // 允許文字換行
+						titleEl.style.overflow = "visible"; // 不隱藏多出的文字
+						titleEl.style.fontSize = "10px"; // 設定文字大小
+						titleEl.style.fontWeight = "bold"; // 設定文字粗細
+					},
+					// eventTimeFormat: {
+					// 	// 設定事件時間顯示的格式
+					// 	// hour: "numeric",
+					// 	// minute: "2-digit",
+					// 	meridiem: true, // 不顯示上午/下午
+					// },
+					// eventDisplay: "block", // 顯示為區塊狀式
+				});
+				calendar.render();
+				// FullCalendar code ends here
+			}
+		});
+</script>
+<script src="{{ url_for('static', filename='js/member.js') }}"></script>
+{% endblock %}

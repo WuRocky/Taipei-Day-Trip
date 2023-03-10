@@ -1,12 +1,16 @@
 from flask import *
 from flask import Blueprint
 from flask_cors import CORS
-from myModules.mysql_pool import *
-from myModules.jwt import *
-from myModules.regular import *
-from myModules.success_or_error import *
+from models.jwt import *
+from utils.regular import *
 from jwt_password import *
 import requests
+
+from models.order_db import Order_api_post
+from models.order_db import Order_api_get
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 order_api = Blueprint('order_api', __name__)
@@ -15,8 +19,6 @@ CORS(order_api)
 @order_api.route("/api/order", methods=["POST"])
 def order_api_post():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
     
     # get cookies from the client
     token = request.headers.get('authorization')
@@ -33,7 +35,6 @@ def order_api_post():
     # get token data info id, email, name
     data = jwt_decod_token["data"]
     user_id = data["id"]
-    user_name = data["name"]
     
     # get put info from the client
     request_api = request.json
@@ -41,54 +42,50 @@ def order_api_post():
     name = request_api["name"]
     email = request_api["email"]
     phone = request_api["phone"]
-    user_name_web = request_api["userNameWeb"]
-    
+
+    # use models Order_api_post
+    db =Order_api_post()
+
     # check whether the order number is repeated and generate a serial number
-    mycursor.execute("SELECT MAX(order_number) FROM orders")
-    max_order_number = mycursor.fetchone()[0]
-    
+    max_order_number = db.check_booking_number()
+
     if max_order_number:
       order_number = f"{max_order_number[:8]}-{str(int(max_order_number[9:]) + 1).zfill(3)}"
     else:
       order_number = f"{datetime.datetime.now().strftime('%Y%m%d')}-001"
     
-    # if not user return message
-    if user_name_web != user_name:
-      mes = "沒有權限"
-      return error(mes),403
-    else:
+    check_user_id = db.check_member(user_id)
+    if check_user_id:
+      
       # get Info on booking attractions from the database
-      mycursor.execute("""
-      select 
-      a.attractionId, 
-      a.booking_date, 
-      a.booking_time, 
-      a.booking_price, 
-      a.booking_img, 
-      b.name, 
-      b.address
-      from booking as a 
-      inner join data as b on a.attractionId = b.id 
-      where a.member_id = %s; """,(user_id,))
+      reuslt = db.attractions_info(user_id)
 
-      reuslt=mycursor.fetchone()
-      id = reuslt[0]
-      date = reuslt[1]
-      time = reuslt[2]
-      price = reuslt[3]
-      image = reuslt[4]
-      attraction_name =  reuslt[5]
-      address = reuslt[6]
-      
+      id = []
+      date = []
+      time = []
+      price = []
+      total = 0
+      image = []
+      attraction_name = []
+      address = []
+      for api in reuslt:
+        id.append(api["attractionId"])
+        date.append(api["booking_date"])
+        time.append(api["booking_time"])
+        price.append(api["booking_price"])
+        total+=api["booking_price"]
+        image.append(api["booking_img"])
+        attraction_name.append(api["name"])
+        address.append(api["address"])
+
       # add order info to database
-      mycursor.execute("""
-        insert into orders (
-        order_number,
-        order_member_id,
+      db.add_order(
+        order_number, 
+        user_id, 
         prime, 
         price, 
-        id,
-        attraction_name,
+        id, 
+        attraction_name, 
         address,
         image,
         date,
@@ -96,28 +93,8 @@ def order_api_post():
         name,
         email,
         phone
-        ) 
-        VALUES 
-        (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
         )
-        """,(
-        order_number,
-        user_id,
-        prime, 
-        price, 
-        id,
-        attraction_name,
-        address,
-        image,
-        date,
-        time,
-        name,
-        email,
-        phone
-        ))
       
-
-
       reuslt_order_api = {
         "prime": prime,
         "order": {
@@ -139,20 +116,20 @@ def order_api_post():
           }
         }
       }
-      
+
       # send prime and user info to TapPay server to complete payment
       url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
-      x_api_key ="partner_fTPTUBgu1qwzBE1RFE0g9jWsCp8Kpfdc8d6nkkWUOyskprRueUbo3cvT"
+      x_api_key =os.getenv("x_api_key")
 
       headers = {
         'x-api-key': x_api_key
       }
-      price = int(price)
+      total = int(total)
       data = {
         "prime": prime,
         "partner_key": x_api_key,
         "merchant_id": "rockywu971_CTBC",
-        "amount": price,
+        "amount": total,
         "currency":"TWD",
         "details":"Taipei-Day-Trip",
         "order_number": order_number,
@@ -163,13 +140,15 @@ def order_api_post():
         },
         "remember": True
       }
-
+      
       # get TapPay server return info 
       response = requests.post(url, headers=headers, json=data)
       TapPay_res_msg = response.json()["msg"]
       TapPay_status = response.json()["status"]
       
-      # if TapPay server return success
+
+
+      # # if TapPay server return success
       if TapPay_status == 0:
         TapPay_success = {
           "data": {
@@ -180,135 +159,159 @@ def order_api_post():
             }
           }
         }
+        
 
         # add completed order_done database
-        mycursor.execute("""
-        insert into orders_done (
-        order_member_id,
-        order_number,
-        price, 
-        id,
-        attraction_name,
-        address,
-        image,
-        date,
-        time,
-        name,
-        email,
-        phone
-        ) 
-        VALUES 
-        (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s
+        db.orders_done(
+          user_id,
+          order_number,
+          price, 
+          id,
+          attraction_name,
+          address,
+          image,
+          date,
+          time,
+          name,
+          email,
+          phone
         )
-        """,(
-        user_id,
-        order_number,
-        price, 
-        id,
-        attraction_name,
-        address,
-        image,
-        date,
-        time,
-        name,
-        email,
-        phone
-        ))
-        connection.commit()
         return jsonify(TapPay_success),200
-
-      # if TapPay server return error show message
-      elif TapPay_status != 0:
+      # # if TapPay server return error show message
+      elif TapPay_status == 915:
         TapPay_error = {
           "error": True,
-          "message": TapPay_res_msg
+          "message": "未知錯誤，請聯繫TapPay客服"
         }
         return jsonify(TapPay_error),400
-      
-      
+      elif TapPay_status == 10003:
+        TapPay_error = {
+          "error": True,
+          "message": "卡片錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10005:
+        TapPay_error = {
+          "error": True,
+          "message": "銀行系統錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10006:
+        TapPay_error = {
+          "error": True,
+          "message": "重複交易"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10008:
+        TapPay_error = {
+          "error": True,
+          "message": "銀行商家賬戶數據錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10009:
+        TapPay_error = {
+          "error": True,
+          "message": "數量錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10013:
+        TapPay_error = {
+          "error": True,
+          "message": "訂單號重複"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10023:
+        TapPay_error = {
+          "error": True,
+          "message": "銀行錯誤"
+        }
+        return jsonify(TapPay_error),400
+      elif TapPay_status == 10015:
+        TapPay_error = {
+          "error": True,
+          "message": "兌換失敗"
+        }
+        return jsonify(TapPay_error),400
+      # else:
+      #   TapPay_error = {
+      #     "error": True,
+      #     "message": "伺服器錯誤"
+      #   }
+      #   return jsonify(TapPay_error),400
+
       return jsonify(reuslt_order_api)
+    # if not user return message
+    else:
+      return{
+        "error": True,
+        "message": "沒有權限"
+      },403
+    
   except:
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),500
+    return jsonify({
+      "error": True,
+      "message": "伺服器錯誤"
+    }),500
   finally:
-    mycursor.close()
-    connection.close()
+    Order_api_post().close_connection()
 
 
 @order_api.route("/api/order", methods=["GET"])
 def order_api_get():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor(dictionary=True)
-
     # get order number from client 
     order_number = request.args.get("number","訂單編號")
 
+    db = Order_api_get()
     # check if there is any data in the orders_done database
-    mycursor.execute("""select 
-    order_member_id,
-    order_number,
-    price,
-    id,
-    attraction_name,
-    address,
-    image,
-    date,
-    time,
-    name,
-    email,
-    phone,
-    status
-    from orders_done where 
-    order_number= %s""",(order_number,))
-    orders_done_number_reuslt=mycursor.fetchone()
-
+    orders_done_number_reuslt = db.check_orders_done(order_number)
+    
     # if orders_done database not data return error
-    if orders_done_number_reuslt == None:
-      mes = "查無訂單編號"
-      return jsonify(error(mes)),400
+    if not orders_done_number_reuslt:
+      return{
+        "error": True,
+        "message": "查無訂單編號"
+      },403
     
+    order_member = []
+    orders_done_number = []
+    price = []
+    id = []
+    attraction_name = []
+    address = []
+    image = []
+    date = []
+    time = []
+    name = []
+    email = []
+    phone = []
+    status = []
+
     # get orders_done info
-    order_member=orders_done_number_reuslt["order_member_id"]
-    orders_done_number=orders_done_number_reuslt["order_number"]
-    price=orders_done_number_reuslt["price"]
-    id=orders_done_number_reuslt["id"]
-    attraction_name=orders_done_number_reuslt["attraction_name"]
-    address=orders_done_number_reuslt["address"]
-    image=orders_done_number_reuslt["image"]
-    date=orders_done_number_reuslt["date"]
-    time=orders_done_number_reuslt["time"]
-    name=orders_done_number_reuslt["name"]
-    email=orders_done_number_reuslt["email"]
-    phone=orders_done_number_reuslt["phone"]
-    status=orders_done_number_reuslt["status"]
-    
+    for api in orders_done_number_reuslt:
+      order_member.append(api["order_member_id"])
+      orders_done_number.append(api["order_number"])
+      price.append(api["price"])
+      id.append(api["id"])
+      attraction_name.append(api["attraction_name"])
+      address.append(api["address"])
+      image.append(api["image"])
+      date.append(api["date"])
+      time.append(api["time"])
+      name.append(api["name"])
+      email.append(api["email"])
+      phone.append(api["phone"])
+      status.append(api["status"])
+
     # search orders database order number
-    mycursor.execute("""select 
-    order_number 
-    from 
-    orders 
-    where 
-    order_number= %s
-    """,
-    (orders_done_number,))
-    orders_number_reuslt = mycursor.fetchone()
+    orders_number_reuslt = db.search_orders(orders_done_number[0])
 
     # check the order number of the orders and orders_done database and modify the orders database to done
-    orders_number = orders_number_reuslt["order_number"]
-    if orders_number == orders_done_number:
-      mycursor.execute("""UPDATE orders set status=%s where order_number=%s""",("done",orders_done_number))
-      connection.commit()
+    if orders_done_number[0] == orders_number_reuslt[0]["order_number"]:
+      db.update_orders(orders_done_number[0])
     
-    mycursor.execute("""delete 
-    from 
-    booking 
-    where 
-    member_id = %s;
-    """,
-    (order_member,))
-
-
+    db.delete_booking(order_member[0])
+    
     # return the orders_done data to the front end
     get_order_number_info = {
       "data": {
@@ -332,11 +335,11 @@ def order_api_get():
         "status": status
       }
     }
-    connection.commit()
     return jsonify(get_order_number_info)
   except:
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),404
+    return jsonify({
+      "error": True,
+      "message": "伺服器錯誤"
+    }),500
   finally:
-    mycursor.close()
-    connection.close()
+    Order_api_get().close_connection()

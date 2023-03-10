@@ -1,20 +1,27 @@
 const loginRegister = document.querySelector("#login-register");
 const login = document.querySelector(".login");
-const loginRegisterButton = document.querySelector(".login-register-button");
+const loginRegisterButton = document.querySelector(
+	".login-register-button"
+);
 const register = document.querySelector(".register");
 const loginDivButton = document.querySelector(".login-div-button");
-const registerDivButton = document.querySelector(".register-div-button");
-const registerGiveBack = document.querySelector("#register-give-back");
+const registerDivButton = document.querySelector(
+	".register-div-button"
+);
+const registerGiveBack = document.querySelector(
+	"#register-give-back"
+);
 const registerDiv = document.querySelector(".register-div");
 const registerForm = document.querySelector(".register-form");
 const logingGiveBack = document.querySelector("#login-give-back");
 const loginDiv = document.querySelector(".login-div");
 const loginForm = document.querySelector(".login-form");
 const logoutMember = document.querySelector("#logout-member");
+const memberCentre = document.querySelector("#member-centre");
 const registerDivStyle = "height: 379px";
 const registerFormStyle = "height: 339px";
 const loginDivStyle = "height: 332px";
-const loginFormStyle = "height: 292px";
+const loginFormStyle = "height: 332px";
 const giveBackRed = "color: red;  display: flex";
 const registerGiveBackgreen = "color: green;  display: flex;";
 const noneStyle = "display: none;";
@@ -65,7 +72,6 @@ loginDivButton.addEventListener("click", (e) => {
 	const email = form.children[2].value;
 	const password = form.children[3].value;
 	const url = "/api/user/auth";
-
 	if (!emailRegex.test(email)) {
 		logingGiveBack.innerText = "信箱輸入錯誤";
 		logingGiveBack.style = giveBackRed;
@@ -187,16 +193,23 @@ function initialCheck() {
 			// give server cookie Authorization
 			Authorization: `Bearer ${parser}`,
 		},
-	}).then((response) => response.json());
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			const memnerName = document.querySelector("#member-name");
+			const memnerEmail = document.querySelector("#member-email");
 
+			memnerName.innerText = data.data.name;
+			memnerEmail.innerText = data.data.email;
+		});
 	// according cookie show login or logout text to client
 	const cookieCheck = document.cookie;
 	let parts = document.cookie.split("=");
+
 	if (cookieCheck == "" && parts == "") {
-		loginRegister.classList.add("#login-register");
 		logoutMember.style = noneStyle;
+		memberCentre.style = noneStyle;
 	} else if (cookieCheck != NaN && parts[0] == "Token") {
-		logoutMember.classList.add("#logout-member");
 		loginRegister.style = noneStyle;
 	}
 }
@@ -223,6 +236,53 @@ logoutMember.addEventListener("click", (e) => {
 				window.location.reload();
 			} else {
 				alert("伺服器錯誤");
+			}
+		});
+});
+
+///// * chick book trip is there a login * /////
+const bookingTrip = document.querySelector("#booking-trip");
+
+bookingTrip.addEventListener("click", (e) => {
+	const cookie = document.cookie.split("=");
+	const parser = cookie[1];
+	const url = "/api/user/auth";
+
+	// send cookie info to server (GET)
+	fetch(url, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data == null) {
+				login.style = flexStyle;
+			} else {
+				window.location.href = "/booking";
+			}
+		});
+});
+
+memberCentre.addEventListener("click", (e) => {
+	const cookie = document.cookie.split("=");
+	const parser = cookie[1];
+	const url = "/api/user/auth";
+
+	// send cookie info to server (GET)
+	fetch(url, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${parser}`,
+		},
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			if (data == null) {
+				window.location.href = "/";
+			} else {
+				window.location.href = "/member";
 			}
 		});
 });

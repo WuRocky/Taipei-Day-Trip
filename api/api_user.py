@@ -1,12 +1,14 @@
 from flask import *
 from flask import Blueprint
 from flask_cors import CORS
-from myModules.mysql_pool import *
-from myModules.jwt import *
-from myModules.regular import *
-from myModules.success_or_error import *
+from models.jwt import *
+from utils.regular import *
 from jwt_password import *
 import bcrypt
+
+from models.api_user_db import Api_user_post as User
+from models.api_user_db import Api_user_auth_put as User_db
+from models.api_user_db import Api_user_auth_get as Get_user_db
 
 
 user_api = Blueprint('user_api', __name__)
@@ -16,9 +18,6 @@ CORS(user_api)
 @user_api.route("/api/user/auth", methods=["POST"])
 def api_user_post():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
-
     # get post info from the client
     request_api = request.json
     name = request_api["name"]
@@ -27,48 +26,47 @@ def api_user_post():
 
     # if data wrong format
     if not re.fullmatch(name_regex(), name):
-      er = "姓名格式錯誤，須為3個字"
-      return jsonify(error(er)),404
+      return jsonify({
+        "error": True,
+        "message": "姓名格式錯誤，須為3個字"
+      }),400
     elif not re.fullmatch(email_regex(), email):
-      er = "信箱格式錯誤"
-      return jsonify(error(er)),404
+      return jsonify({
+        "error": True,
+        "message": "信箱格式錯誤"
+      }),400
     elif not re.fullmatch(passwor_regex(), password):
-      er = "密碼格式錯誤，至少須有3個字"
-      return jsonify(error(er)),404
-
-    # search databases
-    mycursor.execute("select email from member where email = %s LIMIT 1",(email,))
-    reuslt=mycursor.fetchone()
+      return jsonify({
+        "error": True,
+        "message": "密碼格式錯誤，至少須有3個字"
+      }),400
     
+    # use models api_user_db
+    db = User()
     # if already have data return error
-    if reuslt != None:
-      res = "資料重複"
-      return jsonify(error(res)),404
-
-    # used bcrypt store password
-    bytes = password.encode('utf-8')
-    salt = bcrypt.gensalt()
-    bcrypt_hash = bcrypt.hashpw(bytes, salt)
+    if db.search_member_info(email) != None:
+      return jsonify({
+        "error": True,
+        "message": "已有註冊"
+      }),400
     
-    # if there is no data, save it to the database, return success
-    mycursor.execute("insert into member(name, email, password) values(%s, %s, %s)",(name, email, bcrypt_hash))
-    connection.commit()
-    return jsonify(success()), 200
-
+    # add_member_info
+    db.add_member_info(name, email, password)
+    return jsonify({
+      "ok":True
+      }), 200
   except: 
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),404
+    return jsonify({
+    "error": True,
+    "message": "伺服器內部錯誤"
+    }),500
   finally:
-    mycursor.close()
-    connection.close()
+    User().close_connection()
 
 # api_user_put login
 @user_api.route("/api/user/auth", methods=["PUT"])
 def api_user_auth_put():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
-    
     # get put info from the client
     request_api = request.json
     email = request_api["email"]
@@ -76,63 +74,76 @@ def api_user_auth_put():
 
     # if data wrong format
     if not re.fullmatch(email_regex(), email):
-      er = "信箱格式錯誤"
-      return jsonify(error(er)),404
+      return jsonify({
+        "error": True,
+        "message": "信箱格式錯誤"
+      }),400
     elif not re.fullmatch(passwor_regex(), password):
-      er = "密碼格式錯誤，至少須有3個字"
-      return jsonify(error(er)),404
-      
-    # search databases info
-    mycursor.execute("select id, name, email, password from member where email = %s ",(email,))
-    reuslt=mycursor.fetchone()
-
+      return jsonify({
+        "error": True,
+        "message": "密碼格式錯誤，至少須有3個字"
+      }),400
+    
+    # use models api_user_db
+    db = User_db()
+    result = db.search_member(email)
     # if data unregistered
-    if reuslt== None:
-      res = "尚未註冊"
-      return jsonify(error(res)),404
-
+    if result== None:
+      return jsonify({
+        "error": True,
+        "message": "尚未註冊"
+      }),400
+    
     # bcrypt check password and database password
-    hash = reuslt[3].encode('utf-8')
+    hash = result["password"].encode('utf-8')
     userBytes = password.encode('utf-8')
-    result = bcrypt.checkpw(userBytes, hash)
+    password_result = bcrypt.checkpw(userBytes, hash)
 
-    if reuslt != None and result:
-      data_success = jsonify(success())
+
+    if result != None and password_result:
+      data_success = jsonify({
+        "ok":True
+      })
 
       # use jwt encode function make token        
-      jwt_encode = jwt_token(reuslt[0], reuslt[1], reuslt[2])
+      jwt_encode = jwt_token(result["id"], result["name"], result["email"])
 
       # make jwt_encode in cookie and set time
       data_success.set_cookie("Token",jwt_encode,60*60*24*7)
-
+      
       # return success
       return data_success, 200
-    
-
-
+      # if password error return message
+    elif password_result == False:
+      return {
+        "error": True,
+        "message": "密碼錯誤"
+      },400
   except: 
-    mes = "伺服器錯誤"
-    return jsonify(error(mes)),404
+    return jsonify({
+    "error": True,
+    "message": "伺服器內部錯誤"
+    }),500
   finally:
-    mycursor.close()
-    connection.close()
+    User_db().close_connection()
 
 
 # api_user_get get login info
 @user_api.route("/api/user/auth", methods=["GET"])
 def api_user_auth_get():
   try:
-    connection = get_connection()
-    mycursor = connection.cursor()
 
     # get cookies from the client
     token = request.headers.get('authorization')
-
+    
     # parser client cookies get token
     jwt_toke = token.split(' ', 1)
-
+    
     # get correct token info
     encoded = jwt_toke[1]
+    
+    if encoded == "undefined" :
+      return jsonify(None), 200
 
     # use jwt decod function ， decod token
     jwt_decod_token = jwt_decod(encoded)
@@ -143,9 +154,9 @@ def api_user_auth_get():
     name = data["name"]
     email = data["email"]
 
-    # search databases data info
-    mycursor.execute("select id, name, email from member where id = %s and name = %s and email = %s ",(id, name, email,))
-    reuslt=mycursor.fetchone()
+    # use models api_user_db
+    db = Get_user_db()
+    reuslt = db.get_member(id, name, email)
 
     # if have data response to client
     if reuslt != None:
@@ -156,18 +167,20 @@ def api_user_auth_get():
         }
       }
       return api,200
+      
   except: 
     return jsonify(None),404
   finally:
-    mycursor.close()
-    connection.close()
+    Get_user_db().close_connection()
 
 # api_user_detele
 @user_api.route("/api/user/auth", methods=["DELETE"])
 def api_user_auth_delete():
   try:
     # get info the client
-    logout= jsonify(success())
+    logout= jsonify({
+      "ok":True
+    })
 
     # set cookie time to zero, response to client
     logout.set_cookie("Token",max_age=0)

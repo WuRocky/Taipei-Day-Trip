@@ -138,5 +138,5 @@ dmypy.json
 cython_debug/
 
 # mySQL password
-/mySQL.py
-/jwt_password.py
+# /mySQL.py
+# /jwt_password.py
